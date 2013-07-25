@@ -1,1 +1,11 @@
-C:\Code\fom-launcher\Launcher\bin\Debug\Launcher.exe.config
+C:\Code\fom-launcher\Launcher\bin\Debug\FoM.PatchLib.dll
+C:\Code\fom-launcher\Launcher\bin\Debug\FoM.PatchLib.pdb
+C:\Code\fom-launcher\Launcher\obj\Debug\Launcher.csprojResolveAssemblyReference.cache
+C:\Code\fom-launcher\Launcher\obj\Debug\Launcher.csproj.GenerateResource.Cache
+C:\Code\fom-launcher\Launcher\bin\Debug\FoM.Launcher.exe.config
+C:\Code\fom-launcher\Launcher\bin\Debug\FoM.Launcher.exe
+C:\Code\fom-launcher\Launcher\bin\Debug\FoM.Launcher.pdb
+C:\Code\fom-launcher\Launcher\obj\Debug\FoM.Launcher.DevUI.resources
+C:\Code\fom-launcher\Launcher\obj\Debug\FoM.Launcher.Properties.Resources.resources
+C:\Code\fom-launcher\Launcher\obj\Debug\FoM.Launcher.exe
+C:\Code\fom-launcher\Launcher\obj\Debug\FoM.Launcher.pdb

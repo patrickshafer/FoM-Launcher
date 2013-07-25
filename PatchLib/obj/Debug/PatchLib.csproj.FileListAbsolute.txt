@@ -1,0 +1,5 @@
+C:\Code\fom-launcher\PatchLib\bin\Debug\FoM.PatchLib.dll
+C:\Code\fom-launcher\PatchLib\bin\Debug\FoM.PatchLib.pdb
+C:\Code\fom-launcher\PatchLib\obj\Debug\PatchLib.csprojResolveAssemblyReference.cache
+C:\Code\fom-launcher\PatchLib\obj\Debug\FoM.PatchLib.dll
+C:\Code\fom-launcher\PatchLib\obj\Debug\FoM.PatchLib.pdb

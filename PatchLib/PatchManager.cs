@@ -9,14 +9,14 @@ namespace FoM.PatchLib
     /// <summary>
     /// Entry-point for managing the patch process
     /// </summary>
-    static class PatchManager
+    public static class PatchManager
     {
         /// <summary>
         /// Applies a patch (manifest) to a given folder/directory
         /// </summary>
         /// <param name="LocalFolder">Fully-qualified path on the local file system</param>
         /// <param name="ManifestURL">Fully-qualified URL to retrieve the manifest</param>
-        static void ApplyPatch(string LocalFolder, string ManifestURL)
+        public static void ApplyPatch(string LocalFolder, string ManifestURL)
         {
             //download manifest
             //iterate through manifest to produce a file list

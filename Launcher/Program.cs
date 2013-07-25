@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Globalization;
 
-namespace Launcher
+namespace FoM.Launcher
 {
     static class Program
     {
@@ -20,7 +20,7 @@ namespace Launcher
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new DevUI());
         }
 
         /// <summary>
