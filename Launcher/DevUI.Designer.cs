@@ -83,23 +83,24 @@
             this.ManifestURL.Location = new System.Drawing.Point(81, 49);
             this.ManifestURL.Name = "ManifestURL";
             this.ManifestURL.Size = new System.Drawing.Size(289, 20);
-            this.ManifestURL.TabIndex = 3;
+            this.ManifestURL.TabIndex = 4;
             // 
             // LocalFolderBrowse
             // 
             this.LocalFolderBrowse.Location = new System.Drawing.Point(376, 21);
             this.LocalFolderBrowse.Name = "LocalFolderBrowse";
             this.LocalFolderBrowse.Size = new System.Drawing.Size(26, 23);
-            this.LocalFolderBrowse.TabIndex = 1;
+            this.LocalFolderBrowse.TabIndex = 3;
             this.LocalFolderBrowse.Text = "...";
             this.LocalFolderBrowse.UseVisualStyleBackColor = true;
+            this.LocalFolderBrowse.Click += new System.EventHandler(this.LocalFolderBrowse_Click);
             // 
             // InvokeButton
             // 
             this.InvokeButton.Location = new System.Drawing.Point(295, 75);
             this.InvokeButton.Name = "InvokeButton";
             this.InvokeButton.Size = new System.Drawing.Size(75, 23);
-            this.InvokeButton.TabIndex = 4;
+            this.InvokeButton.TabIndex = 5;
             this.InvokeButton.Text = "Invoke";
             this.InvokeButton.UseVisualStyleBackColor = true;
             // 
@@ -110,6 +111,7 @@
             this.ClientSize = new System.Drawing.Size(451, 148);
             this.Controls.Add(this.gbApplyPatch);
             this.Name = "DevUI";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FoM Launcher - Development UI";
             this.gbApplyPatch.ResumeLayout(false);
             this.gbApplyPatch.PerformLayout();
