@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Launcher
 {
-    public partial class Form1 : Form
+    public partial class DevUI : Form
     {
-        public Form1()
+        public DevUI()
         {
             InitializeComponent();
         }
