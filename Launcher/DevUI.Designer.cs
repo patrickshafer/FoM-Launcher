@@ -1,4 +1,4 @@
-﻿namespace Launcher
+﻿namespace FoM.Launcher
 {
     partial class DevUI
     {
@@ -103,6 +103,7 @@
             this.InvokeButton.TabIndex = 5;
             this.InvokeButton.Text = "Invoke";
             this.InvokeButton.UseVisualStyleBackColor = true;
+            this.InvokeButton.Click += new System.EventHandler(this.InvokeButton_Click);
             // 
             // DevUI
             // 

@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.Globalization;
 
-namespace Launcher
+namespace FoM.Launcher
 {
     static class Program
     {
