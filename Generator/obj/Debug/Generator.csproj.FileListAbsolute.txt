@@ -1,0 +1,1 @@
+C:\Code\fom-launcher\Generator\bin\Debug\Generator.exe.config
