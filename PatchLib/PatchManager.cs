@@ -28,5 +28,19 @@ namespace FoM.PatchLib
             // - download the file
             // - apply the file
         }
+
+        /// <summary>
+        /// Creates a patch (manifest) of a folder to a patch folder
+        /// </summary>
+        /// <param name="LocalFolder">Folder that serves as the image to patch</param>
+        /// <param name="PatchFolder">Folder where patch files should be staged for uploading to a remote server</param>
+        /// <param name="ChannelName">Name of the Channel/manifest</param>
+        public static void CreatePatch(string LocalFolder, string PatchFolder, string ChannelName)
+        {
+            //Scan LocalFolder and enumerate files
+            //Capture filesize and hash for all files
+            //Copy & rename files to PathFolder
+            //Render manifest XML to ChannelName\manifest.xml
+        }
     }
 }
