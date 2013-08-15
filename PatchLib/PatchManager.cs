@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.IO;
+using System.Xml.Serialization;
 namespace FoM.PatchLib
 {
     /// <summary>
@@ -37,10 +38,30 @@ namespace FoM.PatchLib
         /// <param name="ChannelName">Name of the Channel/manifest</param>
         public static void CreatePatch(string LocalFolder, string PatchFolder, string ChannelName)
         {
-            //Scan LocalFolder and enumerate files
-            //Capture filesize and hash for all files
-            //Copy & rename files to PathFolder
-            //Render manifest XML to ChannelName\manifest.xml
+            List<FileNode> LocalFiles = new List<FileNode>();
+            FileNode NewFile;
+
+            foreach(string FileName in Directory.EnumerateFiles(LocalFolder, "*", SearchOption.AllDirectories))
+            {
+                NewFile = new FileNode();
+                NewFile.FilePath = FileName;
+                LocalFiles.Add(NewFile);
+
+                //TODO: clear destination folder first
+                NewFile.StageTo(PatchFolder);
+            }
+
+            string ManifestFile = Path.Combine(PatchFolder, ChannelName);
+            if (!Directory.Exists(ManifestFile))
+                Directory.CreateDirectory(ManifestFile);
+            ManifestFile += ".xml";
+
+            using (StreamWriter sw = new StreamWriter(ManifestFile))
+            {
+                XmlSerializer Serializer = new XmlSerializer(typeof(List<FileNode>));
+                Serializer.Serialize(sw, LocalFiles);
+            }
+
         }
     }
 }
