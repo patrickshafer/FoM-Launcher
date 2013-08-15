@@ -27,7 +27,15 @@ namespace FoM.PatchLib
                 if (PatchFile.CheckUpdate())
                     PatchFile.ApplyUpdate();
             }
+        }
+        public static bool UpdateCheck(string LocalFolder, string ManifestURL)
+        {
+            bool NeedsUpdate = false;
+            Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
 
+            // PatchManifest.FileList.Any(
+
+            return NeedsUpdate;
         }
 
         /// <summary>
