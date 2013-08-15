@@ -38,11 +38,15 @@
             this.PatchFolderLabel = new System.Windows.Forms.Label();
             this.LocalFolderText = new System.Windows.Forms.TextBox();
             this.LocalFolderLabel = new System.Windows.Forms.Label();
+            this.DistributionURLLabel = new System.Windows.Forms.Label();
+            this.DistributionURLText = new System.Windows.Forms.TextBox();
             this.CreatePatchGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // CreatePatchGroup
             // 
+            this.CreatePatchGroup.Controls.Add(this.DistributionURLText);
+            this.CreatePatchGroup.Controls.Add(this.DistributionURLLabel);
             this.CreatePatchGroup.Controls.Add(this.CreatePatch);
             this.CreatePatchGroup.Controls.Add(this.PatchFolderBrowse);
             this.CreatePatchGroup.Controls.Add(this.LocalFolderBrowse);
@@ -54,14 +58,14 @@
             this.CreatePatchGroup.Controls.Add(this.LocalFolderLabel);
             this.CreatePatchGroup.Location = new System.Drawing.Point(12, 12);
             this.CreatePatchGroup.Name = "CreatePatchGroup";
-            this.CreatePatchGroup.Size = new System.Drawing.Size(422, 136);
+            this.CreatePatchGroup.Size = new System.Drawing.Size(422, 159);
             this.CreatePatchGroup.TabIndex = 0;
             this.CreatePatchGroup.TabStop = false;
             this.CreatePatchGroup.Text = "CreatePatch()";
             // 
             // CreatePatch
             // 
-            this.CreatePatch.Location = new System.Drawing.Point(303, 105);
+            this.CreatePatch.Location = new System.Drawing.Point(303, 131);
             this.CreatePatch.Name = "CreatePatch";
             this.CreatePatch.Size = new System.Drawing.Size(75, 23);
             this.CreatePatch.TabIndex = 5;
@@ -140,12 +144,29 @@
             this.LocalFolderLabel.TabIndex = 0;
             this.LocalFolderLabel.Text = "LocalFolder";
             // 
+            // DistributionURLLabel
+            // 
+            this.DistributionURLLabel.AutoSize = true;
+            this.DistributionURLLabel.Location = new System.Drawing.Point(6, 108);
+            this.DistributionURLLabel.Name = "DistributionURLLabel";
+            this.DistributionURLLabel.Size = new System.Drawing.Size(81, 13);
+            this.DistributionURLLabel.TabIndex = 6;
+            this.DistributionURLLabel.Text = "DistributionURL";
+            // 
+            // DistributionURLText
+            // 
+            this.DistributionURLText.Location = new System.Drawing.Point(119, 105);
+            this.DistributionURLText.Name = "DistributionURLText";
+            this.DistributionURLText.Size = new System.Drawing.Size(259, 20);
+            this.DistributionURLText.TabIndex = 7;
+            this.DistributionURLText.Text = "http://patch.patrickshafer.com";
+            // 
             // DevUI
             // 
             this.AcceptButton = this.CreatePatch;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(444, 156);
+            this.ClientSize = new System.Drawing.Size(444, 178);
             this.Controls.Add(this.CreatePatchGroup);
             this.Name = "DevUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -168,6 +189,8 @@
         private System.Windows.Forms.Button PatchFolderBrowse;
         private System.Windows.Forms.Button LocalFolderBrowse;
         private System.Windows.Forms.Button CreatePatch;
+        private System.Windows.Forms.TextBox DistributionURLText;
+        private System.Windows.Forms.Label DistributionURLLabel;
     }
 }
 

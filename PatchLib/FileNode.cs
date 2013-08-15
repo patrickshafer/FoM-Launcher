@@ -16,7 +16,7 @@ namespace FoM.PatchLib
         [XmlIgnore]
         private string _LocalMD5Hash;
         [XmlIgnore]
-        public int LocalSize;     //TODO: Pick a better numeric data-type
+        private long _LocalSize;
         [XmlIgnore]
         public bool NeedsUpdate;
         [XmlElement("FileName")]
@@ -26,7 +26,7 @@ namespace FoM.PatchLib
         [XmlElement("URL")]
         public string RemoteURL;
         [XmlElement("Size")]
-        public int RemoteSize;
+        public long RemoteSize;
 
         
         public string LocalMD5Hash
@@ -36,6 +36,15 @@ namespace FoM.PatchLib
                 if (this._LocalMD5Hash == null)
                     this.getMD5Hash();
                 return this._LocalMD5Hash;
+            }
+        }
+        public long LocalSize
+        {
+            get
+            {
+                if (this._LocalSize == 0)
+                    this.getLocalSize();
+                return this._LocalSize;
             }
         }
 
@@ -57,6 +66,11 @@ namespace FoM.PatchLib
             ReadStream.Close();
 
             this._LocalMD5Hash = StringBuffer.ToString().ToUpperInvariant();
+        }
+        private void getLocalSize()
+        {
+            FileInfo MyInfo = new FileInfo(this.LocalFilePath);
+            this._LocalSize = MyInfo.Length;
         }
     }
 }

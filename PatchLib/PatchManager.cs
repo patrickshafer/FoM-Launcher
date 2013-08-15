@@ -28,7 +28,7 @@ namespace FoM.PatchLib
         /// <param name="LocalFolder">Folder that serves as the image to patch</param>
         /// <param name="PatchFolder">Folder where patch files should be staged for uploading to a remote server</param>
         /// <param name="ChannelName">Name of the Channel/manifest</param>
-        public static void CreatePatch(string LocalFolder, string PatchFolder, string ChannelName)
+        public static void CreatePatch(string LocalFolder, string PatchFolder, string ChannelName, string DistributionURL)
         {
             List<FileNode> LocalFiles = new List<FileNode>();
             FileNode NewFile;
@@ -39,18 +39,28 @@ namespace FoM.PatchLib
                 NewFile.LocalFilePath = FileName;
                 NewFile.RemoteFileName = FileName.Remove(0, LocalFolder.Length + 1);
                 NewFile.RemoteMD5Hash = NewFile.LocalMD5Hash;
-                NewFile.RemoteURL = "http://change.me.com";
-                LocalFiles.Add(NewFile);
+                NewFile.RemoteSize = NewFile.LocalSize;
 
-                //TODO: clear destination folder first
-                NewFile.StageTo(PatchFolder);
+                UriBuilder RemoteURIBuilder = new UriBuilder(DistributionURL);
+                RemoteURIBuilder.Path = Path.Combine(RemoteURIBuilder.Path, NewFile.RemoteMD5Hash);
+                NewFile.RemoteURL = RemoteURIBuilder.ToString();
+                LocalFiles.Add(NewFile);
             }
+
+            if (!Directory.Exists(PatchFolder))
+                Directory.CreateDirectory(PatchFolder);
+
+            foreach (string FileName in Directory.EnumerateFiles(PatchFolder, "*", SearchOption.AllDirectories))
+                File.Delete(FileName);
+            foreach (string DirectoryName in Directory.EnumerateDirectories(PatchFolder, "*", SearchOption.AllDirectories))
+                Directory.Delete(DirectoryName);
+
+            foreach (FileNode StageFile in LocalFiles)
+                StageFile.StageTo(PatchFolder);
 
             string ManifestFile = Path.Combine(PatchFolder, ChannelName);
             ManifestFile += ".xml";
 
-            if (!Directory.Exists(PatchFolder))
-                Directory.CreateDirectory(PatchFolder);
 
             Manifest PatchManifest = new Manifest();
             PatchManifest.FileList = LocalFiles;
