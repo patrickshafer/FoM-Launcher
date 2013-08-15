@@ -54,6 +54,21 @@ namespace FoM.PatchLib
             if(!File.Exists(DestinationPath))
                 File.Copy(this.LocalFilePath, DestinationPath);
         }
+        public bool CheckUpdate()
+        {
+            bool RetVal = false;
+
+            if (!File.Exists(this.LocalFilePath))
+                RetVal = true;
+            if (!RetVal && (this.LocalSize != this.RemoteSize))
+                RetVal = true;
+            if (!RetVal && (this.LocalMD5Hash != this.RemoteMD5Hash))
+                RetVal = true;
+
+
+            this.NeedsUpdate = RetVal;
+            return RetVal;
+        }
 
         private void getMD5Hash()
         {

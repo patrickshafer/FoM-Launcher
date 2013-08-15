@@ -20,6 +20,13 @@ namespace FoM.PatchLib
         public static void ApplyPatch(string LocalFolder, string ManifestURL)
         {
             Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
+
+            foreach (FileNode PatchFile in PatchManifest.FileList)
+            {
+                PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
+                PatchFile.CheckUpdate();
+            }
+
         }
 
         /// <summary>
