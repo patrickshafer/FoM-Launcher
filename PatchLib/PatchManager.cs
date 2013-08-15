@@ -19,15 +19,7 @@ namespace FoM.PatchLib
         /// <param name="ManifestURL">Fully-qualified URL to retrieve the manifest</param>
         public static void ApplyPatch(string LocalFolder, string ManifestURL)
         {
-            //download manifest
-            //iterate through manifest to produce a file list
-            //iterate through the filelist to check:
-            // - file.exists
-            // - hash
-            // - set NeedsUpdate flag
-            //iterate through FileList that NeedUpdate and:
-            // - download the file
-            // - apply the file
+            Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
         }
 
         /// <summary>
@@ -56,14 +48,10 @@ namespace FoM.PatchLib
 
             if (!Directory.Exists(PatchFolder))
                 Directory.CreateDirectory(PatchFolder);
-            
 
-            using (StreamWriter sw = new StreamWriter(ManifestFile))
-            {
-                XmlSerializer Serializer = new XmlSerializer(typeof(List<FileNode>));
-                Serializer.Serialize(sw, LocalFiles);
-            }
-
+            Manifest PatchManifest = new Manifest();
+            PatchManifest.FileList = LocalFiles;
+            PatchManifest.Save(ManifestFile);
         }
     }
 }
