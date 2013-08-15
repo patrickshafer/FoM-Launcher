@@ -52,9 +52,11 @@ namespace FoM.PatchLib
             }
 
             string ManifestFile = Path.Combine(PatchFolder, ChannelName);
-            if (!Directory.Exists(ManifestFile))
-                Directory.CreateDirectory(ManifestFile);
             ManifestFile += ".xml";
+
+            if (!Directory.Exists(PatchFolder))
+                Directory.CreateDirectory(PatchFolder);
+            
 
             using (StreamWriter sw = new StreamWriter(ManifestFile))
             {
