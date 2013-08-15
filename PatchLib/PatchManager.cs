@@ -24,7 +24,8 @@ namespace FoM.PatchLib
             foreach (FileNode PatchFile in PatchManifest.FileList)
             {
                 PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
-                PatchFile.CheckUpdate();
+                if (PatchFile.CheckUpdate())
+                    PatchFile.ApplyUpdate();
             }
 
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
+using System.Net;
 
 namespace FoM.PatchLib
 {
@@ -68,6 +69,21 @@ namespace FoM.PatchLib
 
             this.NeedsUpdate = RetVal;
             return RetVal;
+        }
+        public void ApplyUpdate()
+        {
+            WebClient Downloader = new WebClient();
+
+            if (File.Exists(this.LocalFilePath))
+                File.Delete(this.LocalFilePath);    //TODO: use a temporary roll-back mechanisim
+            if(!Directory.Exists(Path.GetDirectoryName(this.LocalFilePath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(this.LocalFilePath));
+
+            Downloader.DownloadFile(this.RemoteURL, this.LocalFilePath);
+            
+            this._LocalMD5Hash = string.Empty;
+            this._LocalSize = 0;
+            this.NeedsUpdate = false;
         }
 
         private void getMD5Hash()
