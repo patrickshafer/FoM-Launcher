@@ -36,7 +36,10 @@ namespace FoM.PatchLib
             foreach(string FileName in Directory.EnumerateFiles(LocalFolder, "*", SearchOption.AllDirectories))
             {
                 NewFile = new FileNode();
-                NewFile.FilePath = FileName;
+                NewFile.LocalFilePath = FileName;
+                NewFile.RemoteFileName = FileName.Remove(0, LocalFolder.Length + 1);
+                NewFile.RemoteMD5Hash = NewFile.LocalMD5Hash;
+                NewFile.RemoteURL = "http://change.me.com";
                 LocalFiles.Add(NewFile);
 
                 //TODO: clear destination folder first

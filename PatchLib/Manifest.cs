@@ -11,6 +11,7 @@ namespace FoM.PatchLib
 {
     public class Manifest
     {
+        [XmlArray("Files")]
         public List<FileNode> FileList;
 
 
