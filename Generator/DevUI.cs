@@ -45,6 +45,7 @@ namespace FoM.Generator
         private void CreatePatch_Click(object sender, EventArgs e)
         {
             PatchLib.PatchManager.CreatePatch(LocalFolderText.Text, PatchFolderText.Text, ManifestNameText.Text);
+            MessageBox.Show("Patch Created", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
