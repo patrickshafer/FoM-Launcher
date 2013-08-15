@@ -61,6 +61,7 @@ namespace FoM.Launcher
             else
             {
                 FoM.PatchLib.PatchManager.ApplyPatch(LocalFolder.Text, ManifestURL.Text);
+                MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
     }
