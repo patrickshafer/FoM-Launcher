@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.CreatePatchGroup = new System.Windows.Forms.GroupBox();
+            this.CreatePatch = new System.Windows.Forms.Button();
+            this.PatchFolderBrowse = new System.Windows.Forms.Button();
+            this.LocalFolderBrowse = new System.Windows.Forms.Button();
             this.ManifestNameText = new System.Windows.Forms.TextBox();
             this.ManifestNameLabel = new System.Windows.Forms.Label();
             this.PatchFolderText = new System.Windows.Forms.TextBox();
             this.PatchFolderLabel = new System.Windows.Forms.Label();
             this.LocalFolderText = new System.Windows.Forms.TextBox();
             this.LocalFolderLabel = new System.Windows.Forms.Label();
-            this.LocalFolderBrowse = new System.Windows.Forms.Button();
-            this.PatchFolderBrowse = new System.Windows.Forms.Button();
-            this.CreatePatch = new System.Windows.Forms.Button();
             this.CreatePatchGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +58,36 @@
             this.CreatePatchGroup.TabIndex = 0;
             this.CreatePatchGroup.TabStop = false;
             this.CreatePatchGroup.Text = "CreatePatch()";
+            // 
+            // CreatePatch
+            // 
+            this.CreatePatch.Location = new System.Drawing.Point(303, 105);
+            this.CreatePatch.Name = "CreatePatch";
+            this.CreatePatch.Size = new System.Drawing.Size(75, 23);
+            this.CreatePatch.TabIndex = 5;
+            this.CreatePatch.Text = "CreatePatch()";
+            this.CreatePatch.UseVisualStyleBackColor = true;
+            this.CreatePatch.Click += new System.EventHandler(this.CreatePatch_Click);
+            // 
+            // PatchFolderBrowse
+            // 
+            this.PatchFolderBrowse.Location = new System.Drawing.Point(384, 51);
+            this.PatchFolderBrowse.Name = "PatchFolderBrowse";
+            this.PatchFolderBrowse.Size = new System.Drawing.Size(24, 23);
+            this.PatchFolderBrowse.TabIndex = 3;
+            this.PatchFolderBrowse.Text = "...";
+            this.PatchFolderBrowse.UseVisualStyleBackColor = true;
+            this.PatchFolderBrowse.Click += new System.EventHandler(this.PatchFolderBrowse_Click);
+            // 
+            // LocalFolderBrowse
+            // 
+            this.LocalFolderBrowse.Location = new System.Drawing.Point(384, 25);
+            this.LocalFolderBrowse.Name = "LocalFolderBrowse";
+            this.LocalFolderBrowse.Size = new System.Drawing.Size(24, 23);
+            this.LocalFolderBrowse.TabIndex = 1;
+            this.LocalFolderBrowse.Text = "...";
+            this.LocalFolderBrowse.UseVisualStyleBackColor = true;
+            this.LocalFolderBrowse.Click += new System.EventHandler(this.LocalFolderBrowse_Click);
             // 
             // ManifestNameText
             // 
@@ -110,36 +140,6 @@
             this.LocalFolderLabel.TabIndex = 0;
             this.LocalFolderLabel.Text = "LocalFolder";
             // 
-            // LocalFolderBrowse
-            // 
-            this.LocalFolderBrowse.Location = new System.Drawing.Point(384, 25);
-            this.LocalFolderBrowse.Name = "LocalFolderBrowse";
-            this.LocalFolderBrowse.Size = new System.Drawing.Size(24, 23);
-            this.LocalFolderBrowse.TabIndex = 1;
-            this.LocalFolderBrowse.Text = "...";
-            this.LocalFolderBrowse.UseVisualStyleBackColor = true;
-            this.LocalFolderBrowse.Click += new System.EventHandler(this.LocalFolderBrowse_Click);
-            // 
-            // PatchFolderBrowse
-            // 
-            this.PatchFolderBrowse.Location = new System.Drawing.Point(384, 51);
-            this.PatchFolderBrowse.Name = "PatchFolderBrowse";
-            this.PatchFolderBrowse.Size = new System.Drawing.Size(24, 23);
-            this.PatchFolderBrowse.TabIndex = 3;
-            this.PatchFolderBrowse.Text = "...";
-            this.PatchFolderBrowse.UseVisualStyleBackColor = true;
-            this.PatchFolderBrowse.Click += new System.EventHandler(this.PatchFolderBrowse_Click);
-            // 
-            // CreatePatch
-            // 
-            this.CreatePatch.Location = new System.Drawing.Point(303, 105);
-            this.CreatePatch.Name = "CreatePatch";
-            this.CreatePatch.Size = new System.Drawing.Size(75, 23);
-            this.CreatePatch.TabIndex = 5;
-            this.CreatePatch.Text = "CreatePatch()";
-            this.CreatePatch.UseVisualStyleBackColor = true;
-            this.CreatePatch.Click += new System.EventHandler(this.CreatePatch_Click);
-            // 
             // DevUI
             // 
             this.AcceptButton = this.CreatePatch;
@@ -148,7 +148,7 @@
             this.ClientSize = new System.Drawing.Size(444, 156);
             this.Controls.Add(this.CreatePatchGroup);
             this.Name = "DevUI";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Patch Generator";
             this.CreatePatchGroup.ResumeLayout(false);
             this.CreatePatchGroup.PerformLayout();
