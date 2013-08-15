@@ -43,7 +43,7 @@ namespace FoM.PatchLib
 
                 UriBuilder RemoteURIBuilder = new UriBuilder(DistributionURL);
                 RemoteURIBuilder.Path = Path.Combine(RemoteURIBuilder.Path, NewFile.RemoteMD5Hash);
-                NewFile.RemoteURL = RemoteURIBuilder.ToString();
+                NewFile.RemoteURL = RemoteURIBuilder.Uri.ToString();
                 LocalFiles.Add(NewFile);
             }
 
