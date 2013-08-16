@@ -16,7 +16,7 @@ namespace FoM.Launcher
         private FoM.PatchLib.Manifest _Manifest;
         
         private FoM.PatchLib.Manifest _SelfUpdateManifest;
-        private string _SelfUpdateURL = "http://patch.patrickshafer.com/Test.xml";
+        private string _SelfUpdateURL = "http://patch.patrickshafer.com/launcher.xml";
         private bool _Bootstrap = false;
 
         public DevUI()
