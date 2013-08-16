@@ -13,6 +13,8 @@ namespace FoM.PatchLib
     {
         [XmlArray("Files")]
         public List<FileNode> FileList;
+        [XmlIgnore]
+        public bool NeedsUpdate = false;
 
 
         public void Save(string FileName)

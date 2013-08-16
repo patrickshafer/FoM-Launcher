@@ -15,29 +15,27 @@ namespace FoM.PatchLib
         /// <summary>
         /// Applies a patch (manifest) to a given folder/directory
         /// </summary>
-        /// <param name="LocalFolder">Fully-qualified path on the local file system</param>
-        /// <param name="ManifestURL">Fully-qualified URL to retrieve the manifest</param>
-        public static void ApplyPatch(string LocalFolder, string ManifestURL)
+        /// <param name="PatchManifest">Manifest object to apply the patch from</param>
+        public static void ApplyPatch(Manifest PatchManifest)
         {
-            Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
-
             foreach (FileNode PatchFile in PatchManifest.FileList)
-            {
-                PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
                 if (PatchFile.CheckUpdate())
                     PatchFile.ApplyUpdate();
-            }
         }
-        public static bool UpdateCheck(string LocalFolder, string ManifestURL)
+        public static Manifest UpdateCheck(string LocalFolder, string ManifestURL)
         {
             bool NeedsUpdate = false;
             Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
+
+            foreach (FileNode PatchFile in PatchManifest.FileList)
+                PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
 
             for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate; i++)
                 if (PatchManifest.FileList[i].CheckUpdate())
                     NeedsUpdate = true;
 
-            return NeedsUpdate;
+            PatchManifest.NeedsUpdate = NeedsUpdate;
+            return PatchManifest;
         }
 
         /// <summary>

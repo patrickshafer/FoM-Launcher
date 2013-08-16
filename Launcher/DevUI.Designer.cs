@@ -28,40 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbApplyPatch = new System.Windows.Forms.GroupBox();
-            this.InvokeButton = new System.Windows.Forms.Button();
+            this.UpdateCheckBox = new System.Windows.Forms.GroupBox();
+            this.UpdateCheckInvoke = new System.Windows.Forms.Button();
             this.LocalFolderBrowse = new System.Windows.Forms.Button();
             this.ManifestURL = new System.Windows.Forms.TextBox();
             this.LocalFolder = new System.Windows.Forms.TextBox();
             this.ManifestURLLabel = new System.Windows.Forms.Label();
             this.LocalFolderLabel = new System.Windows.Forms.Label();
-            this.gbApplyPatch.SuspendLayout();
+            this.ApplyUpdateBox = new System.Windows.Forms.GroupBox();
+            this.ManifestLabel = new System.Windows.Forms.Label();
+            this.ManifestInput = new System.Windows.Forms.Label();
+            this.ApplyUpdateInvoke = new System.Windows.Forms.Button();
+            this.UpdateCheckBox.SuspendLayout();
+            this.ApplyUpdateBox.SuspendLayout();
             this.SuspendLayout();
             // 
-            // gbApplyPatch
+            // UpdateCheckBox
             // 
-            this.gbApplyPatch.Controls.Add(this.InvokeButton);
-            this.gbApplyPatch.Controls.Add(this.LocalFolderBrowse);
-            this.gbApplyPatch.Controls.Add(this.ManifestURL);
-            this.gbApplyPatch.Controls.Add(this.LocalFolder);
-            this.gbApplyPatch.Controls.Add(this.ManifestURLLabel);
-            this.gbApplyPatch.Controls.Add(this.LocalFolderLabel);
-            this.gbApplyPatch.Location = new System.Drawing.Point(12, 12);
-            this.gbApplyPatch.Name = "gbApplyPatch";
-            this.gbApplyPatch.Size = new System.Drawing.Size(424, 118);
-            this.gbApplyPatch.TabIndex = 0;
-            this.gbApplyPatch.TabStop = false;
-            this.gbApplyPatch.Text = "ApplyPatch()";
+            this.UpdateCheckBox.Controls.Add(this.UpdateCheckInvoke);
+            this.UpdateCheckBox.Controls.Add(this.LocalFolderBrowse);
+            this.UpdateCheckBox.Controls.Add(this.ManifestURL);
+            this.UpdateCheckBox.Controls.Add(this.LocalFolder);
+            this.UpdateCheckBox.Controls.Add(this.ManifestURLLabel);
+            this.UpdateCheckBox.Controls.Add(this.LocalFolderLabel);
+            this.UpdateCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.UpdateCheckBox.Name = "UpdateCheckBox";
+            this.UpdateCheckBox.Size = new System.Drawing.Size(424, 118);
+            this.UpdateCheckBox.TabIndex = 0;
+            this.UpdateCheckBox.TabStop = false;
+            this.UpdateCheckBox.Text = "UpdateCheck()";
             // 
-            // InvokeButton
+            // UpdateCheckInvoke
             // 
-            this.InvokeButton.Location = new System.Drawing.Point(295, 75);
-            this.InvokeButton.Name = "InvokeButton";
-            this.InvokeButton.Size = new System.Drawing.Size(75, 23);
-            this.InvokeButton.TabIndex = 3;
-            this.InvokeButton.Text = "Invoke";
-            this.InvokeButton.UseVisualStyleBackColor = true;
-            this.InvokeButton.Click += new System.EventHandler(this.InvokeButton_Click);
+            this.UpdateCheckInvoke.Location = new System.Drawing.Point(295, 75);
+            this.UpdateCheckInvoke.Name = "UpdateCheckInvoke";
+            this.UpdateCheckInvoke.Size = new System.Drawing.Size(75, 23);
+            this.UpdateCheckInvoke.TabIndex = 3;
+            this.UpdateCheckInvoke.Text = "Invoke";
+            this.UpdateCheckInvoke.UseVisualStyleBackColor = true;
+            this.UpdateCheckInvoke.Click += new System.EventHandler(this.UpdateCheckInvoke_Click);
             // 
             // LocalFolderBrowse
             // 
@@ -107,31 +112,79 @@
             this.LocalFolderLabel.TabIndex = 0;
             this.LocalFolderLabel.Text = "LocalFolder";
             // 
+            // ApplyUpdateBox
+            // 
+            this.ApplyUpdateBox.Controls.Add(this.ApplyUpdateInvoke);
+            this.ApplyUpdateBox.Controls.Add(this.ManifestInput);
+            this.ApplyUpdateBox.Controls.Add(this.ManifestLabel);
+            this.ApplyUpdateBox.Location = new System.Drawing.Point(12, 136);
+            this.ApplyUpdateBox.Name = "ApplyUpdateBox";
+            this.ApplyUpdateBox.Size = new System.Drawing.Size(424, 89);
+            this.ApplyUpdateBox.TabIndex = 1;
+            this.ApplyUpdateBox.TabStop = false;
+            this.ApplyUpdateBox.Text = "ApplyUpdate()";
+            // 
+            // ManifestLabel
+            // 
+            this.ManifestLabel.AutoSize = true;
+            this.ManifestLabel.Location = new System.Drawing.Point(6, 26);
+            this.ManifestLabel.Name = "ManifestLabel";
+            this.ManifestLabel.Size = new System.Drawing.Size(47, 13);
+            this.ManifestLabel.TabIndex = 0;
+            this.ManifestLabel.Text = "Manifest";
+            // 
+            // ManifestInput
+            // 
+            this.ManifestInput.AutoSize = true;
+            this.ManifestInput.Location = new System.Drawing.Point(78, 26);
+            this.ManifestInput.Name = "ManifestInput";
+            this.ManifestInput.Size = new System.Drawing.Size(121, 13);
+            this.ManifestInput.TabIndex = 1;
+            this.ManifestInput.Text = "Run UpdateCheck() first";
+            // 
+            // ApplyUpdateInvoke
+            // 
+            this.ApplyUpdateInvoke.Enabled = false;
+            this.ApplyUpdateInvoke.Location = new System.Drawing.Point(295, 51);
+            this.ApplyUpdateInvoke.Name = "ApplyUpdateInvoke";
+            this.ApplyUpdateInvoke.Size = new System.Drawing.Size(75, 23);
+            this.ApplyUpdateInvoke.TabIndex = 2;
+            this.ApplyUpdateInvoke.Text = "Invoke";
+            this.ApplyUpdateInvoke.UseVisualStyleBackColor = true;
+            this.ApplyUpdateInvoke.Click += new System.EventHandler(this.ApplyUpdateInvoke_Click);
+            // 
             // DevUI
             // 
-            this.AcceptButton = this.InvokeButton;
+            this.AcceptButton = this.UpdateCheckInvoke;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 148);
-            this.Controls.Add(this.gbApplyPatch);
+            this.ClientSize = new System.Drawing.Size(451, 236);
+            this.Controls.Add(this.ApplyUpdateBox);
+            this.Controls.Add(this.UpdateCheckBox);
             this.Name = "DevUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FoM Launcher - Development UI";
-            this.gbApplyPatch.ResumeLayout(false);
-            this.gbApplyPatch.PerformLayout();
+            this.UpdateCheckBox.ResumeLayout(false);
+            this.UpdateCheckBox.PerformLayout();
+            this.ApplyUpdateBox.ResumeLayout(false);
+            this.ApplyUpdateBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gbApplyPatch;
+        private System.Windows.Forms.GroupBox UpdateCheckBox;
         private System.Windows.Forms.Label ManifestURLLabel;
         private System.Windows.Forms.Label LocalFolderLabel;
-        private System.Windows.Forms.Button InvokeButton;
+        private System.Windows.Forms.Button UpdateCheckInvoke;
         private System.Windows.Forms.Button LocalFolderBrowse;
         private System.Windows.Forms.TextBox ManifestURL;
         private System.Windows.Forms.TextBox LocalFolder;
+        private System.Windows.Forms.GroupBox ApplyUpdateBox;
+        private System.Windows.Forms.Button ApplyUpdateInvoke;
+        private System.Windows.Forms.Label ManifestInput;
+        private System.Windows.Forms.Label ManifestLabel;
     }
 }
 

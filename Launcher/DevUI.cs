@@ -13,6 +13,7 @@ namespace FoM.Launcher
 {
     public partial class DevUI : Form
     {
+        private FoM.PatchLib.Manifest _Manifest;
         public DevUI()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace FoM.Launcher
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void InvokeButton_Click(object sender, EventArgs e)
+        private void UpdateCheckInvoke_Click(object sender, EventArgs e)
         {
             string ErrorMessage = string.Empty;
 
@@ -60,9 +61,20 @@ namespace FoM.Launcher
             }
             else
             {
-                FoM.PatchLib.PatchManager.ApplyPatch(LocalFolder.Text, ManifestURL.Text);
-                MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //FoM.PatchLib.PatchManager.ApplyPatch(LocalFolder.Text, ManifestURL.Text);
+                this._Manifest = FoM.PatchLib.PatchManager.UpdateCheck(LocalFolder.Text, ManifestURL.Text);
+
+                ManifestInput.Text = String.Format("Update Needed: {0:True;0;False}", _Manifest.NeedsUpdate.GetHashCode());
+                ApplyUpdateInvoke.Enabled = _Manifest.NeedsUpdate;
+
+                MessageBox.Show(String.Format("UpdateCheck() returned {0:True;0;False}", this._Manifest.NeedsUpdate.GetHashCode()), "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void ApplyUpdateInvoke_Click(object sender, EventArgs e)
+        {
+            FoM.PatchLib.PatchManager.ApplyPatch(this._Manifest);
+            MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
