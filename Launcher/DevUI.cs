@@ -14,6 +14,11 @@ namespace FoM.Launcher
     public partial class DevUI : Form
     {
         private FoM.PatchLib.Manifest _Manifest;
+        
+        private FoM.PatchLib.Manifest _SelfUpdateManifest;
+        private string _SelfUpdateURL = "http://patch.patrickshafer.com/Test.xml";
+        private bool _Bootstrap = false;
+
         public DevUI()
         {
             InitializeComponent();
@@ -75,6 +80,46 @@ namespace FoM.Launcher
         {
             FoM.PatchLib.PatchManager.ApplyPatch(this._Manifest);
             MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SelfUpdateCheckButton_Click(object sender, EventArgs e)
+        {
+            this._SelfUpdateManifest = FoM.PatchLib.PatchManager.UpdateCheck(Directory.GetCurrentDirectory(), this._SelfUpdateURL);
+            MessageBox.Show(String.Format("SelfUpdateCheck: Needs Update: {0:True;0;False}", this._SelfUpdateManifest.NeedsUpdate),"Self-Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            BootstrapButton.Enabled = this._SelfUpdateManifest.NeedsUpdate && !this._Bootstrap;
+            InstallButton.Enabled = this._SelfUpdateManifest.NeedsUpdate && this._Bootstrap;
+        }
+
+        private void BootstrapButton_Click(object sender, EventArgs e)
+        {
+            string BootstrapPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), String.Format("_{0}", Path.GetFileName(Application.ExecutablePath)));
+            File.Copy(Application.ExecutablePath, BootstrapPath, true);
+            System.Diagnostics.Process.Start(BootstrapPath);
+            Application.Exit();
+        }
+
+        private void DevUI_Load(object sender, EventArgs e)
+        {
+            string ExeName = Path.GetFileName(Application.ExecutablePath);
+            if (ExeName.StartsWith("_"))
+            {
+                this._Bootstrap = true;
+                ModeText.Text = "Bootstrap";
+            }
+            else
+            {
+                if (File.Exists("_" + ExeName))
+                    File.Delete("_" + ExeName);
+            }
+        }
+
+        private void InstallButton_Click(object sender, EventArgs e)
+        {
+            FoM.PatchLib.PatchManager.ApplyPatch(this._SelfUpdateManifest);
+
+            string MainExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Path.GetFileName(Application.ExecutablePath).Substring(1));
+            System.Diagnostics.Process.Start(MainExe);
+            Application.Exit();
         }
     }
 }

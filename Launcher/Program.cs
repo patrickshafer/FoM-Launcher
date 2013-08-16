@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.Reflection;
 using System.Globalization;
@@ -10,17 +11,36 @@ namespace FoM.Launcher
 {
     static class Program
     {
+        static Mutex AppRunningMutex = new Mutex(true, "{1A5BEC90-1B4F-4BF3-B214-49E0E4BF763C}");
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DevUI());
+            bool OkToLaunch = false;
+            try
+            {
+                OkToLaunch = AppRunningMutex.WaitOne(TimeSpan.FromSeconds(3), true);
+            }
+            catch (System.Threading.AbandonedMutexException)
+            {
+                OkToLaunch = true;
+            }
+            
+            if (OkToLaunch)
+            {
+                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                Application.Run(new DevUI());
+                AppRunningMutex.ReleaseMutex();
+            }
+            else
+            {
+                MessageBox.Show("Error starting launcher: Another instance is already running", "FoM Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         /// <summary>

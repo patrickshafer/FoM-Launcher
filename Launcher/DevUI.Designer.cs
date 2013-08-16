@@ -39,8 +39,15 @@
             this.ManifestLabel = new System.Windows.Forms.Label();
             this.ManifestInput = new System.Windows.Forms.Label();
             this.ApplyUpdateInvoke = new System.Windows.Forms.Button();
+            this.SelfUpdateBox = new System.Windows.Forms.GroupBox();
+            this.SelfUpdateCheckButton = new System.Windows.Forms.Button();
+            this.ModeLabel = new System.Windows.Forms.Label();
+            this.ModeText = new System.Windows.Forms.Label();
+            this.BootstrapButton = new System.Windows.Forms.Button();
+            this.InstallButton = new System.Windows.Forms.Button();
             this.UpdateCheckBox.SuspendLayout();
             this.ApplyUpdateBox.SuspendLayout();
+            this.SelfUpdateBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // UpdateCheckBox
@@ -51,7 +58,7 @@
             this.UpdateCheckBox.Controls.Add(this.LocalFolder);
             this.UpdateCheckBox.Controls.Add(this.ManifestURLLabel);
             this.UpdateCheckBox.Controls.Add(this.LocalFolderLabel);
-            this.UpdateCheckBox.Location = new System.Drawing.Point(12, 12);
+            this.UpdateCheckBox.Location = new System.Drawing.Point(12, 142);
             this.UpdateCheckBox.Name = "UpdateCheckBox";
             this.UpdateCheckBox.Size = new System.Drawing.Size(424, 118);
             this.UpdateCheckBox.TabIndex = 0;
@@ -117,7 +124,7 @@
             this.ApplyUpdateBox.Controls.Add(this.ApplyUpdateInvoke);
             this.ApplyUpdateBox.Controls.Add(this.ManifestInput);
             this.ApplyUpdateBox.Controls.Add(this.ManifestLabel);
-            this.ApplyUpdateBox.Location = new System.Drawing.Point(12, 136);
+            this.ApplyUpdateBox.Location = new System.Drawing.Point(12, 266);
             this.ApplyUpdateBox.Name = "ApplyUpdateBox";
             this.ApplyUpdateBox.Size = new System.Drawing.Size(424, 89);
             this.ApplyUpdateBox.TabIndex = 1;
@@ -153,21 +160,90 @@
             this.ApplyUpdateInvoke.UseVisualStyleBackColor = true;
             this.ApplyUpdateInvoke.Click += new System.EventHandler(this.ApplyUpdateInvoke_Click);
             // 
+            // SelfUpdateBox
+            // 
+            this.SelfUpdateBox.Controls.Add(this.InstallButton);
+            this.SelfUpdateBox.Controls.Add(this.BootstrapButton);
+            this.SelfUpdateBox.Controls.Add(this.ModeText);
+            this.SelfUpdateBox.Controls.Add(this.ModeLabel);
+            this.SelfUpdateBox.Controls.Add(this.SelfUpdateCheckButton);
+            this.SelfUpdateBox.Location = new System.Drawing.Point(12, 12);
+            this.SelfUpdateBox.Name = "SelfUpdateBox";
+            this.SelfUpdateBox.Size = new System.Drawing.Size(424, 100);
+            this.SelfUpdateBox.TabIndex = 2;
+            this.SelfUpdateBox.TabStop = false;
+            this.SelfUpdateBox.Text = "SelfUpdate";
+            // 
+            // SelfUpdateCheckButton
+            // 
+            this.SelfUpdateCheckButton.Location = new System.Drawing.Point(6, 32);
+            this.SelfUpdateCheckButton.Name = "SelfUpdateCheckButton";
+            this.SelfUpdateCheckButton.Size = new System.Drawing.Size(101, 23);
+            this.SelfUpdateCheckButton.TabIndex = 0;
+            this.SelfUpdateCheckButton.Text = "SelfUpdateCheck";
+            this.SelfUpdateCheckButton.UseVisualStyleBackColor = true;
+            this.SelfUpdateCheckButton.Click += new System.EventHandler(this.SelfUpdateCheckButton_Click);
+            // 
+            // ModeLabel
+            // 
+            this.ModeLabel.AutoSize = true;
+            this.ModeLabel.Location = new System.Drawing.Point(6, 16);
+            this.ModeLabel.Name = "ModeLabel";
+            this.ModeLabel.Size = new System.Drawing.Size(37, 13);
+            this.ModeLabel.TabIndex = 1;
+            this.ModeLabel.Text = "Mode:";
+            // 
+            // ModeText
+            // 
+            this.ModeText.AutoSize = true;
+            this.ModeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModeText.Location = new System.Drawing.Point(49, 16);
+            this.ModeText.Name = "ModeText";
+            this.ModeText.Size = new System.Drawing.Size(46, 13);
+            this.ModeText.TabIndex = 2;
+            this.ModeText.Text = "Normal";
+            // 
+            // BootstrapButton
+            // 
+            this.BootstrapButton.Enabled = false;
+            this.BootstrapButton.Location = new System.Drawing.Point(6, 61);
+            this.BootstrapButton.Name = "BootstrapButton";
+            this.BootstrapButton.Size = new System.Drawing.Size(101, 23);
+            this.BootstrapButton.TabIndex = 3;
+            this.BootstrapButton.Text = "Bootstrap";
+            this.BootstrapButton.UseVisualStyleBackColor = true;
+            this.BootstrapButton.Click += new System.EventHandler(this.BootstrapButton_Click);
+            // 
+            // InstallButton
+            // 
+            this.InstallButton.Enabled = false;
+            this.InstallButton.Location = new System.Drawing.Point(124, 61);
+            this.InstallButton.Name = "InstallButton";
+            this.InstallButton.Size = new System.Drawing.Size(75, 23);
+            this.InstallButton.TabIndex = 4;
+            this.InstallButton.Text = "Install";
+            this.InstallButton.UseVisualStyleBackColor = true;
+            this.InstallButton.Click += new System.EventHandler(this.InstallButton_Click);
+            // 
             // DevUI
             // 
             this.AcceptButton = this.UpdateCheckInvoke;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 236);
+            this.ClientSize = new System.Drawing.Size(451, 367);
+            this.Controls.Add(this.SelfUpdateBox);
             this.Controls.Add(this.ApplyUpdateBox);
             this.Controls.Add(this.UpdateCheckBox);
             this.Name = "DevUI";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FoM Launcher - Development UI";
+            this.Load += new System.EventHandler(this.DevUI_Load);
             this.UpdateCheckBox.ResumeLayout(false);
             this.UpdateCheckBox.PerformLayout();
             this.ApplyUpdateBox.ResumeLayout(false);
             this.ApplyUpdateBox.PerformLayout();
+            this.SelfUpdateBox.ResumeLayout(false);
+            this.SelfUpdateBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -185,6 +261,12 @@
         private System.Windows.Forms.Button ApplyUpdateInvoke;
         private System.Windows.Forms.Label ManifestInput;
         private System.Windows.Forms.Label ManifestLabel;
+        private System.Windows.Forms.GroupBox SelfUpdateBox;
+        private System.Windows.Forms.Button SelfUpdateCheckButton;
+        private System.Windows.Forms.Button BootstrapButton;
+        private System.Windows.Forms.Label ModeText;
+        private System.Windows.Forms.Label ModeLabel;
+        private System.Windows.Forms.Button InstallButton;
     }
 }
 
