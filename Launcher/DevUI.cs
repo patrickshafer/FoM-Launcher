@@ -100,6 +100,7 @@ namespace FoM.Launcher
 
         private void DevUI_Load(object sender, EventArgs e)
         {
+            LocalFolder.Text = Path.GetDirectoryName(Application.ExecutablePath);
             string ExeName = Path.GetFileName(Application.ExecutablePath);
             if (ExeName.StartsWith("_"))
             {

@@ -36,15 +36,15 @@
             this.ManifestURLLabel = new System.Windows.Forms.Label();
             this.LocalFolderLabel = new System.Windows.Forms.Label();
             this.ApplyUpdateBox = new System.Windows.Forms.GroupBox();
-            this.ManifestLabel = new System.Windows.Forms.Label();
-            this.ManifestInput = new System.Windows.Forms.Label();
             this.ApplyUpdateInvoke = new System.Windows.Forms.Button();
+            this.ManifestInput = new System.Windows.Forms.Label();
+            this.ManifestLabel = new System.Windows.Forms.Label();
             this.SelfUpdateBox = new System.Windows.Forms.GroupBox();
-            this.SelfUpdateCheckButton = new System.Windows.Forms.Button();
-            this.ModeLabel = new System.Windows.Forms.Label();
-            this.ModeText = new System.Windows.Forms.Label();
-            this.BootstrapButton = new System.Windows.Forms.Button();
             this.InstallButton = new System.Windows.Forms.Button();
+            this.BootstrapButton = new System.Windows.Forms.Button();
+            this.ModeText = new System.Windows.Forms.Label();
+            this.ModeLabel = new System.Windows.Forms.Label();
+            this.SelfUpdateCheckButton = new System.Windows.Forms.Button();
             this.UpdateCheckBox.SuspendLayout();
             this.ApplyUpdateBox.SuspendLayout();
             this.SelfUpdateBox.SuspendLayout();
@@ -99,7 +99,6 @@
             this.LocalFolder.Name = "LocalFolder";
             this.LocalFolder.Size = new System.Drawing.Size(289, 20);
             this.LocalFolder.TabIndex = 0;
-            this.LocalFolder.Text = "C:\\Code\\fom-launcher\\TestData\\LocalFolder";
             // 
             // ManifestURLLabel
             // 
@@ -131,24 +130,6 @@
             this.ApplyUpdateBox.TabStop = false;
             this.ApplyUpdateBox.Text = "ApplyUpdate()";
             // 
-            // ManifestLabel
-            // 
-            this.ManifestLabel.AutoSize = true;
-            this.ManifestLabel.Location = new System.Drawing.Point(6, 26);
-            this.ManifestLabel.Name = "ManifestLabel";
-            this.ManifestLabel.Size = new System.Drawing.Size(47, 13);
-            this.ManifestLabel.TabIndex = 0;
-            this.ManifestLabel.Text = "Manifest";
-            // 
-            // ManifestInput
-            // 
-            this.ManifestInput.AutoSize = true;
-            this.ManifestInput.Location = new System.Drawing.Point(78, 26);
-            this.ManifestInput.Name = "ManifestInput";
-            this.ManifestInput.Size = new System.Drawing.Size(121, 13);
-            this.ManifestInput.TabIndex = 1;
-            this.ManifestInput.Text = "Run UpdateCheck() first";
-            // 
             // ApplyUpdateInvoke
             // 
             this.ApplyUpdateInvoke.Enabled = false;
@@ -159,6 +140,24 @@
             this.ApplyUpdateInvoke.Text = "Invoke";
             this.ApplyUpdateInvoke.UseVisualStyleBackColor = true;
             this.ApplyUpdateInvoke.Click += new System.EventHandler(this.ApplyUpdateInvoke_Click);
+            // 
+            // ManifestInput
+            // 
+            this.ManifestInput.AutoSize = true;
+            this.ManifestInput.Location = new System.Drawing.Point(78, 26);
+            this.ManifestInput.Name = "ManifestInput";
+            this.ManifestInput.Size = new System.Drawing.Size(121, 13);
+            this.ManifestInput.TabIndex = 1;
+            this.ManifestInput.Text = "Run UpdateCheck() first";
+            // 
+            // ManifestLabel
+            // 
+            this.ManifestLabel.AutoSize = true;
+            this.ManifestLabel.Location = new System.Drawing.Point(6, 26);
+            this.ManifestLabel.Name = "ManifestLabel";
+            this.ManifestLabel.Size = new System.Drawing.Size(47, 13);
+            this.ManifestLabel.TabIndex = 0;
+            this.ManifestLabel.Text = "Manifest";
             // 
             // SelfUpdateBox
             // 
@@ -174,34 +173,16 @@
             this.SelfUpdateBox.TabStop = false;
             this.SelfUpdateBox.Text = "SelfUpdate";
             // 
-            // SelfUpdateCheckButton
+            // InstallButton
             // 
-            this.SelfUpdateCheckButton.Location = new System.Drawing.Point(6, 32);
-            this.SelfUpdateCheckButton.Name = "SelfUpdateCheckButton";
-            this.SelfUpdateCheckButton.Size = new System.Drawing.Size(101, 23);
-            this.SelfUpdateCheckButton.TabIndex = 0;
-            this.SelfUpdateCheckButton.Text = "SelfUpdateCheck";
-            this.SelfUpdateCheckButton.UseVisualStyleBackColor = true;
-            this.SelfUpdateCheckButton.Click += new System.EventHandler(this.SelfUpdateCheckButton_Click);
-            // 
-            // ModeLabel
-            // 
-            this.ModeLabel.AutoSize = true;
-            this.ModeLabel.Location = new System.Drawing.Point(6, 16);
-            this.ModeLabel.Name = "ModeLabel";
-            this.ModeLabel.Size = new System.Drawing.Size(37, 13);
-            this.ModeLabel.TabIndex = 1;
-            this.ModeLabel.Text = "Mode:";
-            // 
-            // ModeText
-            // 
-            this.ModeText.AutoSize = true;
-            this.ModeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ModeText.Location = new System.Drawing.Point(49, 16);
-            this.ModeText.Name = "ModeText";
-            this.ModeText.Size = new System.Drawing.Size(46, 13);
-            this.ModeText.TabIndex = 2;
-            this.ModeText.Text = "Normal";
+            this.InstallButton.Enabled = false;
+            this.InstallButton.Location = new System.Drawing.Point(124, 61);
+            this.InstallButton.Name = "InstallButton";
+            this.InstallButton.Size = new System.Drawing.Size(75, 23);
+            this.InstallButton.TabIndex = 4;
+            this.InstallButton.Text = "Install";
+            this.InstallButton.UseVisualStyleBackColor = true;
+            this.InstallButton.Click += new System.EventHandler(this.InstallButton_Click);
             // 
             // BootstrapButton
             // 
@@ -214,16 +195,34 @@
             this.BootstrapButton.UseVisualStyleBackColor = true;
             this.BootstrapButton.Click += new System.EventHandler(this.BootstrapButton_Click);
             // 
-            // InstallButton
+            // ModeText
             // 
-            this.InstallButton.Enabled = false;
-            this.InstallButton.Location = new System.Drawing.Point(124, 61);
-            this.InstallButton.Name = "InstallButton";
-            this.InstallButton.Size = new System.Drawing.Size(75, 23);
-            this.InstallButton.TabIndex = 4;
-            this.InstallButton.Text = "Install";
-            this.InstallButton.UseVisualStyleBackColor = true;
-            this.InstallButton.Click += new System.EventHandler(this.InstallButton_Click);
+            this.ModeText.AutoSize = true;
+            this.ModeText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ModeText.Location = new System.Drawing.Point(49, 16);
+            this.ModeText.Name = "ModeText";
+            this.ModeText.Size = new System.Drawing.Size(46, 13);
+            this.ModeText.TabIndex = 2;
+            this.ModeText.Text = "Normal";
+            // 
+            // ModeLabel
+            // 
+            this.ModeLabel.AutoSize = true;
+            this.ModeLabel.Location = new System.Drawing.Point(6, 16);
+            this.ModeLabel.Name = "ModeLabel";
+            this.ModeLabel.Size = new System.Drawing.Size(37, 13);
+            this.ModeLabel.TabIndex = 1;
+            this.ModeLabel.Text = "Mode:";
+            // 
+            // SelfUpdateCheckButton
+            // 
+            this.SelfUpdateCheckButton.Location = new System.Drawing.Point(6, 32);
+            this.SelfUpdateCheckButton.Name = "SelfUpdateCheckButton";
+            this.SelfUpdateCheckButton.Size = new System.Drawing.Size(101, 23);
+            this.SelfUpdateCheckButton.TabIndex = 0;
+            this.SelfUpdateCheckButton.Text = "SelfUpdateCheck";
+            this.SelfUpdateCheckButton.UseVisualStyleBackColor = true;
+            this.SelfUpdateCheckButton.Click += new System.EventHandler(this.SelfUpdateCheckButton_Click);
             // 
             // DevUI
             // 
