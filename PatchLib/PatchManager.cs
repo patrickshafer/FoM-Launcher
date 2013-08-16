@@ -33,7 +33,9 @@ namespace FoM.PatchLib
             bool NeedsUpdate = false;
             Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
 
-            // PatchManifest.FileList.Any(
+            for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate; i++)
+                if (PatchManifest.FileList[i].CheckUpdate())
+                    NeedsUpdate = true;
 
             return NeedsUpdate;
         }
