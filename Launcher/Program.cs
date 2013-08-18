@@ -11,7 +11,6 @@ namespace FoM.Launcher
 {
     static class Program
     {
-        static Mutex AppRunningMutex = new Mutex(true, "{1A5BEC90-1B4F-4BF3-B214-49E0E4BF763C}");
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         
         /// <summary>
@@ -20,39 +19,17 @@ namespace FoM.Launcher
         [STAThread]
         static void Main()
         {
-            bool OkToLaunch = false;
-            try
-            {
-                OkToLaunch = AppRunningMutex.WaitOne(TimeSpan.FromSeconds(3), true);
-            }
-            catch (System.Threading.AbandonedMutexException)
-            {
-                OkToLaunch = true;
-            }
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
+
+            log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("FoM.Launcher.log4netConfig.xml"));
+            Log.Info("FoM.Launcher starting...");
             
-            if (OkToLaunch)
-            {
-                AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+            //Application.ThreadException += Application_ThreadException;
+            FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher.xml");
 
-                log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("FoM.Launcher.log4netConfig.xml"));
-                Application.ThreadException += Application_ThreadException;
-                Application.ApplicationExit += Application_ApplicationExit;
-                Log.Info("FoM.Launcher starting...");
-
-                Application.Run(new DevUI());
-            }
-            else
-            {
-                MessageBox.Show("Error starting launcher: Another instance is already running", "FoM Launcher", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        static void Application_ApplicationExit(object sender, EventArgs e)
-        {
-            AppRunningMutex.ReleaseMutex();
-            Log.Info("FoM.Launcher normal termination");
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new DevUI());
         }
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)

@@ -15,10 +15,6 @@ namespace FoM.Launcher
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private FoM.PatchLib.Manifest _Manifest;
-        
-        private FoM.PatchLib.Manifest _SelfUpdateManifest;
-        private string _SelfUpdateURL = "http://patch.patrickshafer.com/launcher.xml";
-        private bool _Bootstrap = false;
 
         public DevUI()
         {
@@ -83,47 +79,12 @@ namespace FoM.Launcher
             MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void SelfUpdateCheckButton_Click(object sender, EventArgs e)
-        {
-            Log.Info("Entering SelfUpdateCheckButton_Click");
-            this._SelfUpdateManifest = FoM.PatchLib.PatchManager.UpdateCheck(Directory.GetCurrentDirectory(), this._SelfUpdateURL);
-            MessageBox.Show(String.Format("SelfUpdateCheck: Needs Update: {0:True;0;False}", this._SelfUpdateManifest.NeedsUpdate), "Self-Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            BootstrapButton.Enabled = this._SelfUpdateManifest.NeedsUpdate && !this._Bootstrap;
-            InstallButton.Enabled = this._SelfUpdateManifest.NeedsUpdate && this._Bootstrap;
-        }
-
-        private void BootstrapButton_Click(object sender, EventArgs e)
-        {
-            string BootstrapPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), String.Format("_{0}", Path.GetFileName(Application.ExecutablePath)));
-            Log.Info(string.Format("Bootstrap Path: {0}", BootstrapPath));
-            File.Copy(Application.ExecutablePath, BootstrapPath, true);
-            System.Diagnostics.Process.Start(BootstrapPath);
-            Application.Exit();
-        }
 
         private void DevUI_Load(object sender, EventArgs e)
         {
             LocalFolder.Text = Path.GetDirectoryName(Application.ExecutablePath);
-            string ExeName = Path.GetFileName(Application.ExecutablePath);
-            if (ExeName.StartsWith("_"))
-            {
-                this._Bootstrap = true;
+            if (PatchLib.PatchManager.BootstrapMode)
                 ModeText.Text = "Bootstrap";
-            }
-            else
-            {
-                if (File.Exists("_" + ExeName))
-                    File.Delete("_" + ExeName);
-            }
-        }
-
-        private void InstallButton_Click(object sender, EventArgs e)
-        {
-            FoM.PatchLib.PatchManager.ApplyPatch(this._SelfUpdateManifest);
-
-            string MainExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Path.GetFileName(Application.ExecutablePath).Substring(1));
-            System.Diagnostics.Process.Start(MainExe);
-            Application.Exit();
         }
     }
 }
