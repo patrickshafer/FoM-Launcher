@@ -85,8 +85,9 @@ namespace FoM.Launcher
 
         private void SelfUpdateCheckButton_Click(object sender, EventArgs e)
         {
+            Log.Info("Entering SelfUpdateCheckButton_Click");
             this._SelfUpdateManifest = FoM.PatchLib.PatchManager.UpdateCheck(Directory.GetCurrentDirectory(), this._SelfUpdateURL);
-            MessageBox.Show(String.Format("SelfUpdateCheck: Needs Update: {0:True;0;False}", this._SelfUpdateManifest.NeedsUpdate),"Self-Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show(String.Format("SelfUpdateCheck: Needs Update: {0:True;0;False}", this._SelfUpdateManifest.NeedsUpdate), "Self-Update", MessageBoxButtons.OK, MessageBoxIcon.Information);
             BootstrapButton.Enabled = this._SelfUpdateManifest.NeedsUpdate && !this._Bootstrap;
             InstallButton.Enabled = this._SelfUpdateManifest.NeedsUpdate && this._Bootstrap;
         }
@@ -94,6 +95,7 @@ namespace FoM.Launcher
         private void BootstrapButton_Click(object sender, EventArgs e)
         {
             string BootstrapPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), String.Format("_{0}", Path.GetFileName(Application.ExecutablePath)));
+            Log.Info(string.Format("Bootstrap Path: {0}", BootstrapPath));
             File.Copy(Application.ExecutablePath, BootstrapPath, true);
             System.Diagnostics.Process.Start(BootstrapPath);
             Application.Exit();
@@ -122,11 +124,6 @@ namespace FoM.Launcher
             string MainExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Path.GetFileName(Application.ExecutablePath).Substring(1));
             System.Diagnostics.Process.Start(MainExe);
             Application.Exit();
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Log.Warn("button clicked");
         }
     }
 }

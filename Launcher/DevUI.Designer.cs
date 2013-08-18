@@ -45,7 +45,6 @@
             this.ModeText = new System.Windows.Forms.Label();
             this.ModeLabel = new System.Windows.Forms.Label();
             this.SelfUpdateCheckButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.UpdateCheckBox.SuspendLayout();
             this.ApplyUpdateBox.SuspendLayout();
             this.SelfUpdateBox.SuspendLayout();
@@ -162,7 +161,6 @@
             // 
             // SelfUpdateBox
             // 
-            this.SelfUpdateBox.Controls.Add(this.button1);
             this.SelfUpdateBox.Controls.Add(this.InstallButton);
             this.SelfUpdateBox.Controls.Add(this.BootstrapButton);
             this.SelfUpdateBox.Controls.Add(this.ModeText);
@@ -226,16 +224,6 @@
             this.SelfUpdateCheckButton.UseVisualStyleBackColor = true;
             this.SelfUpdateCheckButton.Click += new System.EventHandler(this.SelfUpdateCheckButton_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(327, 32);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // DevUI
             // 
             this.AcceptButton = this.UpdateCheckInvoke;
@@ -278,7 +266,6 @@
         private System.Windows.Forms.Label ModeText;
         private System.Windows.Forms.Label ModeLabel;
         private System.Windows.Forms.Button InstallButton;
-        private System.Windows.Forms.Button button1;
     }
 }
 

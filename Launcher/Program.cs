@@ -39,11 +39,9 @@ namespace FoM.Launcher
                 log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("FoM.Launcher.log4netConfig.xml"));
                 Application.ThreadException += Application_ThreadException;
                 Application.ApplicationExit += Application_ApplicationExit;
-
-                Log.Info("Launcher Application starting");
+                Log.Info("FoM.Launcher starting...");
 
                 Application.Run(new DevUI());
-                AppRunningMutex.ReleaseMutex();
             }
             else
             {
@@ -53,12 +51,13 @@ namespace FoM.Launcher
 
         static void Application_ApplicationExit(object sender, EventArgs e)
         {
-            //throw new NotImplementedException();
+            AppRunningMutex.ReleaseMutex();
+            Log.Info("FoM.Launcher normal termination");
         }
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            Log.Error("Application_ThreadException", e.Exception);
+            Log.Fatal("Application_ThreadException", e.Exception);
         }
 
         /// <summary>
