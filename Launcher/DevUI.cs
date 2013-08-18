@@ -13,6 +13,7 @@ namespace FoM.Launcher
 {
     public partial class DevUI : Form
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private FoM.PatchLib.Manifest _Manifest;
         
         private FoM.PatchLib.Manifest _SelfUpdateManifest;
@@ -121,6 +122,11 @@ namespace FoM.Launcher
             string MainExe = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), Path.GetFileName(Application.ExecutablePath).Substring(1));
             System.Diagnostics.Process.Start(MainExe);
             Application.Exit();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Log.Warn("button clicked");
         }
     }
 }
