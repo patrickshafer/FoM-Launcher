@@ -3,6 +3,7 @@
 
 #FoM Launcher files
 TestData/
+!Dependencies/*
 
 # User-specific files
 *.suo
