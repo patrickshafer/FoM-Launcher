@@ -12,6 +12,8 @@ namespace FoM.PatchLib
     /// </summary>
     public static class PatchManager
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Applies a patch (manifest) to a given folder/directory
         /// </summary>
@@ -24,17 +26,27 @@ namespace FoM.PatchLib
         }
         public static Manifest UpdateCheck(string LocalFolder, string ManifestURL)
         {
+            Log.Debug(String.Format("Entering UpdateCheck(), LocalFolder: {0}, ManifestURL: {1}", LocalFolder, ManifestURL));
             bool NeedsUpdate = false;
             Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
 
             foreach (FileNode PatchFile in PatchManifest.FileList)
+            {
+                Log.Debug(String.Format("Setting LocalFilePath to {0}", Path.Combine(LocalFolder, PatchFile.RemoteFileName)));
                 PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
+            }
 
             for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate; i++)
+            {
                 if (PatchManifest.FileList[i].CheckUpdate())
+                {
+                    Log.Info(String.Format("Found a FileNode that needs updating at {0}", PatchManifest.FileList[i].LocalFilePath));
                     NeedsUpdate = true;
+                }
+            }
 
             PatchManifest.NeedsUpdate = NeedsUpdate;
+            Log.Debug(String.Format("PatchManifest.NeedsUpdate: {0:true;0;False}", PatchManifest.NeedsUpdate));
             return PatchManifest;
         }
 
