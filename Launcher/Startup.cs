@@ -17,6 +17,8 @@ namespace FoM.Launcher
 
             Application.ThreadException += Application_ThreadException;
 
+            Log.Info(String.Format("Launcher starting {0}", Application.ProductVersion));
+
             FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher.xml");
 
             Application.EnableVisualStyles();
