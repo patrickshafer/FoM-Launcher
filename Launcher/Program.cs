@@ -11,8 +11,6 @@ namespace FoM.Launcher
 {
     static class Program
     {
-        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -21,20 +19,8 @@ namespace FoM.Launcher
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream("FoM.Launcher.log4netConfig.xml"));
-            Log.Info("FoM.Launcher starting...");
-            
-            //Application.ThreadException += Application_ThreadException;
-            FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher.xml");
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DevUI());
-        }
-
-        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            Log.Fatal("Application_ThreadException", e.Exception);
+            Startup thisStartup = new Startup();
+            thisStartup.Execute();
         }
 
         /// <summary>
@@ -49,6 +35,7 @@ namespace FoM.Launcher
             AssemblyName assemblyName = new AssemblyName(args.Name);
 
             string path = assemblyName.Name + ".dll";
+
             if (assemblyName.CultureInfo.Equals(CultureInfo.InvariantCulture) == false)
                 path = String.Format(@"{0}\{1}", assemblyName.CultureInfo, path);
 

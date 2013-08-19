@@ -89,7 +89,7 @@ namespace FoM.PatchLib
                 BootstrapPath = Assembly.GetEntryAssembly().Location;
                 ExePath = Path.Combine(Path.GetDirectoryName(BootstrapPath), Path.GetFileName(BootstrapPath).Substring(1));
 
-                Log.Info("BOOTSTRAP: Applying update");
+                Log.Info("BOOTSTRAP: Applying update & launching new app...");
                 PatchManager.ApplyPatch(SelfUpdateManifest);
                 System.Diagnostics.Process.Start(ExePath);
                 Environment.Exit(3);
@@ -108,7 +108,7 @@ namespace FoM.PatchLib
         {
             if (Path.GetFileName(Assembly.GetEntryAssembly().Location).StartsWith("_"))
                 PatchManager.BootstrapMode = true;
-            Log.Info(String.Format("BootstrapMode: {0:True;0;False}", PatchManager.BootstrapMode));
+            Log.Info(String.Format("BootstrapMode: {0:TRUE;0;FALSE}", PatchManager.BootstrapMode));
             return PatchManager.BootstrapMode;
         }
 
@@ -118,10 +118,11 @@ namespace FoM.PatchLib
             bool NeedsUpdate = false;
             Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
 
+            Log.Debug("Iterating through each FileNode in PatchManifest.FileList...");
             foreach (FileNode PatchFile in PatchManifest.FileList)
             {
-                Log.Debug(String.Format("Setting LocalFilePath to {0}", Path.Combine(LocalFolder, PatchFile.RemoteFileName)));
                 PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
+                Log.Debug(String.Format("PatchFile.LocalFilePath: {0}", PatchFile.LocalFilePath));
             }
 
             for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate; i++)
