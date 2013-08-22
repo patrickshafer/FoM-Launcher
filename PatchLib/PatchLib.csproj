@@ -46,6 +46,7 @@
     <Compile Include="FileNode.cs" />
     <Compile Include="Manifest.cs" />
     <Compile Include="PatchManager.cs" />
+    <Compile Include="PatchManagerEvents.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

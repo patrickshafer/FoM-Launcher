@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 using System.Threading;
+using System.ComponentModel;
 using System.Reflection;
 
 
@@ -18,7 +19,10 @@ namespace FoM.PatchLib
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Mutex PatchMutex;
+        private static BackgroundWorker UpdateCheckBW;
+
         public static bool BootstrapMode = false;
+
 
         /// <summary>
         /// Applies a patch (manifest) to a given folder/directory
@@ -41,7 +45,7 @@ namespace FoM.PatchLib
                 }
             }
         }
-        public static bool AcquireLock()
+        private static bool AcquireLock()
         {
             PatchManager.PatchMutex = new Mutex(true, "{D1EF437C-5F7E-4B78-A71A-10489A280E61}");
             bool LaunchOK = false;
@@ -138,6 +142,34 @@ namespace FoM.PatchLib
             Log.Debug(String.Format("PatchManifest.NeedsUpdate: {0:true;0;False}", PatchManifest.NeedsUpdate));
             return PatchManifest;
         }
+
+        public static void UpdateCheckAsync(string LocalFolder, string ManifestURL)
+        {
+            UpdateCheckArgs args = new UpdateCheckArgs();
+            args.LocalFolder = LocalFolder;
+            args.ManifestURL = ManifestURL;
+
+            UpdateCheckBW = new BackgroundWorker();
+            UpdateCheckBW.DoWork += UpdateCheckBW_DoWork;
+            UpdateCheckBW.RunWorkerCompleted += UpdateCheckBW_RunWorkerCompleted;
+            UpdateCheckBW.RunWorkerAsync(args);
+        }
+
+        static void UpdateCheckBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (UpdateCheckCompleted != null)
+                UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Manifest)e.Result));
+        }
+
+        static void UpdateCheckBW_DoWork(object sender, DoWorkEventArgs e)
+        {
+            string LocalFolder = ((UpdateCheckArgs)e.Argument).LocalFolder;
+            string ManifestURL = ((UpdateCheckArgs)e.Argument).ManifestURL;
+            e.Result = UpdateCheck(LocalFolder, ManifestURL);
+        }
+
+        public static event UpdateCheckCompletedEventHandler UpdateCheckCompleted;
+
 
         /// <summary>
         /// Creates a patch (manifest) of a folder to a patch folder

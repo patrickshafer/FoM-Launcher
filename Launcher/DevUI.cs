@@ -63,14 +63,28 @@ namespace FoM.Launcher
             }
             else
             {
-                //FoM.PatchLib.PatchManager.ApplyPatch(LocalFolder.Text, ManifestURL.Text);
+                PatchLib.PatchManager.UpdateCheckCompleted += PatchManager_UpdateCheckCompleted;
+                PatchLib.PatchManager.UpdateCheckAsync(LocalFolder.Text, ManifestURL.Text);
+                
+                /*
                 this._Manifest = FoM.PatchLib.PatchManager.UpdateCheck(LocalFolder.Text, ManifestURL.Text);
 
                 ManifestInput.Text = String.Format("Update Needed: {0:True;0;False}", _Manifest.NeedsUpdate.GetHashCode());
                 ApplyUpdateInvoke.Enabled = _Manifest.NeedsUpdate;
 
                 MessageBox.Show(String.Format("UpdateCheck() returned {0:True;0;False}", this._Manifest.NeedsUpdate.GetHashCode()), "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                */
             }
+        }
+
+        void PatchManager_UpdateCheckCompleted(PatchLib.UpdateCheckCompletedEventArgs e)
+        {
+            this._Manifest = e.Manifest;
+
+            ManifestInput.Text = String.Format("Update Needed: {0:True;0;False}", _Manifest.NeedsUpdate.GetHashCode());
+            ApplyUpdateInvoke.Enabled = _Manifest.NeedsUpdate;
+
+            MessageBox.Show(String.Format("UpdateCheck() returned {0:True;0;False}", this._Manifest.NeedsUpdate.GetHashCode()), "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void ApplyUpdateInvoke_Click(object sender, EventArgs e)
