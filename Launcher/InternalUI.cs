@@ -16,7 +16,6 @@ namespace FoM.Launcher
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Timer LogTimer = new Timer();
         private log4net.Appender.MemoryAppender LogAppender;
-        private Manifest UpdateManifest;
 
         public InternalUI()
         {
@@ -87,12 +86,19 @@ namespace FoM.Launcher
             string LocalFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
             PatchManager.UpdateCheckCompleted += PatchManager_UpdateCheckCompleted;
+            PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
+
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+        }
+
+        void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
+        {
+            MessageBox.Show("Patch Complete", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
         {
-            //throw new NotImplementedException();
+            PatchManager.ApplyPatchAsync(e.Manifest);
         }
     }
 }
