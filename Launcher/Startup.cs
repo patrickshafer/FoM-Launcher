@@ -15,7 +15,7 @@ namespace FoM.Launcher
         {
             log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("FoM.Launcher.log4netConfig.xml"));
 
-            Application.ThreadException += Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
             Log.Info(String.Format("Launcher starting {0}", Application.ProductVersion));
 
@@ -26,9 +26,10 @@ namespace FoM.Launcher
             Application.Run(new DevUI());
         }
 
-        void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Log.Fatal("Application_ThreadException", e.Exception);
+            Log.Fatal("UnhandledException in current AppDomain", (Exception)e.ExceptionObject);
         }
+
     }
 }
