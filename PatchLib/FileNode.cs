@@ -29,6 +29,8 @@ namespace FoM.PatchLib
         [XmlElement("Size")]
         public long RemoteSize;
 
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         
         public string LocalMD5Hash
         {
@@ -79,6 +81,7 @@ namespace FoM.PatchLib
             if(!Directory.Exists(Path.GetDirectoryName(this.LocalFilePath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(this.LocalFilePath));
 
+            Log.Debug(String.Format("Downloading {0} to {1}", this.RemoteURL, this.LocalFilePath));
             Downloader.DownloadFile(this.RemoteURL, this.LocalFilePath);
             
             this._LocalMD5Hash = string.Empty;
@@ -97,6 +100,7 @@ namespace FoM.PatchLib
             ReadStream.Close();
 
             this._LocalMD5Hash = StringBuffer.ToString().ToUpperInvariant();
+            Log.Debug(String.Format("{0}-MD5: {1}", this.LocalFilePath, this.LocalMD5Hash));
         }
         private void getLocalSize()
         {
