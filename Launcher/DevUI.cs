@@ -89,7 +89,16 @@ namespace FoM.Launcher
 
         private void ApplyUpdateInvoke_Click(object sender, EventArgs e)
         {
+            FoM.PatchLib.PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
+            FoM.PatchLib.PatchManager.ApplyPatchAsync(this._Manifest);
+            /*
             FoM.PatchLib.PatchManager.ApplyPatch(this._Manifest);
+            MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            */
+        }
+
+        void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
+        {
             MessageBox.Show("ApplyPatch() complete", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 

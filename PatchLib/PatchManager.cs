@@ -20,6 +20,7 @@ namespace FoM.PatchLib
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static Mutex PatchMutex;
         private static BackgroundWorker UpdateCheckBW;
+        private static BackgroundWorker ApplyPatchBW;
 
         public static bool BootstrapMode = false;
 
@@ -34,6 +35,36 @@ namespace FoM.PatchLib
                 if (PatchFile.CheckUpdate())
                     PatchFile.ApplyUpdate();
         }
+
+        public static void ApplyPatchAsync(Manifest PatchManifest)
+        {
+            if (ApplyPatchBW == null)
+            {
+                ApplyPatchBW = new BackgroundWorker();
+                ApplyPatchBW.DoWork += ApplyPatchBW_DoWork;
+                ApplyPatchBW.RunWorkerCompleted += ApplyPatchBW_RunWorkerCompleted;
+            }
+            if (ApplyPatchBW.IsBusy)
+            {
+                Log.Error("ApplyPatchBW IsBusy");
+                throw new InvalidOperationException("ApplyPatchAsync is already busy");
+            }
+            ApplyPatchBW.RunWorkerAsync(PatchManifest);
+        }
+        public static event EventHandler ApplyPatchCompleted;
+
+        private static void ApplyPatchBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (ApplyPatchCompleted != null)
+                ApplyPatchCompleted(sender, new EventArgs());
+        }
+
+        private static void ApplyPatchBW_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ApplyPatch((Manifest)e.Argument);
+        }
+
+
         public static void ApplicationStart(string SelfUpdateURL)
         {
             if (AcquireLock())
@@ -116,6 +147,12 @@ namespace FoM.PatchLib
             return PatchManager.BootstrapMode;
         }
 
+        /// <summary>
+        /// Scan a folder and compare against a manifest to determine if an update is needed
+        /// </summary>
+        /// <param name="LocalFolder"></param>
+        /// <param name="ManifestURL"></param>
+        /// <returns></returns>
         public static Manifest UpdateCheck(string LocalFolder, string ManifestURL)
         {
             Log.Debug(String.Format("Entering UpdateCheck(), LocalFolder: {0}, ManifestURL: {1}", LocalFolder, ManifestURL));
@@ -143,25 +180,38 @@ namespace FoM.PatchLib
             return PatchManifest;
         }
 
+        /// <summary>
+        /// Async version of UpdateCheck()
+        /// </summary>
+        /// <param name="LocalFolder"></param>
+        /// <param name="ManifestURL"></param>
         public static void UpdateCheckAsync(string LocalFolder, string ManifestURL)
         {
             UpdateCheckArgs args = new UpdateCheckArgs();
             args.LocalFolder = LocalFolder;
             args.ManifestURL = ManifestURL;
 
-            UpdateCheckBW = new BackgroundWorker();
-            UpdateCheckBW.DoWork += UpdateCheckBW_DoWork;
-            UpdateCheckBW.RunWorkerCompleted += UpdateCheckBW_RunWorkerCompleted;
+            if (UpdateCheckBW == null)
+            {
+                UpdateCheckBW = new BackgroundWorker();
+                UpdateCheckBW.DoWork += UpdateCheckBW_DoWork;
+                UpdateCheckBW.RunWorkerCompleted += UpdateCheckBW_RunWorkerCompleted;
+            }
+            if (UpdateCheckBW.IsBusy)
+            {
+                Log.Error("UpdateCheckBW Already Busy");
+                throw new InvalidOperationException("UpdateCheckAsync is already busy");
+            }
             UpdateCheckBW.RunWorkerAsync(args);
         }
 
-        static void UpdateCheckBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        private static void UpdateCheckBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (UpdateCheckCompleted != null)
                 UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Manifest)e.Result));
         }
 
-        static void UpdateCheckBW_DoWork(object sender, DoWorkEventArgs e)
+        private static void UpdateCheckBW_DoWork(object sender, DoWorkEventArgs e)
         {
             string LocalFolder = ((UpdateCheckArgs)e.Argument).LocalFolder;
             string ManifestURL = ((UpdateCheckArgs)e.Argument).ManifestURL;
