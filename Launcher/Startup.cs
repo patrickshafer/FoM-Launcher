@@ -13,7 +13,7 @@ namespace FoM.Launcher
 
         internal void Execute()
         {
-            log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("FoM.Launcher.log4netConfig.xml"));
+            log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("FoM.Launcher.Resources.log4netConfig.xml"));
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 
@@ -23,7 +23,7 @@ namespace FoM.Launcher
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DevUI());
+            Application.Run(new InternalUI());
         }
 
         void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
