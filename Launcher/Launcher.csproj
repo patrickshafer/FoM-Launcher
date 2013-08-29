@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\idr_main.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net">
       <HintPath>..\Dependencies\log4net.dll</HintPath>
@@ -54,20 +57,11 @@
     <Compile Include="InternalUI.Designer.cs">
       <DependentUpon>InternalUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="DevUI.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DevUI.Designer.cs">
-      <DependentUpon>DevUI.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <EmbeddedResource Include="InternalUI.resx">
       <DependentUpon>InternalUI.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DevUI.resx">
-      <DependentUpon>DevUI.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

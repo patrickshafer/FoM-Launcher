@@ -16,6 +16,7 @@ namespace FoM.Launcher
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Timer LogTimer = new Timer();
         private log4net.Appender.MemoryAppender LogAppender;
+        private PatchRunMode RunMode;
 
         public InternalUI()
         {
@@ -74,21 +75,22 @@ namespace FoM.Launcher
             OutputBox.ScrollToCaret();
         }
 
-        private void DevUIButton_Click(object sender, EventArgs e)
-        {
-            DevUI newForm = new DevUI();
-            newForm.ShowDialog();
-        }
-
         private void InternalUI_Shown(object sender, EventArgs e)
         {
-            string ManifestURL = "http://patch.patrickshafer.com/fom.xml";
-            string LocalFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
-
             PatchManager.UpdateCheckCompleted += PatchManager_UpdateCheckCompleted;
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
             PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
 
+            StartUpdateCheckAsync();
+        }
+
+        private void StartUpdateCheckAsync()
+        {
+            string ManifestURL = "http://patch.patrickshafer.com/fom.xml";
+            string LocalFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
+
+            StartButton.Text = "Cancel";
+            RunMode = PatchRunMode.UpdateCheck;
             PatchProgress.Style = ProgressBarStyle.Marquee;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
         }
@@ -107,7 +109,38 @@ namespace FoM.Launcher
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
         {
             PatchProgress.Style = ProgressBarStyle.Continuous;
+            RunMode = PatchRunMode.ApplyUpdate;
             PatchManager.ApplyPatchAsync(e.Manifest);
+        }
+
+        private void StartButton_Click(object sender, EventArgs e)
+        {
+            switch (RunMode)
+            {
+                case PatchRunMode.None:
+                    StartUpdateCheckAsync();
+                    break;
+                case PatchRunMode.UpdateCheck:
+                    PatchManager.UpdateCheckCancel();
+                    StartButton.Text = "Start";
+                    PatchProgress.Style = ProgressBarStyle.Continuous;
+                    RunMode = PatchRunMode.None;
+                    break;
+                case PatchRunMode.ApplyUpdate:
+                    PatchManager.ApplyPatchCancel();
+                    PatchProgress.Value = 0;
+                    StartButton.Text = "Start";
+                    RunMode = PatchRunMode.None;
+                    break;
+                default:
+                    break;
+            }
+        }
+        enum PatchRunMode
+        {
+            None,
+            UpdateCheck,
+            ApplyUpdate
         }
     }
 }

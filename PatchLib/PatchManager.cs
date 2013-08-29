@@ -34,12 +34,20 @@ namespace FoM.PatchLib
             decimal TotalBytes = 0;
             decimal ProgressBytes = 0;
             int LastProgress = 0;
+            bool CancelRequested = false;
             
             foreach (FileNode PatchFile in PatchManifest.FileList)
                 TotalBytes += PatchFile.RemoteSize;
 
             foreach (FileNode PatchFile in PatchManifest.FileList)
             {
+                if (ApplyPatchBW != null)
+                    if (ApplyPatchBW.CancellationPending)
+                        CancelRequested = true;
+
+                if (CancelRequested)
+                    break;
+
                 if (PatchFile.CheckUpdate())
                     PatchFile.ApplyUpdate();
                 ProgressBytes += PatchFile.RemoteSize;
@@ -62,6 +70,7 @@ namespace FoM.PatchLib
                 ApplyPatchBW.DoWork += ApplyPatchBW_DoWork;
                 ApplyPatchBW.RunWorkerCompleted += ApplyPatchBW_RunWorkerCompleted;
                 ApplyPatchBW.WorkerReportsProgress = true;
+                ApplyPatchBW.WorkerSupportsCancellation = true;
                 ApplyPatchBW.ProgressChanged += ApplyPatchBW_ProgressChanged;
             }
             if (ApplyPatchBW.IsBusy)
@@ -70,6 +79,11 @@ namespace FoM.PatchLib
                 throw new InvalidOperationException("ApplyPatchAsync is already busy");
             }
             ApplyPatchBW.RunWorkerAsync(PatchManifest);
+        }
+
+        public static void ApplyPatchCancel()
+        {
+            ApplyPatchBW.CancelAsync();
         }
 
         static void ApplyPatchBW_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -90,6 +104,8 @@ namespace FoM.PatchLib
         private static void ApplyPatchBW_DoWork(object sender, DoWorkEventArgs e)
         {
             ApplyPatch((Manifest)e.Argument);
+            if (ApplyPatchBW.CancellationPending)
+                e.Cancel = true;
         }
 
 
@@ -185,14 +201,19 @@ namespace FoM.PatchLib
         {
             Log.Debug(String.Format("Entering UpdateCheck(), LocalFolder: {0}, ManifestURL: {1}", LocalFolder, ManifestURL));
             bool NeedsUpdate = false;
+            bool CancelRequested = false;
             Manifest PatchManifest = Manifest.CreateFromXML(ManifestURL);
 
             Log.Debug("Iterating through each FileNode in PatchManifest.FileList...");
             foreach (FileNode PatchFile in PatchManifest.FileList)
                 PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
 
-            for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate; i++)
+            for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate && !CancelRequested; i++)
             {
+                if (UpdateCheckBW != null)
+                    if (UpdateCheckBW.CancellationPending)
+                        CancelRequested = true;
+
                 if (PatchManifest.FileList[i].CheckUpdate())
                 {
                     Log.Info(String.Format("Found a FileNode that needs updating at {0}", PatchManifest.FileList[i].LocalFilePath));
@@ -202,7 +223,14 @@ namespace FoM.PatchLib
 
             PatchManifest.NeedsUpdate = NeedsUpdate;
             Log.Debug(String.Format("PatchManifest.NeedsUpdate: {0:true;0;False}", PatchManifest.NeedsUpdate));
+            if (CancelRequested)
+                PatchManifest = null;
             return PatchManifest;
+        }
+
+        public static void UpdateCheckCancel()
+        {
+            UpdateCheckBW.CancelAsync();
         }
 
         /// <summary>
@@ -219,6 +247,7 @@ namespace FoM.PatchLib
             if (UpdateCheckBW == null)
             {
                 UpdateCheckBW = new BackgroundWorker();
+                UpdateCheckBW.WorkerSupportsCancellation = true;
                 UpdateCheckBW.DoWork += UpdateCheckBW_DoWork;
                 UpdateCheckBW.RunWorkerCompleted += UpdateCheckBW_RunWorkerCompleted;
             }
@@ -233,7 +262,8 @@ namespace FoM.PatchLib
         private static void UpdateCheckBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (UpdateCheckCompleted != null)
-                UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Manifest)e.Result));
+                if(!e.Cancelled)
+                    UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Manifest)e.Result));
         }
 
         private static void UpdateCheckBW_DoWork(object sender, DoWorkEventArgs e)
@@ -241,6 +271,8 @@ namespace FoM.PatchLib
             string LocalFolder = ((UpdateCheckArgs)e.Argument).LocalFolder;
             string ManifestURL = ((UpdateCheckArgs)e.Argument).ManifestURL;
             e.Result = UpdateCheck(LocalFolder, ManifestURL);
+            if (UpdateCheckBW.CancellationPending)
+                e.Cancel = true;
         }
 
         public static event UpdateCheckCompletedEventHandler UpdateCheckCompleted;

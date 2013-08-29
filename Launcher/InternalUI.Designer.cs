@@ -31,8 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InternalUI));
             this.OutputBox = new System.Windows.Forms.TextBox();
             this.PatchProgress = new System.Windows.Forms.ProgressBar();
-            this.DevUIButton = new System.Windows.Forms.Button();
-            this.Cancel = new System.Windows.Forms.Button();
+            this.StartButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // OutputBox
@@ -51,40 +50,28 @@
             // 
             this.PatchProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PatchProgress.Location = new System.Drawing.Point(93, 277);
+            this.PatchProgress.Location = new System.Drawing.Point(12, 277);
             this.PatchProgress.Name = "PatchProgress";
-            this.PatchProgress.Size = new System.Drawing.Size(398, 23);
+            this.PatchProgress.Size = new System.Drawing.Size(479, 23);
             this.PatchProgress.TabIndex = 1;
             // 
-            // DevUIButton
+            // StartButton
             // 
-            this.DevUIButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.DevUIButton.Location = new System.Drawing.Point(12, 277);
-            this.DevUIButton.Name = "DevUIButton";
-            this.DevUIButton.Size = new System.Drawing.Size(75, 23);
-            this.DevUIButton.TabIndex = 2;
-            this.DevUIButton.Text = "DevUI";
-            this.DevUIButton.UseVisualStyleBackColor = true;
-            this.DevUIButton.Click += new System.EventHandler(this.DevUIButton_Click);
-            // 
-            // Cancel
-            // 
-            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Cancel.Enabled = false;
-            this.Cancel.Location = new System.Drawing.Point(497, 277);
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 3;
-            this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
+            this.StartButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.StartButton.Location = new System.Drawing.Point(497, 277);
+            this.StartButton.Name = "StartButton";
+            this.StartButton.Size = new System.Drawing.Size(75, 23);
+            this.StartButton.TabIndex = 3;
+            this.StartButton.Text = "Start";
+            this.StartButton.UseVisualStyleBackColor = true;
+            this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
             // InternalUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 312);
-            this.Controls.Add(this.Cancel);
-            this.Controls.Add(this.DevUIButton);
+            this.Controls.Add(this.StartButton);
             this.Controls.Add(this.PatchProgress);
             this.Controls.Add(this.OutputBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -102,7 +89,6 @@
 
         private System.Windows.Forms.TextBox OutputBox;
         private System.Windows.Forms.ProgressBar PatchProgress;
-        private System.Windows.Forms.Button DevUIButton;
-        private System.Windows.Forms.Button Cancel;
+        private System.Windows.Forms.Button StartButton;
     }
 }

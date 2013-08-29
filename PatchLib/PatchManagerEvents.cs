@@ -6,9 +6,13 @@ namespace FoM.PatchLib
     {
         internal UpdateCheckCompletedEventArgs(Manifest Result)
         {
-            this.Manifest = Result;
+            if (Result == null)
+                this.Canceled = true;
+            else
+                this.Manifest = Result;
         }
         public Manifest Manifest { get; private set; }
+        public bool Canceled;
     }
     internal struct UpdateCheckArgs
     {
