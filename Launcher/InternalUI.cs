@@ -104,13 +104,23 @@ namespace FoM.Launcher
         {
             MessageBox.Show("Patch Complete", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
             PatchProgress.Value = 0;
+            StartButton.Text = "Start";
+            RunMode = PatchRunMode.None;
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
         {
             PatchProgress.Style = ProgressBarStyle.Continuous;
-            RunMode = PatchRunMode.ApplyUpdate;
-            PatchManager.ApplyPatchAsync(e.Manifest);
+            if (e.Manifest.NeedsUpdate)
+            {
+                RunMode = PatchRunMode.ApplyUpdate;
+                PatchManager.ApplyPatchAsync(e.Manifest);
+            }
+            else
+            {
+                RunMode = PatchRunMode.None;
+                StartButton.Text = "Start";
+            }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
