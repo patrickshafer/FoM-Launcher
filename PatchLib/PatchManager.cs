@@ -31,9 +31,27 @@ namespace FoM.PatchLib
         /// <param name="PatchManifest">Manifest object to apply the patch from</param>
         public static void ApplyPatch(Manifest PatchManifest)
         {
+            decimal TotalBytes = 0;
+            decimal ProgressBytes = 0;
+            int LastProgress = 0;
+            
             foreach (FileNode PatchFile in PatchManifest.FileList)
+                TotalBytes += PatchFile.RemoteSize;
+
+            foreach (FileNode PatchFile in PatchManifest.FileList)
+            {
                 if (PatchFile.CheckUpdate())
                     PatchFile.ApplyUpdate();
+                ProgressBytes += PatchFile.RemoteSize;
+
+                if (LastProgress < Convert.ToInt32((ProgressBytes / TotalBytes) * 100))
+                {
+                    LastProgress = Convert.ToInt32((ProgressBytes / TotalBytes) * 100);
+                    if(ApplyPatchBW != null)
+                        if(ApplyPatchBW.WorkerReportsProgress)
+                            ApplyPatchBW.ReportProgress(LastProgress);
+                }
+            }
         }
 
         public static void ApplyPatchAsync(Manifest PatchManifest)
@@ -43,6 +61,8 @@ namespace FoM.PatchLib
                 ApplyPatchBW = new BackgroundWorker();
                 ApplyPatchBW.DoWork += ApplyPatchBW_DoWork;
                 ApplyPatchBW.RunWorkerCompleted += ApplyPatchBW_RunWorkerCompleted;
+                ApplyPatchBW.WorkerReportsProgress = true;
+                ApplyPatchBW.ProgressChanged += ApplyPatchBW_ProgressChanged;
             }
             if (ApplyPatchBW.IsBusy)
             {
@@ -51,7 +71,15 @@ namespace FoM.PatchLib
             }
             ApplyPatchBW.RunWorkerAsync(PatchManifest);
         }
+
+        static void ApplyPatchBW_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            Log.Debug(String.Format("ProgressChanged: {0}", e.ProgressPercentage));
+            if (ApplyPatchProgressChanged != null)
+                ApplyPatchProgressChanged(sender, e);
+        }
         public static event EventHandler ApplyPatchCompleted;
+        public static event ProgressChangedEventHandler ApplyPatchProgressChanged;
 
         private static void ApplyPatchBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
@@ -161,10 +189,7 @@ namespace FoM.PatchLib
 
             Log.Debug("Iterating through each FileNode in PatchManifest.FileList...");
             foreach (FileNode PatchFile in PatchManifest.FileList)
-            {
                 PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
-                Log.Debug(String.Format("PatchFile.LocalFilePath: {0}", PatchFile.LocalFilePath));
-            }
 
             for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate; i++)
             {

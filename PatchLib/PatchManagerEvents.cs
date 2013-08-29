@@ -15,4 +15,5 @@ namespace FoM.PatchLib
         internal string LocalFolder;
         internal string ManifestURL;
     }
+    
 }

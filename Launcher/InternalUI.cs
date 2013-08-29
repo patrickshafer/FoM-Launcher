@@ -87,17 +87,26 @@ namespace FoM.Launcher
 
             PatchManager.UpdateCheckCompleted += PatchManager_UpdateCheckCompleted;
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
+            PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
 
+            PatchProgress.Style = ProgressBarStyle.Marquee;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+        }
+
+        void PatchManager_ApplyPatchProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            PatchProgress.Value = e.ProgressPercentage;
         }
 
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
         {
             MessageBox.Show("Patch Complete", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            PatchProgress.Value = 0;
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
         {
+            PatchProgress.Style = ProgressBarStyle.Continuous;
             PatchManager.ApplyPatchAsync(e.Manifest);
         }
     }
