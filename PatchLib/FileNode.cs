@@ -81,8 +81,11 @@ namespace FoM.PatchLib
             if(!Directory.Exists(Path.GetDirectoryName(this.LocalFilePath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(this.LocalFilePath));
 
-            Log.Debug(String.Format("Downloading {0} to {1}", this.RemoteURL, this.LocalFilePath));
-            Downloader.DownloadFile(this.RemoteURL, this.LocalFilePath);
+            //Log.Debug(String.Format("Downloading {0} to {1}", this.RemoteURL, this.LocalFilePath));
+            //Downloader.DownloadFile(this.RemoteURL, this.LocalFilePath);
+
+            DownloadManager.AddItem(this);
+            DownloadManager.ProcessQueue();
             
             this._LocalMD5Hash = string.Empty;
             this._LocalSize = 0;

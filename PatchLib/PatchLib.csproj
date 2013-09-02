@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DownloadManager.cs" />
     <Compile Include="FileNode.cs" />
     <Compile Include="Manifest.cs" />
     <Compile Include="PatchManager.cs" />
