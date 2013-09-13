@@ -125,6 +125,8 @@ namespace FoM.Launcher
 
         private void StartButton_Click(object sender, EventArgs e)
         {
+            //-rez Resources -dpsmagic 1 +windowed 1
+            //may need a checkbox for windowed mode
             switch (RunMode)
             {
                 case PatchRunMode.None:
