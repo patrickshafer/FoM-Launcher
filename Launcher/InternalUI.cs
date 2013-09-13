@@ -81,7 +81,23 @@ namespace FoM.Launcher
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
             PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
 
-            StartUpdateCheckAsync();
+            GetLogin();
+            //StartUpdateCheckAsync();
+        }
+
+        private void GetLogin()
+        {
+            string Username;
+            string Password;
+            using (Login LoginDialog = new Login())
+            {
+                if (LoginDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    Username = LoginDialog.Username;
+                    Password = LoginDialog.Password;
+                    Log.Info(String.Format("[Auth] Username: {0}, Password: {1}", Username, Password));
+                }
+            }
         }
 
         private void StartUpdateCheckAsync()
