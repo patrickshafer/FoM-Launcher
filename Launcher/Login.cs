@@ -41,5 +41,6 @@ namespace FoM.Launcher
                 }
             }
         }
+        //forgot password: System.Diagnostics.Process.Start(@"http://www.faceofmankind.com/account/reset");
     }
 }
