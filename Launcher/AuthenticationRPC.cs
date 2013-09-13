@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 
 namespace FoM.Launcher
 {
-    class AuthenticationRPC
+    public class AuthenticationRPC
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly string RPCEndPoint = @"http://staff.fomportal.com/launcher-login/login-alpha.php";
@@ -24,11 +24,16 @@ namespace FoM.Launcher
 
         private static Token GetTokenRPC(string Username)
         {
+            Token RetVal = null;
             Dictionary<string, string> Params = new Dictionary<string, string>();
             Params.Add("Username", Username);
 
-            RPCCall("GetToken", Params);
-            return new Token();
+            RPCEnvelope Result = RPCCall("GetToken", Params);
+
+            if (Result.Status == RPCEnvelope.StatusEnum.Success)
+                RetVal = Result.Token;
+
+            return RetVal;
         }
 
         private static RPCEnvelope RPCCall(string Method, Dictionary<string, string> Params)
@@ -40,11 +45,11 @@ namespace FoM.Launcher
             RPCEnvelope ResultMessage = null;
 
             foreach (KeyValuePair<string, string> KVP in Params)
-                QueryList.Add(String.Format("{0}={1}", KVP.Key, KVP.Value));
+                QueryList.Add(String.Format("{0}={1}", KVP.Key.ToLowerInvariant(), KVP.Value));
 
             RequestBuilder.Query = String.Join("&", QueryList);
 
-            Log.Debug(String.Format("RPC Request: {0}", RequestBuilder.Uri));
+            Log.Debug(String.Format("AuthRPC Request: {0}", RequestBuilder.Uri));
 
             using (WebClient HttpRequest = new WebClient())
             {
@@ -60,8 +65,25 @@ namespace FoM.Launcher
         {
             return new AuthenticateResult();
         }
-        private class Token
+        public class Token
         {
+            [XmlElement("id")]
+            public Guid ID;
+            [XmlElement("created")]
+            public DateTime Created;
+            [XmlElement("expires")]
+            public DateTime Expires;
+            [XmlElement("username")]
+            public string Username;
+            [XmlElement("remoteIP")]
+            public string RemoteIP;
+            [XmlElement("active")]
+            public bool Active;
+
+            public override string ToString()
+            {
+                return String.Format("{0:B} {1}@{2}{3}", this.ID, this.Username, this.RemoteIP, (this.Active? "":" [INACTIVE]"));
+            }
         }
         private class AuthenticateResult
         {
@@ -69,7 +91,16 @@ namespace FoM.Launcher
     }
     public class RPCEnvelope
     {
-        public string status;
-        public string content;
+        [XmlElement("status")]
+        public StatusEnum Status;
+        [XmlElement("token")]
+        public AuthenticationRPC.Token Token;
+        public enum StatusEnum
+        {
+            [XmlEnum("error")]
+            Error,
+            [XmlEnum("success")]
+            Success
+        }
     }
 }
