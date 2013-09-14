@@ -48,7 +48,7 @@ namespace FoM.Generator
         {
             //log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("FoM.Launcher.Resources.log4netConfig.xml"));
 
-            FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/generator.xml");
+            FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/generator-alpha.xml");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
