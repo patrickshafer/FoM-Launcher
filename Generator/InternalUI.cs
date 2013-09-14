@@ -163,6 +163,7 @@ namespace FoM.Generator
             else
             {
                 W6Wait.Visible = true;
+                this.Refresh();
                 PatchLib.PatchManager.CreatePatch(LocalFolder.Text.Trim(), StagingFolder.Text.Trim(), Channel.Text.Trim(), PatchURL.Text.Trim());
                 MessageBox.Show("Patch Created", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 System.Diagnostics.Process.Start(StagingFolder.Text.Trim());
