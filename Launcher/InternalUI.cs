@@ -17,6 +17,7 @@ namespace FoM.Launcher
         private Timer LogTimer = new Timer();
         private log4net.Appender.MemoryAppender LogAppender;
         private PatchRunMode RunMode;
+        private string UpdateURL = string.Empty;
 
         public InternalUI()
         {
@@ -81,24 +82,44 @@ namespace FoM.Launcher
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
             PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
 
-            GetLogin();
-            //StartUpdateCheckAsync();
+            this.StartUpdate();
         }
 
-        private void GetLogin()
+        private void StartUpdate()
         {
+            if(this.UpdateURL == string.Empty)
+                this.UpdateURL = GetLogin();
+            if (this.UpdateURL != string.Empty)
+                StartUpdateCheckAsync(this.UpdateURL);
+        }
+
+        private string GetLogin()
+        {
+            AuthenticationRPC.AuthenticateResult LoginResult = new AuthenticationRPC.AuthenticateResult();
+            DialogResult WindowResult = new DialogResult();
+            string UpdateURL = string.Empty;
             using (Login LoginDialog = new Login())
             {
-                if (LoginDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                do
                 {
-                    AuthenticationRPC.Login(LoginDialog.Username, LoginDialog.Password);
-                }
+                    WindowResult = LoginDialog.ShowDialog(this);
+                    if (WindowResult == System.Windows.Forms.DialogResult.OK)
+                    {
+                        LoginResult = AuthenticationRPC.Login(LoginDialog.Username, LoginDialog.Password);
+                        if (LoginResult.Status == RPCEnvelope.StatusEnum.Error)
+                            MessageBox.Show(LoginResult.ErrorMessage, "Login Failure", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        else
+                            UpdateURL = LoginResult.UpdateURL;
+                    }
+
+                } while (WindowResult == System.Windows.Forms.DialogResult.OK && LoginResult.Status == RPCEnvelope.StatusEnum.Error);
             }
+
+            return UpdateURL;
         }
 
-        private void StartUpdateCheckAsync()
+        private void StartUpdateCheckAsync(string ManifestURL)
         {
-            string ManifestURL = "http://patch.patrickshafer.com/fom.xml";
             string LocalFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
             StartButton.Text = "Cancel";
@@ -142,7 +163,7 @@ namespace FoM.Launcher
             switch (RunMode)
             {
                 case PatchRunMode.None:
-                    StartUpdateCheckAsync();
+                    this.StartUpdate();
                     break;
                 case PatchRunMode.UpdateCheck:
                     PatchManager.UpdateCheckCancel();

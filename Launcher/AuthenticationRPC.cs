@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net;
 using System.Xml.Serialization;
+using System.Security.Cryptography;
 
 namespace FoM.Launcher
 {
@@ -14,12 +15,30 @@ namespace FoM.Launcher
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private static readonly string RPCEndPoint = @"http://staff.fomportal.com/launcher-login/login-alpha.php";
 
-        public static void Login(string Username, string Password)
+        public static AuthenticateResult Login(string Username, string Password)
         {
             Log.Debug(String.Format("Starting Login() for {0}", Username));
-            
+
             Token UserToken = AuthenticationRPC.GetTokenRPC(Username);
-            Log.Debug(UserToken);
+            Log.Debug(String.Format("Got Token for user: {0}", UserToken));
+
+            string Hash = MD5Hash(String.Format("{0}:{1}", UserToken.ID, MD5Hash(Password)));
+            AuthenticateResult Result = AuthenticationRPC.AuthenticateRPC(UserToken, Hash);
+            Log.Info(String.Format("Result: {0} - {1}", Result.Status, (Result.Status == RPCEnvelope.StatusEnum.Success ? Result.UpdateURL : Result.ErrorMessage)));
+
+            return Result;
+        }
+        private static string MD5Hash(string Input)
+        {
+            MD5 Hasher = MD5.Create();
+            byte[] InputBytes = Encoding.ASCII.GetBytes(Input);
+            byte[] HashBytes = Hasher.ComputeHash(InputBytes);
+
+            StringBuilder HashBuilder = new StringBuilder();
+            foreach (byte HashByte in HashBytes)
+                HashBuilder.Append(HashByte.ToString("x2"));
+
+            return HashBuilder.ToString();
         }
 
         private static Token GetTokenRPC(string Username)
@@ -34,6 +53,16 @@ namespace FoM.Launcher
                 RetVal = Result.Token;
 
             return RetVal;
+        }
+        private static AuthenticateResult AuthenticateRPC(Token UserToken, string Hash)
+        {
+            Dictionary<string, string> Params = new Dictionary<string, string>();
+            Params.Add("UserToken", UserToken.ID.ToString());
+            Params.Add("Hash", Hash);
+
+            RPCEnvelope Result = RPCCall("Authenticate", Params);
+
+            return Result.Authenticate;
         }
 
         private static RPCEnvelope RPCCall(string Method, Dictionary<string, string> Params)
@@ -61,14 +90,11 @@ namespace FoM.Launcher
             }
             return ResultMessage;
         }
-        private static AuthenticateResult AuthenticateRPC(Token UserToken, string Hash)
-        {
-            return new AuthenticateResult();
-        }
+
         public class Token
         {
             [XmlElement("id")]
-            public Guid ID;
+            public string ID;
             [XmlElement("created")]
             public DateTime Created;
             [XmlElement("expires")]
@@ -85,8 +111,14 @@ namespace FoM.Launcher
                 return String.Format("{0:B} {1}@{2}{3}", this.ID, this.Username, this.RemoteIP, (this.Active? "":" [INACTIVE]"));
             }
         }
-        private class AuthenticateResult
+        public class AuthenticateResult
         {
+            [XmlElement("status")]
+            public RPCEnvelope.StatusEnum Status;
+            [XmlElement("message")]
+            public string ErrorMessage;
+            [XmlElement("updateURL")]
+            public string UpdateURL;
         }
     }
     public class RPCEnvelope
@@ -95,6 +127,9 @@ namespace FoM.Launcher
         public StatusEnum Status;
         [XmlElement("token")]
         public AuthenticationRPC.Token Token;
+        [XmlElement("authenticate")]
+        public AuthenticationRPC.AuthenticateResult Authenticate;
+
         public enum StatusEnum
         {
             [XmlEnum("error")]
