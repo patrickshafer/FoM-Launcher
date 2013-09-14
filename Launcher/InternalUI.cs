@@ -135,10 +135,9 @@ namespace FoM.Launcher
 
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
         {
-            MessageBox.Show("Patch Complete", "Result", MessageBoxButtons.OK, MessageBoxIcon.Information);
             PatchProgress.Value = 0;
             StartButton.Text = "Start";
-            RunMode = PatchRunMode.None;
+            RunMode = PatchRunMode.Ready;
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
@@ -151,15 +150,13 @@ namespace FoM.Launcher
             }
             else
             {
-                RunMode = PatchRunMode.None;
+                RunMode = PatchRunMode.Ready;
                 StartButton.Text = "Start";
             }
         }
 
         private void StartButton_Click(object sender, EventArgs e)
         {
-            //-rez Resources -dpsmagic 1 +windowed 1
-            //may need a checkbox for windowed mode
             switch (RunMode)
             {
                 case PatchRunMode.None:
@@ -177,6 +174,17 @@ namespace FoM.Launcher
                     StartButton.Text = "Start";
                     RunMode = PatchRunMode.None;
                     break;
+                case PatchRunMode.Ready:
+                    if (System.IO.File.Exists("fom_client.exe"))
+                        System.Diagnostics.Process.Start("fom_client.exe", "-rez Resources -dpsmagic 1 +windowed 1");
+                    else
+                    {
+                        Log.Error("Unable to launch fom_client.exe, it does not exist");
+                        MessageBox.Show("Unable to launch fom_client.exe, it does not exist", "Game launch", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    //-rez Resources -dpsmagic 1 +windowed 1
+                    //may need a checkbox for windowed mode
+                    break;
                 default:
                     break;
             }
@@ -185,7 +193,8 @@ namespace FoM.Launcher
         {
             None,
             UpdateCheck,
-            ApplyUpdate
+            ApplyUpdate,
+            Ready
         }
     }
 }
