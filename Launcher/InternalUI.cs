@@ -176,7 +176,10 @@ namespace FoM.Launcher
                     break;
                 case PatchRunMode.Ready:
                     if (System.IO.File.Exists("fom_client.exe"))
+                    {
                         System.Diagnostics.Process.Start("fom_client.exe", "-rez Resources -dpsmagic 1 +windowed 1");
+                        Application.Exit();
+                    }
                     else
                     {
                         Log.Error("Unable to launch fom_client.exe, it does not exist");
