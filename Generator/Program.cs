@@ -52,7 +52,7 @@ namespace FoM.Generator
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new DevUI());
+            Application.Run(new InternalUI());
         }
     }
 }
