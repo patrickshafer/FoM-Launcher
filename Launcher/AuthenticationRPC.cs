@@ -13,7 +13,7 @@ namespace FoM.Launcher
     public class AuthenticationRPC
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly string RPCEndPoint = @"http://staff.fomportal.com/launcher-login/login-live.php";
+        private static readonly string RPCEndPoint = @"http://staff.fomportal.com/launcher-login/login-alpha.php";
 
         public static AuthenticateResult Login(string Username, string Password)
         {
