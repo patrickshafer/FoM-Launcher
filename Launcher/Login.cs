@@ -41,6 +41,11 @@ namespace FoM.Launcher
                 }
             }
         }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            this.PasswordText.Text = string.Empty;
+        }
         //forgot password: System.Diagnostics.Process.Start(@"http://www.faceofmankind.com/account/reset");
     }
 }
