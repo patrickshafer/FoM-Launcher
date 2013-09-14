@@ -44,15 +44,15 @@
             this.StagingFolder = new System.Windows.Forms.TextBox();
             this.W3Instructions = new System.Windows.Forms.Label();
             this.Wizard4 = new System.Windows.Forms.Panel();
-            this.W4Instructions = new System.Windows.Forms.Label();
             this.Channel = new System.Windows.Forms.ComboBox();
+            this.W4Instructions = new System.Windows.Forms.Label();
             this.Wizard5 = new System.Windows.Forms.Panel();
-            this.W5Intro = new System.Windows.Forms.Label();
             this.PatchURL = new System.Windows.Forms.TextBox();
+            this.W5Intro = new System.Windows.Forms.Label();
             this.Wizard6 = new System.Windows.Forms.Panel();
-            this.W6Intro = new System.Windows.Forms.Label();
-            this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Wait = new System.Windows.Forms.Label();
+            this.BtnCreate = new System.Windows.Forms.Button();
+            this.W6Intro = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
             this.Wizard1.SuspendLayout();
             this.Wizard2.SuspendLayout();
@@ -203,6 +203,19 @@
             this.Wizard4.Size = new System.Drawing.Size(385, 266);
             this.Wizard4.TabIndex = 8;
             // 
+            // Channel
+            // 
+            this.Channel.FormattingEnabled = true;
+            this.Channel.Items.AddRange(new object[] {
+            "fom-alpha",
+            "launcher-alpha",
+            "generator-alpha"});
+            this.Channel.Location = new System.Drawing.Point(88, 222);
+            this.Channel.Name = "Channel";
+            this.Channel.Size = new System.Drawing.Size(196, 21);
+            this.Channel.TabIndex = 1;
+            this.Channel.Text = "fom-alpha";
+            // 
             // W4Instructions
             // 
             this.W4Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -211,20 +224,6 @@
             this.W4Instructions.Size = new System.Drawing.Size(379, 210);
             this.W4Instructions.TabIndex = 0;
             this.W4Instructions.Text = resources.GetString("W4Instructions.Text");
-            // 
-            // Channel
-            // 
-            this.Channel.FormattingEnabled = true;
-            this.Channel.Items.AddRange(new object[] {
-            "fom",
-            "test",
-            "launcher",
-            "generator"});
-            this.Channel.Location = new System.Drawing.Point(88, 222);
-            this.Channel.Name = "Channel";
-            this.Channel.Size = new System.Drawing.Size(196, 21);
-            this.Channel.TabIndex = 1;
-            this.Channel.Text = "fom";
             // 
             // Wizard5
             // 
@@ -235,6 +234,14 @@
             this.Wizard5.Size = new System.Drawing.Size(385, 266);
             this.Wizard5.TabIndex = 9;
             // 
+            // PatchURL
+            // 
+            this.PatchURL.Location = new System.Drawing.Point(21, 158);
+            this.PatchURL.Name = "PatchURL";
+            this.PatchURL.Size = new System.Drawing.Size(340, 20);
+            this.PatchURL.TabIndex = 1;
+            this.PatchURL.Text = "http://patch.patrickshafer.com/";
+            // 
             // W5Intro
             // 
             this.W5Intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -243,14 +250,6 @@
             this.W5Intro.Size = new System.Drawing.Size(379, 121);
             this.W5Intro.TabIndex = 0;
             this.W5Intro.Text = resources.GetString("W5Intro.Text");
-            // 
-            // PatchURL
-            // 
-            this.PatchURL.Location = new System.Drawing.Point(21, 158);
-            this.PatchURL.Name = "PatchURL";
-            this.PatchURL.Size = new System.Drawing.Size(340, 20);
-            this.PatchURL.TabIndex = 1;
-            this.PatchURL.Text = "http://patch.patrickshafer.com/";
             // 
             // Wizard6
             // 
@@ -262,15 +261,16 @@
             this.Wizard6.Size = new System.Drawing.Size(385, 266);
             this.Wizard6.TabIndex = 10;
             // 
-            // W6Intro
+            // W6Wait
             // 
-            this.W6Intro.AutoSize = true;
-            this.W6Intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.W6Intro.Location = new System.Drawing.Point(141, 9);
-            this.W6Intro.Name = "W6Intro";
-            this.W6Intro.Size = new System.Drawing.Size(81, 17);
-            this.W6Intro.TabIndex = 0;
-            this.W6Intro.Text = "Execution...";
+            this.W6Wait.Location = new System.Drawing.Point(67, 108);
+            this.W6Wait.Name = "W6Wait";
+            this.W6Wait.Size = new System.Drawing.Size(269, 61);
+            this.W6Wait.TabIndex = 2;
+            this.W6Wait.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
+    "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
+    "il this is complete.";
+            this.W6Wait.Visible = false;
             // 
             // BtnCreate
             // 
@@ -282,16 +282,15 @@
             this.BtnCreate.UseVisualStyleBackColor = true;
             this.BtnCreate.Click += new System.EventHandler(this.BtnCreate_Click);
             // 
-            // W6Wait
+            // W6Intro
             // 
-            this.W6Wait.Location = new System.Drawing.Point(67, 108);
-            this.W6Wait.Name = "W6Wait";
-            this.W6Wait.Size = new System.Drawing.Size(269, 61);
-            this.W6Wait.TabIndex = 2;
-            this.W6Wait.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
-    "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
-    "il this is complete.";
-            this.W6Wait.Visible = false;
+            this.W6Intro.AutoSize = true;
+            this.W6Intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W6Intro.Location = new System.Drawing.Point(141, 9);
+            this.W6Intro.Name = "W6Intro";
+            this.W6Intro.Size = new System.Drawing.Size(81, 17);
+            this.W6Intro.TabIndex = 0;
+            this.W6Intro.Text = "Execution...";
             // 
             // InternalUI
             // 
