@@ -137,7 +137,11 @@ namespace FoM.Launcher
         {
             PatchProgress.Value = 0;
             StartButton.Text = "Start";
-            RunMode = PatchRunMode.Ready;
+            if (RunMode == PatchRunMode.ApplyUpdate)
+            {
+                StartButton.Text = "Launch";
+                RunMode = PatchRunMode.Ready;
+            }
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
@@ -151,7 +155,7 @@ namespace FoM.Launcher
             else
             {
                 RunMode = PatchRunMode.Ready;
-                StartButton.Text = "Start";
+                StartButton.Text = "Launch";
             }
         }
 
