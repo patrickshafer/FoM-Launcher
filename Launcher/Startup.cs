@@ -19,7 +19,12 @@ namespace FoM.Launcher
 
             Log.Info(String.Format("Launcher starting {0}", Application.ProductVersion));
 
+#if DEBUG
+            FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher-alpha-debug.xml");
+#else
+
             FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher-alpha.xml");
+#endif
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
