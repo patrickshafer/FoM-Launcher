@@ -240,7 +240,7 @@
             this.PatchURL.Name = "PatchURL";
             this.PatchURL.Size = new System.Drawing.Size(340, 20);
             this.PatchURL.TabIndex = 1;
-            this.PatchURL.Text = "http://199.192.201.38/";
+            this.PatchURL.Text = "http://gamedev.fom.nexeontech.com/";
             // 
             // W5Intro
             // 
