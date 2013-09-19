@@ -43,11 +43,10 @@ namespace FoM.PatchLib
         }
         private void FileListGC()
         {
-            foreach (KeyValuePair<string, FSNode> Target in this.NodeList)
-            {
-                if (Target.Value.Expires < DateTime.UtcNow)
-                    this.NodeList.Remove(Target.Key);
-            }
+            if (this.NodeList != null)
+                foreach (KeyValuePair<string, FSNode> Target in this.NodeList)
+                    if (Target.Value.Expires < DateTime.UtcNow)
+                        this.NodeList.Remove(Target.Key);
         }
         internal void Save()
         {
@@ -83,6 +82,7 @@ namespace FoM.PatchLib
     public class FSNode
     {
         public string FileName;
+        public string Hash;
         public DateTime Expires;
         public DateTime CreatedDate;
         public DateTime ModifiedDate;
@@ -91,9 +91,11 @@ namespace FoM.PatchLib
         {
             this.Expires = DateTime.UtcNow.AddDays(1);          //1 day for testing, will increase it as stability is proven
         }
-        public FSNode(string FileName, DateTime CreatedDate, DateTime ModifiedDate) : this()
+
+        public FSNode(string FileName, string Hash, DateTime CreatedDate, DateTime ModifiedDate) : this()
         {
             this.FileName = FileName;
+            this.Hash = Hash;
             this.CreatedDate = CreatedDate;
             this.ModifiedDate = ModifiedDate;
         }

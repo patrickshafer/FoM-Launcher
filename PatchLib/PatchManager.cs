@@ -222,8 +222,8 @@ namespace FoM.PatchLib
                     NeedsUpdate = true;
                 }
             }
-            if(!NeedsUpdate)
-                FSCache.GetInstance().Save();
+            
+            FSCache.GetInstance().Save();
 
             PatchManifest.NeedsUpdate = NeedsUpdate;
             Log.Debug(String.Format("PatchManifest.NeedsUpdate: {0:true;0;False}", PatchManifest.NeedsUpdate));
