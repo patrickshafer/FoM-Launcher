@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="DownloadManager.cs" />
     <Compile Include="FileNode.cs" />
+    <Compile Include="FSCache.cs" />
     <Compile Include="Manifest.cs" />
     <Compile Include="PatchManager.cs" />
     <Compile Include="PatchManagerEvents.cs" />

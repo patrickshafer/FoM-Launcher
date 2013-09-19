@@ -26,6 +26,7 @@ namespace FoM.Launcher
 
         private void InternalUI_Load(object sender, EventArgs e)
         {
+            this.Text = String.Format("{0} - {1}", Application.ProductName, Application.ProductVersion);
             this.InitializeLogOutput();
         }
 
@@ -109,7 +110,12 @@ namespace FoM.Launcher
                         if (LoginResult.Status == RPCEnvelope.StatusEnum.Error)
                             MessageBox.Show(LoginResult.ErrorMessage, "Login Failure", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         else
+#if DEBUG
+                            //UpdateURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
                             UpdateURL = LoginResult.UpdateURL;
+#else
+                            UpdateURL = LoginResult.UpdateURL;
+#endif
                     }
 
                 } while (WindowResult == System.Windows.Forms.DialogResult.OK && LoginResult.Status == RPCEnvelope.StatusEnum.Error);

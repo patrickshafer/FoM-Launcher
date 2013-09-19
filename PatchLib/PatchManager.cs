@@ -208,6 +208,8 @@ namespace FoM.PatchLib
             foreach (FileNode PatchFile in PatchManifest.FileList)
                 PatchFile.LocalFilePath = Path.Combine(LocalFolder, PatchFile.RemoteFileName);
 
+            FSCache.Load();
+
             for (int i = 0; (i < PatchManifest.FileList.Count) && !NeedsUpdate && !CancelRequested; i++)
             {
                 if (UpdateCheckBW != null)
@@ -220,6 +222,8 @@ namespace FoM.PatchLib
                     NeedsUpdate = true;
                 }
             }
+            if(!NeedsUpdate)
+                FSCache.GetInstance().Save();
 
             PatchManifest.NeedsUpdate = NeedsUpdate;
             Log.Debug(String.Format("PatchManifest.NeedsUpdate: {0:true;0;False}", PatchManifest.NeedsUpdate));

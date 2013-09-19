@@ -22,7 +22,6 @@ namespace FoM.Launcher
 #if DEBUG
             FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher-alpha-debug.xml");
 #else
-
             FoM.PatchLib.PatchManager.ApplicationStart("http://patch.patrickshafer.com/launcher-alpha.xml");
 #endif
 

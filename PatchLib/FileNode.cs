@@ -12,12 +12,14 @@ namespace FoM.PatchLib
     [XmlType("File")]
     public class FileNode
     {
-        [XmlIgnore]
         public string LocalFilePath;
-        [XmlIgnore]
         private string _LocalMD5Hash;
-        [XmlIgnore]
         private long _LocalSize;
+        private DateTime _LocalCreatedDate;
+        private DateTime _CachedCreatedDate;
+        private DateTime _LocalModifiedDate;
+        private DateTime _CachedModifiedDate;
+        
         [XmlIgnore]
         public bool NeedsUpdate;
         [XmlElement("FileName")]
@@ -46,7 +48,7 @@ namespace FoM.PatchLib
             get
             {
                 if (this._LocalSize == 0)
-                    this.getLocalSize();
+                    this.populateLocalFSInfo();
                 return this._LocalSize;
             }
         }
@@ -60,14 +62,25 @@ namespace FoM.PatchLib
         public bool CheckUpdate()
         {
             bool RetVal = false;
+            bool NeedsMD5 = false;
 
             if (!File.Exists(this.LocalFilePath))
                 RetVal = true;
             if (!RetVal && (this.LocalSize != this.RemoteSize))
                 RetVal = true;
-            if (!RetVal && (this.LocalMD5Hash != this.RemoteMD5Hash))
-                RetVal = true;
-
+            if (!RetVal)
+                this.populateCacheDates();
+            if(!RetVal && (this._LocalCreatedDate != this._CachedCreatedDate))
+                NeedsMD5 = true;
+            if (!RetVal && (this._LocalModifiedDate != this._CachedModifiedDate))
+                NeedsMD5 = true;
+            if (!RetVal && NeedsMD5)
+            {
+                if (this.LocalMD5Hash != this.RemoteMD5Hash)
+                    RetVal = true;
+                else
+                    this.setCacheDates();
+            }
 
             this.NeedsUpdate = RetVal;
             return RetVal;
@@ -81,14 +94,13 @@ namespace FoM.PatchLib
             if(!Directory.Exists(Path.GetDirectoryName(this.LocalFilePath)))
                 Directory.CreateDirectory(Path.GetDirectoryName(this.LocalFilePath));
 
-            //Log.Debug(String.Format("Downloading {0} to {1}", this.RemoteURL, this.LocalFilePath));
-            //Downloader.DownloadFile(this.RemoteURL, this.LocalFilePath);
-
             DownloadManager.AddItem(this);
             DownloadManager.ProcessQueue();
             
             this._LocalMD5Hash = string.Empty;
             this._LocalSize = 0;
+            this._LocalCreatedDate = DateTime.MinValue;
+            this._LocalModifiedDate = DateTime.MinValue;
             this.NeedsUpdate = false;
         }
 
@@ -105,10 +117,29 @@ namespace FoM.PatchLib
             this._LocalMD5Hash = StringBuffer.ToString().ToUpperInvariant();
             Log.Debug(String.Format("{0}-MD5: {1}", this.LocalFilePath, this.LocalMD5Hash));
         }
-        private void getLocalSize()
+        private void populateLocalFSInfo()
         {
             FileInfo MyInfo = new FileInfo(this.LocalFilePath);
             this._LocalSize = MyInfo.Length;
+            this._LocalCreatedDate = MyInfo.CreationTimeUtc;
+            this._LocalModifiedDate = MyInfo.LastWriteTimeUtc;
+        }
+        private void setCacheDates()
+        {
+            FileInfo MyInfo = new FileInfo(this.LocalFilePath);
+            this._CachedCreatedDate = MyInfo.CreationTimeUtc;
+            this._CachedModifiedDate = MyInfo.LastWriteTimeUtc;
+
+            FSCache.GetInstance().AddUpdate(new FSNode(this.LocalFilePath, this._CachedCreatedDate, this._CachedModifiedDate));
+        }
+        private void populateCacheDates()
+        {
+            FSNode Node = FSCache.GetInstance().GetNode(this.LocalFilePath);
+            if (Node != null)
+            {
+                this._CachedCreatedDate = Node.CreatedDate;
+                this._CachedModifiedDate = Node.ModifiedDate;
+            }
         }
     }
 }
