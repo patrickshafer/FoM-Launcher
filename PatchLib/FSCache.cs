@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace FoM.PatchLib
 {
+    [Serializable]
     public class FSCache
     {
-        public List<FSNode> SaveList;
-        
         private Dictionary<string, FSNode> NodeList;
         private static FSCache ThisInstance;
 
@@ -34,13 +34,7 @@ namespace FoM.PatchLib
         {
             FSNode RetVal = null;
             if (this.NodeList == null)
-            {
                 this.NodeList = new Dictionary<string, FSNode>();
-                if (this.SaveList != null)
-                    foreach (FSNode Item in this.SaveList)
-                        if(!this.NodeList.ContainsKey(Item.FileName))
-                            this.NodeList.Add(Item.FileName, Item);
-            }
 
             if(this.NodeList.ContainsKey(FileName))
                 if(this.NodeList[FileName].Expires > DateTime.UtcNow)
@@ -57,28 +51,35 @@ namespace FoM.PatchLib
         }
         internal void Save()
         {
-            this.SaveList = new List<FSNode>(this.NodeList.Count);
-            foreach (KeyValuePair<string, FSNode> Item in this.NodeList)
-                SaveList.Add(Item.Value);
-
-            using (StreamWriter OutputStream = new StreamWriter("FSCache.xml"))
+            if (new Random().Next(0, 100) <= 2)             //2% chance to garbage collect
+                this.FileListGC();
+            using (Stream OutputStream = new FileStream("FSCache.bin", FileMode.Create, FileAccess.Write, FileShare.None))
             {
-                XmlSerializer Serializer = new XmlSerializer(typeof(FSCache));
-                Serializer.Serialize(OutputStream, this);
+                IFormatter formatter = new BinaryFormatter();
+                formatter.Serialize(OutputStream, this);
             }
         }
         internal static void Load()
         {
-            if (File.Exists("FSCache.xml"))
+            if (File.Exists("FSCache.bin"))
             {
-                using (StreamReader InputStream = new StreamReader(File.OpenRead("FSCache.xml")))
+                try
                 {
-                    XmlSerializer Serializer = new XmlSerializer(typeof(FSCache));
-                    FSCache.ThisInstance = (FSCache)Serializer.Deserialize(InputStream);
+                    using (Stream InputStream = new FileStream("FSCache.bin", FileMode.Open, FileAccess.Read, FileShare.Read))
+                    {
+                        IFormatter formatter = new BinaryFormatter();
+                        FSCache.ThisInstance = (FSCache)formatter.Deserialize(InputStream);
+                    }
                 }
+                catch (Exception)
+                {
+                    File.Delete("FSCache.bin");
+                }
+                
             }
         }
     }
+    [Serializable]
     public class FSNode
     {
         public string FileName;
