@@ -111,8 +111,7 @@ namespace FoM.Launcher
                             MessageBox.Show(LoginResult.ErrorMessage, "Login Failure", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         else
 #if DEBUG
-                            //UpdateURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
-                            UpdateURL = LoginResult.UpdateURL;
+                            UpdateURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
 #else
                             UpdateURL = LoginResult.UpdateURL;
 #endif
