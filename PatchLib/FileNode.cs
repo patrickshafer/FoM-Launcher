@@ -13,8 +13,9 @@ namespace FoM.PatchLib
     public class FileNode
     {
         public string LocalFilePath;
-        private string _LocalMD5Hash;
         private long _LocalSize;
+        private string _LocalMD5Hash;
+        private string _CachedMD5Hash;
         private DateTime _LocalCreatedDate;
         private DateTime _CachedCreatedDate;
         private DateTime _LocalModifiedDate;
@@ -69,7 +70,9 @@ namespace FoM.PatchLib
             if (!RetVal && (this.LocalSize != this.RemoteSize))
                 RetVal = true;
             if (!RetVal)
-                this.populateCacheDates();
+                this.populateCacheData();
+            if (!RetVal && (this.RemoteMD5Hash != this._CachedMD5Hash))
+                NeedsMD5 = true;
             if(!RetVal && (this._LocalCreatedDate != this._CachedCreatedDate))
                 NeedsMD5 = true;
             if (!RetVal && (this._LocalModifiedDate != this._CachedModifiedDate))
@@ -79,7 +82,7 @@ namespace FoM.PatchLib
                 if (this.LocalMD5Hash != this.RemoteMD5Hash)
                     RetVal = true;
                 else
-                    this.setCacheDates();
+                    this.setCacheData();
             }
 
             this.NeedsUpdate = RetVal;
@@ -124,21 +127,22 @@ namespace FoM.PatchLib
             this._LocalCreatedDate = MyInfo.CreationTimeUtc;
             this._LocalModifiedDate = MyInfo.LastWriteTimeUtc;
         }
-        private void setCacheDates()
+        private void setCacheData()
         {
             FileInfo MyInfo = new FileInfo(this.LocalFilePath);
             this._CachedCreatedDate = MyInfo.CreationTimeUtc;
             this._CachedModifiedDate = MyInfo.LastWriteTimeUtc;
 
-            FSCache.GetInstance().AddUpdate(new FSNode(this.LocalFilePath, this._CachedCreatedDate, this._CachedModifiedDate));
+            FSCache.GetInstance().AddUpdate(new FSNode(this.LocalFilePath, this.LocalMD5Hash, this._CachedCreatedDate, this._CachedModifiedDate));
         }
-        private void populateCacheDates()
+        private void populateCacheData()
         {
             FSNode Node = FSCache.GetInstance().GetNode(this.LocalFilePath);
             if (Node != null)
             {
                 this._CachedCreatedDate = Node.CreatedDate;
                 this._CachedModifiedDate = Node.ModifiedDate;
+                this._CachedMD5Hash = Node.Hash;
             }
         }
     }
