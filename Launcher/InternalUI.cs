@@ -26,6 +26,7 @@ namespace FoM.Launcher
 
         private void InternalUI_Load(object sender, EventArgs e)
         {
+            this.Text = String.Format("{0} - {1}", Application.ProductName, Application.ProductVersion);
             this.InitializeLogOutput();
         }
 
