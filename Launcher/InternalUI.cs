@@ -110,11 +110,7 @@ namespace FoM.Launcher
                         if (LoginResult.Status == RPCEnvelope.StatusEnum.Error)
                             MessageBox.Show(LoginResult.ErrorMessage, "Login Failure", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         else
-#if DEBUG
-                            UpdateURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
-#else
                             UpdateURL = LoginResult.UpdateURL;
-#endif
                     }
 
                 } while (WindowResult == System.Windows.Forms.DialogResult.OK && LoginResult.Status == RPCEnvelope.StatusEnum.Error);
