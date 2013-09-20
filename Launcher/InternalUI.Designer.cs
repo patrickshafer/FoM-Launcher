@@ -32,6 +32,7 @@
             this.OutputBox = new System.Windows.Forms.TextBox();
             this.PatchProgress = new System.Windows.Forms.ProgressBar();
             this.StartButton = new System.Windows.Forms.Button();
+            this.OptionsButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // OutputBox
@@ -50,9 +51,9 @@
             // 
             this.PatchProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.PatchProgress.Location = new System.Drawing.Point(12, 277);
+            this.PatchProgress.Location = new System.Drawing.Point(93, 277);
             this.PatchProgress.Name = "PatchProgress";
-            this.PatchProgress.Size = new System.Drawing.Size(479, 23);
+            this.PatchProgress.Size = new System.Drawing.Size(398, 23);
             this.PatchProgress.TabIndex = 1;
             // 
             // StartButton
@@ -66,11 +67,22 @@
             this.StartButton.UseVisualStyleBackColor = true;
             this.StartButton.Click += new System.EventHandler(this.StartButton_Click);
             // 
+            // OptionsButton
+            // 
+            this.OptionsButton.Location = new System.Drawing.Point(12, 277);
+            this.OptionsButton.Name = "OptionsButton";
+            this.OptionsButton.Size = new System.Drawing.Size(75, 23);
+            this.OptionsButton.TabIndex = 4;
+            this.OptionsButton.Text = "Options";
+            this.OptionsButton.UseVisualStyleBackColor = true;
+            this.OptionsButton.Click += new System.EventHandler(this.OptionsButton_Click);
+            // 
             // InternalUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(584, 312);
+            this.Controls.Add(this.OptionsButton);
             this.Controls.Add(this.StartButton);
             this.Controls.Add(this.PatchProgress);
             this.Controls.Add(this.OutputBox);
@@ -90,5 +102,6 @@
         private System.Windows.Forms.TextBox OutputBox;
         private System.Windows.Forms.ProgressBar PatchProgress;
         private System.Windows.Forms.Button StartButton;
+        private System.Windows.Forms.Button OptionsButton;
     }
 }
