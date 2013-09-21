@@ -182,7 +182,9 @@ namespace FoM.Launcher
                 case PatchRunMode.Ready:
                     if (System.IO.File.Exists("fom_client.exe"))
                     {
-                        System.Diagnostics.Process.Start("fom_client.exe", "-rez Resources -dpsmagic 1 +windowed 1");
+                        Preferences PrefData = Preferences.Load();
+                        string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
+                        System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
                         Application.Exit();
                     }
                     else
@@ -209,7 +211,7 @@ namespace FoM.Launcher
         {
             using (PreferencesUI PrefDialog = new PreferencesUI())
             {
-                Preferences PrefData = Preferences.Load("Launcher.prf");
+                Preferences PrefData = Preferences.Load();
 
                 PrefDialog.LauncherURL = PrefData.LauncherURL;
                 PrefDialog.WindowedMode = PrefData.WindowedMode;
@@ -220,7 +222,7 @@ namespace FoM.Launcher
                     PrefData.LauncherURL = PrefDialog.LauncherURL;
                     PrefData.WindowedMode = PrefDialog.WindowedMode;
                     PrefData.AutoLaunch = PrefDialog.AutoLaunch;
-                    PrefData.Save("Launcher.prf");
+                    PrefData.Save();
                 }
             }
         }

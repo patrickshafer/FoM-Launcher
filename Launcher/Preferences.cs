@@ -21,6 +21,10 @@ namespace FoM.Launcher
             this.AutoLaunch = AutoLaunch;
         }
         public Preferences() { }
+        internal static Preferences Load()
+        {
+            return Preferences.Load("Launcher.prf");
+        }
         internal static Preferences Load(string FileName)
         {
             Preferences RetVal;
@@ -39,6 +43,10 @@ namespace FoM.Launcher
             RetVal.LauncherURL = @"http://patch.patrickshafer.com/launcher-alpha.xml";
 #endif
             return RetVal;
+        }
+        internal void Save()
+        {
+            this.Save("Launcher.prf");
         }
         internal void Save(string FileName)
         {
