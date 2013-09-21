@@ -182,7 +182,9 @@ namespace FoM.Launcher
                 case PatchRunMode.Ready:
                     if (System.IO.File.Exists("fom_client.exe"))
                     {
-                        System.Diagnostics.Process.Start("fom_client.exe", "-rez Resources -dpsmagic 1 +windowed 1");
+                        Preferences PrefData = Preferences.Load();
+                        string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
+                        System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
                         Application.Exit();
                     }
                     else
@@ -203,6 +205,26 @@ namespace FoM.Launcher
             UpdateCheck,
             ApplyUpdate,
             Ready
+        }
+
+        private void OptionsButton_Click(object sender, EventArgs e)
+        {
+            using (PreferencesUI PrefDialog = new PreferencesUI())
+            {
+                Preferences PrefData = Preferences.Load();
+
+                PrefDialog.LauncherURL = PrefData.LauncherURL;
+                PrefDialog.WindowedMode = PrefData.WindowedMode;
+                PrefDialog.AutoLaunch = PrefData.AutoLaunch;
+
+                if (PrefDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
+                {
+                    PrefData.LauncherURL = PrefDialog.LauncherURL;
+                    PrefData.WindowedMode = PrefDialog.WindowedMode;
+                    PrefData.AutoLaunch = PrefDialog.AutoLaunch;
+                    PrefData.Save();
+                }
+            }
         }
     }
 }
