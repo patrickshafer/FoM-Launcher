@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 using FoM.PatchLib;
 
 namespace FoM.Launcher
@@ -14,10 +15,11 @@ namespace FoM.Launcher
     public partial class InternalUI : Form
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private Timer LogTimer = new Timer();
+        private System.Windows.Forms.Timer LogTimer = new System.Windows.Forms.Timer();
         private log4net.Appender.MemoryAppender LogAppender;
         private PatchRunMode RunMode;
         private string UpdateURL = string.Empty;
+        private Mutex FoMMutex;
 
         public InternalUI()
         {
@@ -28,6 +30,27 @@ namespace FoM.Launcher
         {
             this.Text = String.Format("{0} - {1}", Application.ProductName, Application.ProductVersion);
             this.InitializeLogOutput();
+            this.AcquireFoMMutex();
+        }
+
+        private void AcquireFoMMutex()
+        {
+            bool LockAcquired;
+            this.FoMMutex = new Mutex(true, "fom_client.exe", out LockAcquired);
+            if (!LockAcquired)
+            {
+                Log.Error("fom_client mutex already established, terminating");
+                MessageBox.Show("Face of Mankind is running, please close it and try again", "fom_client running", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Application.Exit();
+            }
+        }
+        private void ReleaseFoMMutex()
+        {
+            if (this.FoMMutex != null)
+            {
+                this.FoMMutex.ReleaseMutex();
+                this.FoMMutex = null;
+            }
         }
 
         private void InitializeLogOutput()

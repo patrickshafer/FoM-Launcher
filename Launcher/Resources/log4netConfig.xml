@@ -3,7 +3,6 @@
   <appender name="ChainsawLogAppender" type="log4net.Appender.RollingFileAppender">
     <file value="FoM.Launcher.log.xml" />
     <appendToFile value="false" />
-    <lockingModel type="log4net.Appender.FileAppender+InterProcessLock" />
     <maxSizeRollBackups value="10" />
     <layout type="log4net.Layout.XmlLayoutSchemaLog4j">
       <locationInfo value="true" />
