@@ -50,9 +50,9 @@
             this.PatchURL = new System.Windows.Forms.TextBox();
             this.W5Intro = new System.Windows.Forms.Label();
             this.Wizard6 = new System.Windows.Forms.Panel();
-            this.W6Wait = new System.Windows.Forms.Label();
             this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Intro = new System.Windows.Forms.Label();
+            this.W6Result = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
             this.Wizard1.SuspendLayout();
             this.Wizard2.SuspendLayout();
@@ -253,7 +253,7 @@
             // 
             // Wizard6
             // 
-            this.Wizard6.Controls.Add(this.W6Wait);
+            this.Wizard6.Controls.Add(this.W6Result);
             this.Wizard6.Controls.Add(this.BtnCreate);
             this.Wizard6.Controls.Add(this.W6Intro);
             this.Wizard6.Location = new System.Drawing.Point(160, 680);
@@ -261,20 +261,9 @@
             this.Wizard6.Size = new System.Drawing.Size(385, 266);
             this.Wizard6.TabIndex = 10;
             // 
-            // W6Wait
-            // 
-            this.W6Wait.Location = new System.Drawing.Point(67, 108);
-            this.W6Wait.Name = "W6Wait";
-            this.W6Wait.Size = new System.Drawing.Size(269, 61);
-            this.W6Wait.TabIndex = 2;
-            this.W6Wait.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
-    "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
-    "il this is complete.";
-            this.W6Wait.Visible = false;
-            // 
             // BtnCreate
             // 
-            this.BtnCreate.Location = new System.Drawing.Point(131, 60);
+            this.BtnCreate.Location = new System.Drawing.Point(131, 29);
             this.BtnCreate.Name = "BtnCreate";
             this.BtnCreate.Size = new System.Drawing.Size(104, 23);
             this.BtnCreate.TabIndex = 1;
@@ -291,6 +280,18 @@
             this.W6Intro.Size = new System.Drawing.Size(81, 17);
             this.W6Intro.TabIndex = 0;
             this.W6Intro.Text = "Execution...";
+            // 
+            // W6Result
+            // 
+            this.W6Result.Location = new System.Drawing.Point(24, 67);
+            this.W6Result.Multiline = true;
+            this.W6Result.Name = "W6Result";
+            this.W6Result.Size = new System.Drawing.Size(338, 170);
+            this.W6Result.TabIndex = 3;
+            this.W6Result.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
+    "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
+    "il this is complete.";
+            this.W6Result.Visible = false;
             // 
             // InternalUI
             // 
@@ -352,8 +353,8 @@
         private System.Windows.Forms.Label W5Intro;
         private System.Windows.Forms.TextBox PatchURL;
         private System.Windows.Forms.Panel Wizard6;
-        private System.Windows.Forms.Label W6Wait;
         private System.Windows.Forms.Button BtnCreate;
         private System.Windows.Forms.Label W6Intro;
+        private System.Windows.Forms.TextBox W6Result;
     }
 }
