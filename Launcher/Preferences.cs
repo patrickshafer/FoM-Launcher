@@ -10,13 +10,29 @@ namespace FoM.Launcher
 {
     public class Preferences
     {
-        public string LauncherURL { get; set; }
+        [XmlIgnore]
+        public string LauncherURL
+        {
+            get
+            {
+                switch (this.LauncherEdition)
+                {
+                    case LauncherEditionEnum.Development:
+                        return @"http://patch.patrickshafer.com/launcher-alpha-debug.xml";
+                    case LauncherEditionEnum.Live:
+                    default:
+                        return @"http://patch.patrickshafer.com/launcher-alpha.xml";
+                }
+            }
+        }
+
+        public LauncherEditionEnum LauncherEdition { get; set; }
         public bool WindowedMode { get; set; }
         public bool AutoLaunch { get; set; }
 
-        private Preferences(string LauncherURL, bool WindowedMode, bool AutoLaunch)
+        private Preferences(LauncherEditionEnum LauncherEdition, bool WindowedMode, bool AutoLaunch)
         {
-            this.LauncherURL = LauncherURL;
+            this.LauncherEdition = LauncherEdition;
             this.WindowedMode = WindowedMode;
             this.AutoLaunch = AutoLaunch;
         }
@@ -37,11 +53,7 @@ namespace FoM.Launcher
                 }
             }
             else
-                RetVal = new Preferences(@"http://patch.patrickshafer.com/launcher-alpha.xml", true, false);
-#if !DEBUG
-            //if we're not a debug version, force the live version
-            RetVal.LauncherURL = @"http://patch.patrickshafer.com/launcher-alpha.xml";
-#endif
+                RetVal = new Preferences(LauncherEditionEnum.Live, true, false);
             return RetVal;
         }
         internal void Save()
@@ -55,6 +67,11 @@ namespace FoM.Launcher
                 XmlSerializer Serializer = new XmlSerializer(typeof(Preferences));
                 Serializer.Serialize(OutputStream, this);
             }
+        }
+        public enum LauncherEditionEnum
+        {
+            Live,
+            Development
         }
     }
 }
