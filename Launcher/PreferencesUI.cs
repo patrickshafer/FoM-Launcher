@@ -12,7 +12,29 @@ namespace FoM.Launcher
 {
     public partial class PreferencesUI : Form
     {
-        public string LauncherURL { get { return this.LauncherURLText.Text; } set { this.LauncherURLText.Text = value; } }
+        public Preferences.LauncherEditionEnum LauncherEdition
+        {
+            get
+            {
+                if (this.DevRadio.Checked)
+                    return Preferences.LauncherEditionEnum.Development;
+                else
+                    return Preferences.LauncherEditionEnum.Live;
+            }
+            set
+            {
+                switch (value)
+                {
+                    case Preferences.LauncherEditionEnum.Development:
+                        this.DevRadio.Checked = true;
+                        break;
+                    case Preferences.LauncherEditionEnum.Live:
+                    default:
+                        this.LiveRadio.Checked = true;
+                        break;
+                }
+            }
+        }
         public bool WindowedMode { get { return this.WindowedModeCheck.Checked; } set { this.WindowedModeCheck.Checked = value; } }
         public bool AutoLaunch { get { return this.AutoLaunchCheck.Checked; } set { this.AutoLaunchCheck.Checked = value; } }
 

@@ -29,6 +29,9 @@ namespace FoM.Launcher
         private void InternalUI_Load(object sender, EventArgs e)
         {
             this.Text = String.Format("{0} - {1}", Application.ProductName, Application.ProductVersion);
+#if DEBUG
+            this.Text += " DEBUG";
+#endif
             this.InitializeLogOutput();
             this.AcquireFoMMutex();
         }
@@ -236,13 +239,13 @@ namespace FoM.Launcher
             {
                 Preferences PrefData = Preferences.Load();
 
-                PrefDialog.LauncherURL = PrefData.LauncherURL;
+                PrefDialog.LauncherEdition = PrefData.LauncherEdition;
                 PrefDialog.WindowedMode = PrefData.WindowedMode;
                 PrefDialog.AutoLaunch = PrefData.AutoLaunch;
 
                 if (PrefDialog.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 {
-                    PrefData.LauncherURL = PrefDialog.LauncherURL;
+                    PrefData.LauncherEdition = PrefDialog.LauncherEdition;
                     PrefData.WindowedMode = PrefDialog.WindowedMode;
                     PrefData.AutoLaunch = PrefDialog.AutoLaunch;
                     PrefData.Save();
