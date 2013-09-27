@@ -40,6 +40,7 @@ namespace FoM.Generator
 
         void InternalUI_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Properties.Settings.Default.Save();
             if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None)
                 if (MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                     e.Cancel = true;

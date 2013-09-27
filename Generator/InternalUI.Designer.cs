@@ -37,7 +37,6 @@
             this.BtnCancel = new System.Windows.Forms.Button();
             this.Wizard2 = new System.Windows.Forms.Panel();
             this.W2Browse = new System.Windows.Forms.Button();
-            this.LocalFolder = new System.Windows.Forms.TextBox();
             this.W2Instructions = new System.Windows.Forms.Label();
             this.Wizard3 = new System.Windows.Forms.Panel();
             this.W3Browse = new System.Windows.Forms.Button();
@@ -50,9 +49,10 @@
             this.PatchURL = new System.Windows.Forms.TextBox();
             this.W5Intro = new System.Windows.Forms.Label();
             this.Wizard6 = new System.Windows.Forms.Panel();
+            this.W6Result = new System.Windows.Forms.TextBox();
             this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Intro = new System.Windows.Forms.Label();
-            this.W6Result = new System.Windows.Forms.TextBox();
+            this.LocalFolder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
             this.Wizard1.SuspendLayout();
             this.Wizard2.SuspendLayout();
@@ -140,13 +140,6 @@
             this.W2Browse.UseVisualStyleBackColor = true;
             this.W2Browse.Click += new System.EventHandler(this.W2Browse_Click);
             // 
-            // LocalFolder
-            // 
-            this.LocalFolder.Location = new System.Drawing.Point(6, 108);
-            this.LocalFolder.Name = "LocalFolder";
-            this.LocalFolder.Size = new System.Drawing.Size(320, 20);
-            this.LocalFolder.TabIndex = 1;
-            // 
             // W2Instructions
             // 
             this.W2Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -180,10 +173,12 @@
             // 
             // StagingFolder
             // 
+            this.StagingFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "StagingFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.StagingFolder.Location = new System.Drawing.Point(6, 211);
             this.StagingFolder.Name = "StagingFolder";
             this.StagingFolder.Size = new System.Drawing.Size(320, 20);
             this.StagingFolder.TabIndex = 1;
+            this.StagingFolder.Text = global::FoM.Generator.Properties.Settings.Default.StagingFolder;
             // 
             // W3Instructions
             // 
@@ -261,6 +256,18 @@
             this.Wizard6.Size = new System.Drawing.Size(385, 266);
             this.Wizard6.TabIndex = 10;
             // 
+            // W6Result
+            // 
+            this.W6Result.Location = new System.Drawing.Point(24, 67);
+            this.W6Result.Multiline = true;
+            this.W6Result.Name = "W6Result";
+            this.W6Result.Size = new System.Drawing.Size(338, 170);
+            this.W6Result.TabIndex = 3;
+            this.W6Result.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
+    "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
+    "il this is complete.";
+            this.W6Result.Visible = false;
+            // 
             // BtnCreate
             // 
             this.BtnCreate.Location = new System.Drawing.Point(131, 29);
@@ -281,17 +288,14 @@
             this.W6Intro.TabIndex = 0;
             this.W6Intro.Text = "Execution...";
             // 
-            // W6Result
+            // LocalFolder
             // 
-            this.W6Result.Location = new System.Drawing.Point(24, 67);
-            this.W6Result.Multiline = true;
-            this.W6Result.Name = "W6Result";
-            this.W6Result.Size = new System.Drawing.Size(338, 170);
-            this.W6Result.TabIndex = 3;
-            this.W6Result.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
-    "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
-    "il this is complete.";
-            this.W6Result.Visible = false;
+            this.LocalFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "LocalFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.LocalFolder.Location = new System.Drawing.Point(6, 108);
+            this.LocalFolder.Name = "LocalFolder";
+            this.LocalFolder.Size = new System.Drawing.Size(320, 20);
+            this.LocalFolder.TabIndex = 1;
+            this.LocalFolder.Text = global::FoM.Generator.Properties.Settings.Default.LocalFolder;
             // 
             // InternalUI
             // 

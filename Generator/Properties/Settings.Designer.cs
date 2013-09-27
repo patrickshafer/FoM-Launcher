@@ -22,5 +22,29 @@ namespace FoM.Generator.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string LocalFolder {
+            get {
+                return ((string)(this["LocalFolder"]));
+            }
+            set {
+                this["LocalFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string StagingFolder {
+            get {
+                return ((string)(this["StagingFolder"]));
+            }
+            set {
+                this["StagingFolder"] = value;
+            }
+        }
     }
 }
