@@ -2443,11 +2443,11 @@ Questions?  Email [DEV] Tick at tick@fomportal.com.</value>
   <data name="W3Instructions.Text" xml:space="preserve">
     <value>Please select the destination staging folder.
 
-This folder should be empty.  Once the patch files are renamed and compressed, they'll be copied to this staging folder.  The manifest will also be deposited into this folder.
+Once the patch files are renamed and compressed, they'll be copied to this staging folder.  The manifest will also be deposited into this folder.
 
 The contents of this folder should be uploaded to the patch web server or CDN.
 
-WARNING: The contents of this folder will be deleted before files are copied into it.  You've been warned.</value>
+Note: If you use the same staging folder as previous patches, the staging files should still be there- in this case, this tool won't overwrite the files and generation will be slightly faster.</value>
   </data>
   <data name="W4Instructions.Text" xml:space="preserve">
     <value>Please select or provide a channel name.

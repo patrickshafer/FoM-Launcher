@@ -37,6 +37,7 @@
             this.BtnCancel = new System.Windows.Forms.Button();
             this.Wizard2 = new System.Windows.Forms.Panel();
             this.W2Browse = new System.Windows.Forms.Button();
+            this.LocalFolder = new System.Windows.Forms.TextBox();
             this.W2Instructions = new System.Windows.Forms.Label();
             this.Wizard3 = new System.Windows.Forms.Panel();
             this.W3Browse = new System.Windows.Forms.Button();
@@ -52,7 +53,6 @@
             this.W6Result = new System.Windows.Forms.TextBox();
             this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Intro = new System.Windows.Forms.Label();
-            this.LocalFolder = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
             this.Wizard1.SuspendLayout();
             this.Wizard2.SuspendLayout();
@@ -140,6 +140,15 @@
             this.W2Browse.UseVisualStyleBackColor = true;
             this.W2Browse.Click += new System.EventHandler(this.W2Browse_Click);
             // 
+            // LocalFolder
+            // 
+            this.LocalFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "LocalFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.LocalFolder.Location = new System.Drawing.Point(6, 108);
+            this.LocalFolder.Name = "LocalFolder";
+            this.LocalFolder.Size = new System.Drawing.Size(320, 20);
+            this.LocalFolder.TabIndex = 1;
+            this.LocalFolder.Text = global::FoM.Generator.Properties.Settings.Default.LocalFolder;
+            // 
             // W2Instructions
             // 
             this.W2Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -163,7 +172,7 @@
             // 
             // W3Browse
             // 
-            this.W3Browse.Location = new System.Drawing.Point(332, 209);
+            this.W3Browse.Location = new System.Drawing.Point(332, 241);
             this.W3Browse.Name = "W3Browse";
             this.W3Browse.Size = new System.Drawing.Size(29, 23);
             this.W3Browse.TabIndex = 2;
@@ -174,7 +183,7 @@
             // StagingFolder
             // 
             this.StagingFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "StagingFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.StagingFolder.Location = new System.Drawing.Point(6, 211);
+            this.StagingFolder.Location = new System.Drawing.Point(6, 243);
             this.StagingFolder.Name = "StagingFolder";
             this.StagingFolder.Size = new System.Drawing.Size(320, 20);
             this.StagingFolder.TabIndex = 1;
@@ -185,7 +194,7 @@
             this.W3Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W3Instructions.Location = new System.Drawing.Point(3, 11);
             this.W3Instructions.Name = "W3Instructions";
-            this.W3Instructions.Size = new System.Drawing.Size(379, 197);
+            this.W3Instructions.Size = new System.Drawing.Size(379, 227);
             this.W3Instructions.TabIndex = 0;
             this.W3Instructions.Text = resources.GetString("W3Instructions.Text");
             // 
@@ -287,15 +296,6 @@
             this.W6Intro.Size = new System.Drawing.Size(81, 17);
             this.W6Intro.TabIndex = 0;
             this.W6Intro.Text = "Execution...";
-            // 
-            // LocalFolder
-            // 
-            this.LocalFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "LocalFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.LocalFolder.Location = new System.Drawing.Point(6, 108);
-            this.LocalFolder.Name = "LocalFolder";
-            this.LocalFolder.Size = new System.Drawing.Size(320, 20);
-            this.LocalFolder.TabIndex = 1;
-            this.LocalFolder.Text = global::FoM.Generator.Properties.Settings.Default.LocalFolder;
             // 
             // InternalUI
             // 
