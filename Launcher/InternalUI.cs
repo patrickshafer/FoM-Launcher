@@ -17,9 +17,11 @@ namespace FoM.Launcher
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private System.Windows.Forms.Timer LogTimer = new System.Windows.Forms.Timer();
         private log4net.Appender.MemoryAppender LogAppender;
-        private PatchRunMode RunMode;
+        private PatchRunState _RunMode;
         private string UpdateURL = string.Empty;
         private Mutex FoMMutex;
+        private System.Windows.Forms.Timer AutoLaunchTimer = new System.Windows.Forms.Timer();
+        private int AutoLaunchTicker = 6;
 
         public InternalUI()
         {
@@ -34,6 +36,33 @@ namespace FoM.Launcher
 #endif
             this.InitializeLogOutput();
             this.AcquireFoMMutex();
+            this.AutoLaunchTimer.Interval = 1000;
+            this.AutoLaunchTimer.Tick += AutoLaunchTimer_Tick;
+        }
+
+        void AutoLaunchTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.AutoLaunchTicker > 0)
+            {
+                this.AutoLaunchTicker--;
+                this.StartButton.Text = String.Format("Launch ({0})", this.AutoLaunchTicker);
+            }
+            else
+            {
+                if (System.IO.File.Exists("fom_client.exe"))
+                {
+                    Preferences PrefData = Preferences.Load();
+                    string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
+                    System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
+                    Application.Exit();
+                }
+                else
+                {
+                    Log.Error("Unable to launch fom_client.exe, it does not exist");
+                    MessageBox.Show("Unable to launch fom_client.exe, it does not exist", "Game launch", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
 
         private void AcquireFoMMutex()
@@ -149,9 +178,7 @@ namespace FoM.Launcher
         {
             string LocalFolder = System.IO.Path.GetDirectoryName(Application.ExecutablePath);
 
-            StartButton.Text = "Cancel";
-            RunMode = PatchRunMode.UpdateCheck;
-            PatchProgress.Style = ProgressBarStyle.Marquee;
+            this.RunMode = PatchRunState.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
         }
 
@@ -162,50 +189,75 @@ namespace FoM.Launcher
 
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
         {
-            PatchProgress.Value = 0;
-            StartButton.Text = "Start";
-            if (RunMode == PatchRunMode.ApplyUpdate)
-            {
-                StartButton.Text = "Launch";
-                RunMode = PatchRunMode.Ready;
-            }
+            if (RunMode == PatchRunState.ApplyUpdate)
+                RunMode = PatchRunState.Ready;
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
         {
-            PatchProgress.Style = ProgressBarStyle.Continuous;
             if (e.Manifest.NeedsUpdate)
             {
-                RunMode = PatchRunMode.ApplyUpdate;
+                RunMode = PatchRunState.ApplyUpdate;
                 PatchManager.ApplyPatchAsync(e.Manifest);
             }
             else
+                RunMode = PatchRunState.Ready;
+        }
+
+        private PatchRunState RunMode
+        {
+            get { return this._RunMode; }
+            set
             {
-                RunMode = PatchRunMode.Ready;
-                StartButton.Text = "Launch";
+                if (this._RunMode != value)
+                {
+                    this._RunMode = value;
+                    switch (this._RunMode)
+                    {
+                        case PatchRunState.Waiting:
+                            PatchProgress.Value = 0;
+                            StartButton.Text = "Start";
+                            PatchProgress.Style = ProgressBarStyle.Continuous;
+                            break;
+                        case PatchRunState.UpdateCheck:
+                            StartButton.Text = "Cancel";
+                            PatchProgress.Style = ProgressBarStyle.Marquee;
+                            break;
+                        case PatchRunState.ApplyUpdate:
+                            StartButton.Text = "Cancel";
+                            PatchProgress.Style = ProgressBarStyle.Continuous;
+                            break;
+                        case PatchRunState.Ready:
+                            PatchProgress.Value = 0;
+                            PatchProgress.Style = ProgressBarStyle.Continuous;
+                            Preferences PrefData = Preferences.Load();
+                            if (PrefData.AutoLaunch)
+                                this.AutoLaunchTimer.Start();
+                            else
+                                StartButton.Text = "Launch";
+                            break;
+                    }
+                }
             }
         }
+
 
         private void StartButton_Click(object sender, EventArgs e)
         {
             switch (RunMode)
             {
-                case PatchRunMode.None:
+                case PatchRunState.Waiting:
                     this.StartUpdate();
                     break;
-                case PatchRunMode.UpdateCheck:
+                case PatchRunState.UpdateCheck:
                     PatchManager.UpdateCheckCancel();
-                    StartButton.Text = "Start";
-                    PatchProgress.Style = ProgressBarStyle.Continuous;
-                    RunMode = PatchRunMode.None;
+                    RunMode = PatchRunState.Waiting;
                     break;
-                case PatchRunMode.ApplyUpdate:
+                case PatchRunState.ApplyUpdate:
                     PatchManager.ApplyPatchCancel();
-                    PatchProgress.Value = 0;
-                    StartButton.Text = "Start";
-                    RunMode = PatchRunMode.None;
+                    RunMode = PatchRunState.Waiting;
                     break;
-                case PatchRunMode.Ready:
+                case PatchRunState.Ready:
                     if (System.IO.File.Exists("fom_client.exe"))
                     {
                         Preferences PrefData = Preferences.Load();
@@ -218,16 +270,14 @@ namespace FoM.Launcher
                         Log.Error("Unable to launch fom_client.exe, it does not exist");
                         MessageBox.Show("Unable to launch fom_client.exe, it does not exist", "Game launch", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    //-rez Resources -dpsmagic 1 +windowed 1
-                    //may need a checkbox for windowed mode
                     break;
                 default:
                     break;
             }
         }
-        enum PatchRunMode
+        enum PatchRunState
         {
-            None,
+            Waiting,
             UpdateCheck,
             ApplyUpdate,
             Ready

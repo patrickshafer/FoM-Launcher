@@ -50,7 +50,7 @@
             this.PatchURL = new System.Windows.Forms.TextBox();
             this.W5Intro = new System.Windows.Forms.Label();
             this.Wizard6 = new System.Windows.Forms.Panel();
-            this.W6Wait = new System.Windows.Forms.Label();
+            this.W6Result = new System.Windows.Forms.TextBox();
             this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Intro = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
@@ -142,10 +142,12 @@
             // 
             // LocalFolder
             // 
+            this.LocalFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "LocalFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.LocalFolder.Location = new System.Drawing.Point(6, 108);
             this.LocalFolder.Name = "LocalFolder";
             this.LocalFolder.Size = new System.Drawing.Size(320, 20);
             this.LocalFolder.TabIndex = 1;
+            this.LocalFolder.Text = global::FoM.Generator.Properties.Settings.Default.LocalFolder;
             // 
             // W2Instructions
             // 
@@ -170,7 +172,7 @@
             // 
             // W3Browse
             // 
-            this.W3Browse.Location = new System.Drawing.Point(332, 209);
+            this.W3Browse.Location = new System.Drawing.Point(332, 241);
             this.W3Browse.Name = "W3Browse";
             this.W3Browse.Size = new System.Drawing.Size(29, 23);
             this.W3Browse.TabIndex = 2;
@@ -180,17 +182,19 @@
             // 
             // StagingFolder
             // 
-            this.StagingFolder.Location = new System.Drawing.Point(6, 211);
+            this.StagingFolder.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::FoM.Generator.Properties.Settings.Default, "StagingFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.StagingFolder.Location = new System.Drawing.Point(6, 243);
             this.StagingFolder.Name = "StagingFolder";
             this.StagingFolder.Size = new System.Drawing.Size(320, 20);
             this.StagingFolder.TabIndex = 1;
+            this.StagingFolder.Text = global::FoM.Generator.Properties.Settings.Default.StagingFolder;
             // 
             // W3Instructions
             // 
             this.W3Instructions.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W3Instructions.Location = new System.Drawing.Point(3, 11);
             this.W3Instructions.Name = "W3Instructions";
-            this.W3Instructions.Size = new System.Drawing.Size(379, 197);
+            this.W3Instructions.Size = new System.Drawing.Size(379, 227);
             this.W3Instructions.TabIndex = 0;
             this.W3Instructions.Text = resources.GetString("W3Instructions.Text");
             // 
@@ -253,7 +257,7 @@
             // 
             // Wizard6
             // 
-            this.Wizard6.Controls.Add(this.W6Wait);
+            this.Wizard6.Controls.Add(this.W6Result);
             this.Wizard6.Controls.Add(this.BtnCreate);
             this.Wizard6.Controls.Add(this.W6Intro);
             this.Wizard6.Location = new System.Drawing.Point(160, 680);
@@ -261,20 +265,21 @@
             this.Wizard6.Size = new System.Drawing.Size(385, 266);
             this.Wizard6.TabIndex = 10;
             // 
-            // W6Wait
+            // W6Result
             // 
-            this.W6Wait.Location = new System.Drawing.Point(67, 108);
-            this.W6Wait.Name = "W6Wait";
-            this.W6Wait.Size = new System.Drawing.Size(269, 61);
-            this.W6Wait.TabIndex = 2;
-            this.W6Wait.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
+            this.W6Result.Location = new System.Drawing.Point(24, 67);
+            this.W6Result.Multiline = true;
+            this.W6Result.Name = "W6Result";
+            this.W6Result.Size = new System.Drawing.Size(338, 170);
+            this.W6Result.TabIndex = 3;
+            this.W6Result.Text = "Please wait while the patch is created.  As Tick hasn\'t bothered to create an asy" +
     "ncronous version of the CreatePatch() function, the UI will be locked/frozen unt" +
     "il this is complete.";
-            this.W6Wait.Visible = false;
+            this.W6Result.Visible = false;
             // 
             // BtnCreate
             // 
-            this.BtnCreate.Location = new System.Drawing.Point(131, 60);
+            this.BtnCreate.Location = new System.Drawing.Point(131, 29);
             this.BtnCreate.Name = "BtnCreate";
             this.BtnCreate.Size = new System.Drawing.Size(104, 23);
             this.BtnCreate.TabIndex = 1;
@@ -352,8 +357,8 @@
         private System.Windows.Forms.Label W5Intro;
         private System.Windows.Forms.TextBox PatchURL;
         private System.Windows.Forms.Panel Wizard6;
-        private System.Windows.Forms.Label W6Wait;
         private System.Windows.Forms.Button BtnCreate;
         private System.Windows.Forms.Label W6Intro;
+        private System.Windows.Forms.TextBox W6Result;
     }
 }

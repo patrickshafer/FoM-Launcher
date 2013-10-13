@@ -17,12 +17,11 @@ namespace FoM.Generator
         public InternalUI()
         {
             InitializeComponent();
+            this.Size = new Size(580, 435);
         }
 
         private void InternalUI_Load(object sender, EventArgs e)
         {
-            this.Size = new Size(580, 435);
-
             this._PanelManager.NextButton = BtnNext;
             this._PanelManager.BackButton = BtnBack;
 
@@ -41,6 +40,7 @@ namespace FoM.Generator
 
         void InternalUI_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Properties.Settings.Default.Save();
             if (e.CloseReason == CloseReason.UserClosing || e.CloseReason == CloseReason.None)
                 if (MessageBox.Show("Are you sure you want to exit?", "Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
                     e.Cancel = true;
@@ -162,13 +162,42 @@ namespace FoM.Generator
                 MessageBox.Show(ErrorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             else
             {
-                W6Wait.Visible = true;
+                W6Result.Visible = true;
                 this.Refresh();
                 PatchLib.PatchManager.CreatePatch(LocalFolder.Text.Trim(), StagingFolder.Text.Trim(), Channel.Text.Trim(), PatchURL.Text.Trim());
-                MessageBox.Show("Patch Created", "Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                System.Diagnostics.Process.Start(StagingFolder.Text.Trim());
-                Application.Exit();
+                W6Result.Text = "Patch Completed.\r\n\r\n";
+                foreach (KeyValuePair<string, UInt32> CRCValue in GetCRC32s())
+                {
+                    W6Result.Text += String.Format("REPLACE INTO CRC32(filename, crc32) VALUES ('{0}', {1});\r\n", CRCValue.Key, CRCValue.Value);
+                }
             }
+        }
+        private Dictionary<string, UInt32> GetCRC32s()
+        {
+            Dictionary<string, UInt32> CRCList = new Dictionary<string, UInt32>();
+            List<string> FileList = new List<string>();
+            Crc32 Hasher = new Crc32();
+            string FileName;
+            byte[] HashResult;
+            string HashBuffer;
+
+            FileList.Add(@"fom_client.exe");
+            FileList.Add(@"Resources/CShell.dll");
+            FileList.Add(@"Resources/Object.lto");
+
+            foreach (string SrcFile in FileList)
+            {
+                FileName = Path.Combine(LocalFolder.Text.Trim(), SrcFile);
+                if (File.Exists(FileName))
+                {
+                    HashResult = Hasher.ComputeHash(File.ReadAllBytes(FileName));
+                    HashBuffer = string.Empty;
+                    foreach (byte b in HashResult)
+                        HashBuffer += b.ToString("x2");
+                    CRCList["/" + SrcFile] = Convert.ToUInt32(HashBuffer, 16);
+                }
+            }
+            return CRCList;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace FoM.Launcher
                         return @"http://patch.patrickshafer.com/launcher-alpha-debug.xml";
                     case LauncherEditionEnum.Live:
                     default:
-                        return @"http://patch.patrickshafer.com/launcher-alpha.xml";
+                        return @"http://gamedev.fom.nexeontech.com/launcher-alpha.xml";
                 }
             }
         }

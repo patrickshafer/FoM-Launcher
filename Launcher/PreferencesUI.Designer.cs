@@ -35,8 +35,8 @@
             this.OKButton = new System.Windows.Forms.Button();
             this.CancelButtonx = new System.Windows.Forms.Button();
             this.LauncherEditionGroup = new System.Windows.Forms.GroupBox();
-            this.LiveRadio = new System.Windows.Forms.RadioButton();
             this.DevRadio = new System.Windows.Forms.RadioButton();
+            this.LiveRadio = new System.Windows.Forms.RadioButton();
             this.LauncherEditionGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -71,7 +71,6 @@
             // AutoLaunchCheck
             // 
             this.AutoLaunchCheck.AutoSize = true;
-            this.AutoLaunchCheck.Enabled = false;
             this.AutoLaunchCheck.Location = new System.Drawing.Point(41, 151);
             this.AutoLaunchCheck.Name = "AutoLaunchCheck";
             this.AutoLaunchCheck.Size = new System.Drawing.Size(65, 17);
@@ -110,6 +109,16 @@
             this.LauncherEditionGroup.TabStop = false;
             this.LauncherEditionGroup.Text = "Launcher Edition";
             // 
+            // DevRadio
+            // 
+            this.DevRadio.AutoSize = true;
+            this.DevRadio.Location = new System.Drawing.Point(6, 42);
+            this.DevRadio.Name = "DevRadio";
+            this.DevRadio.Size = new System.Drawing.Size(120, 17);
+            this.DevRadio.TabIndex = 1;
+            this.DevRadio.Text = "Alpha/Development";
+            this.DevRadio.UseVisualStyleBackColor = true;
+            // 
             // LiveRadio
             // 
             this.LiveRadio.AutoSize = true;
@@ -121,16 +130,6 @@
             this.LiveRadio.TabStop = true;
             this.LiveRadio.Text = "Alpha/Live";
             this.LiveRadio.UseVisualStyleBackColor = true;
-            // 
-            // DevRadio
-            // 
-            this.DevRadio.AutoSize = true;
-            this.DevRadio.Location = new System.Drawing.Point(6, 42);
-            this.DevRadio.Name = "DevRadio";
-            this.DevRadio.Size = new System.Drawing.Size(120, 17);
-            this.DevRadio.TabIndex = 1;
-            this.DevRadio.Text = "Alpha/Development";
-            this.DevRadio.UseVisualStyleBackColor = true;
             // 
             // PreferencesUI
             // 

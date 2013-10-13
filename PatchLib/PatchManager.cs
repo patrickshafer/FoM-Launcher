@@ -310,11 +310,6 @@ namespace FoM.PatchLib
             if (!Directory.Exists(PatchFolder))
                 Directory.CreateDirectory(PatchFolder);
 
-            foreach (string FileName in Directory.EnumerateFiles(PatchFolder, "*", SearchOption.AllDirectories))
-                File.Delete(FileName);
-            foreach (string DirectoryName in Directory.EnumerateDirectories(PatchFolder, "*", SearchOption.AllDirectories))
-                Directory.Delete(DirectoryName);
-
             foreach (FileNode StageFile in LocalFiles)
                 StageFile.StageTo(PatchFolder);
 
