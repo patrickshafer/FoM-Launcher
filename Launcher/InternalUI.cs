@@ -20,6 +20,8 @@ namespace FoM.Launcher
         private PatchRunState _RunMode;
         private string UpdateURL = string.Empty;
         private Mutex FoMMutex;
+        private System.Windows.Forms.Timer AutoLaunchTimer = new System.Windows.Forms.Timer();
+        private int AutoLaunchTicker = 6;
 
         public InternalUI()
         {
@@ -34,6 +36,33 @@ namespace FoM.Launcher
 #endif
             this.InitializeLogOutput();
             this.AcquireFoMMutex();
+            this.AutoLaunchTimer.Interval = 1000;
+            this.AutoLaunchTimer.Tick += AutoLaunchTimer_Tick;
+        }
+
+        void AutoLaunchTimer_Tick(object sender, EventArgs e)
+        {
+            if (this.AutoLaunchTicker > 0)
+            {
+                this.AutoLaunchTicker--;
+                this.StartButton.Text = String.Format("Launch ({0})", this.AutoLaunchTicker);
+            }
+            else
+            {
+                if (System.IO.File.Exists("fom_client.exe"))
+                {
+                    Preferences PrefData = Preferences.Load();
+                    string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
+                    System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
+                    Application.Exit();
+                }
+                else
+                {
+                    Log.Error("Unable to launch fom_client.exe, it does not exist");
+                    MessageBox.Show("Unable to launch fom_client.exe, it does not exist", "Game launch", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+
         }
 
         private void AcquireFoMMutex()
@@ -201,7 +230,11 @@ namespace FoM.Launcher
                         case PatchRunState.Ready:
                             PatchProgress.Value = 0;
                             PatchProgress.Style = ProgressBarStyle.Continuous;
-                            StartButton.Text = "Launch";
+                            Preferences PrefData = Preferences.Load();
+                            if (PrefData.AutoLaunch)
+                                this.AutoLaunchTimer.Start();
+                            else
+                                StartButton.Text = "Launch";
                             break;
                     }
                 }
