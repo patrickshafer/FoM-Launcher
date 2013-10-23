@@ -13,6 +13,7 @@ namespace FoM.PatchLib
     [XmlType("File")]
     public class FileNode
     {
+        [XmlIgnore]
         public string LocalFilePath;
         private long _LocalSize;
         private string _LocalMD5Hash;
@@ -59,10 +60,19 @@ namespace FoM.PatchLib
 
         public void StageTo(string Folder)
         {
-            string DestinationPath = Path.Combine(Folder, this.LocalMD5Hash);
-            string DestinationPathCmp = DestinationPath + ".cmp";
+            string DestinationPath;
+            string DestinationPathCmp;
             double SpaceSavings = 0;
-            
+
+            DestinationPath = Path.Combine(Folder, this.LocalMD5Hash.Substring(0, 2), this.LocalMD5Hash);
+            DestinationPathCmp = DestinationPath + ".cmp";
+
+            UriBuilder RemoteURLBuilder = new UriBuilder(this.RemoteURL);
+            RemoteURLBuilder.Path = this.LocalMD5Hash.Substring(0, 2) + "/" + this.LocalMD5Hash;
+            this.RemoteURL = RemoteURLBuilder.Uri.ToString();
+
+            if (!Directory.Exists(Path.GetDirectoryName(DestinationPath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(DestinationPath));
             
             if(!File.Exists(DestinationPath))
                 File.Copy(this.LocalFilePath, DestinationPath);
