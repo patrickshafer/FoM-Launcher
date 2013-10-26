@@ -90,8 +90,6 @@ namespace FoM.PatchLib
         }
         public void ApplyUpdate()
         {
-            WebClient Downloader = new WebClient();
-
             if (File.Exists(this.LocalFilePath))
                 File.Delete(this.LocalFilePath);    //TODO: use a temporary roll-back mechanisim
             if(!Directory.Exists(Path.GetDirectoryName(this.LocalFilePath)))

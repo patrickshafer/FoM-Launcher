@@ -146,6 +146,9 @@ namespace FoM.Launcher
             if(this.UpdateURL == string.Empty)
                 this.UpdateURL = GetLogin();
             if (this.UpdateURL != string.Empty)
+#if DEBUG
+                this.UpdateURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
+#endif
                 StartUpdateCheckAsync(this.UpdateURL);
         }
 
