@@ -55,8 +55,9 @@ namespace FoM.Launcher
             else
 #if DEBUG
                 RetVal = new Preferences(LauncherEditionEnum.Development, true, true);
-#endif
+#else
                 RetVal = new Preferences(LauncherEditionEnum.Live, true, true);
+#endif
             return RetVal;
         }
         internal void Save()
