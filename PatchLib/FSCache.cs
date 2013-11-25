@@ -89,7 +89,7 @@ namespace FoM.PatchLib
 
         public FSNode()
         {
-            this.Expires = DateTime.UtcNow.AddDays(new Random().Next(3, 5));          //3 - 5 days for testing purposes.
+            this.Expires = DateTime.UtcNow.AddDays(new Random().Next(20, 30));          //20 - 30 days for forced recheck
         }
 
         public FSNode(string FileName, string Hash, DateTime CreatedDate, DateTime ModifiedDate) : this()

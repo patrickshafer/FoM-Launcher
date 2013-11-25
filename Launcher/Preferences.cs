@@ -53,7 +53,11 @@ namespace FoM.Launcher
                 }
             }
             else
-                RetVal = new Preferences(LauncherEditionEnum.Live, true, false);
+#if DEBUG
+                RetVal = new Preferences(LauncherEditionEnum.Development, true, true);
+#else
+                RetVal = new Preferences(LauncherEditionEnum.Live, true, true);
+#endif
             return RetVal;
         }
         internal void Save()

@@ -19,15 +19,43 @@ namespace FoM.PatchLib
         internal static void ProcessQueue()
         {
             FileNode DownloadItem;
+            string DownloadURL = string.Empty;
+            bool Compressed = false;
+
             if (Downloader == null)
                 Downloader = new WebClient();
-
 
             while (DownloadQueue.Count > 0)
             {
                 DownloadItem = DownloadQueue.Dequeue();
-                Log.Debug(string.Format("Downloading {0} to {1}", DownloadItem.RemoteURL, DownloadItem.LocalFilePath));
-                Downloader.DownloadFile(DownloadItem.RemoteURL, DownloadItem.LocalFilePath);
+                if (DownloadItem.RemoteURLCmp == null)
+                {
+                    Compressed = false;
+                    DownloadURL = DownloadItem.RemoteURL;
+                }
+                else
+                {
+                    Compressed = true;
+                    DownloadURL = DownloadItem.RemoteURLCmp;
+                }
+
+                Log.Debug(string.Format("Downloading {0} to {1}", DownloadURL, DownloadItem.LocalFilePath));
+
+                using (System.IO.Stream DownloadStream = Downloader.OpenRead(DownloadURL))
+                {
+                    using (System.IO.FileStream OutputStream = new System.IO.FileStream(DownloadItem.LocalFilePath, System.IO.FileMode.Create))
+                    {
+                        if (Compressed)
+                        {
+                            using (System.IO.Compression.DeflateStream CompressionStream = new System.IO.Compression.DeflateStream(DownloadStream, System.IO.Compression.CompressionMode.Decompress))
+                            {
+                                CompressionStream.CopyTo(OutputStream);
+                            }
+                        }
+                        else
+                            DownloadStream.CopyTo(OutputStream);
+                    }
+                }
             }
             
         }

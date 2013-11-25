@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Xml.Serialization;
 using System.Net;
+using System.IO.Compression;
 
 namespace FoM.PatchLib
 {
     [XmlType("File")]
     public class FileNode
     {
+        [XmlIgnore]
         public string LocalFilePath;
         private long _LocalSize;
         private string _LocalMD5Hash;
@@ -29,6 +31,8 @@ namespace FoM.PatchLib
         public string RemoteMD5Hash;
         [XmlElement("URL")]
         public string RemoteURL;
+        [XmlElement("URL-Compressed")]
+        public string RemoteURLCmp;
         [XmlElement("Size")]
         public long RemoteSize;
 
@@ -56,9 +60,46 @@ namespace FoM.PatchLib
 
         public void StageTo(string Folder)
         {
-            string DestinationPath = Path.Combine(Folder, this.LocalMD5Hash);
+            string DestinationPath;
+            string DestinationPathCmp;
+            double SpaceSavings = 0;
+
+            DestinationPath = Path.Combine(Folder, this.LocalMD5Hash.Substring(0, 2), this.LocalMD5Hash);
+            DestinationPathCmp = DestinationPath + ".cmp";
+
+            UriBuilder RemoteURLBuilder = new UriBuilder(this.RemoteURL);
+            RemoteURLBuilder.Path = this.LocalMD5Hash.Substring(0, 2) + "/" + this.LocalMD5Hash;
+            this.RemoteURL = RemoteURLBuilder.Uri.ToString();
+
+            if (!Directory.Exists(Path.GetDirectoryName(DestinationPath)))
+                Directory.CreateDirectory(Path.GetDirectoryName(DestinationPath));
+            
             if(!File.Exists(DestinationPath))
                 File.Copy(this.LocalFilePath, DestinationPath);
+
+            //only compress files larger than 4k
+            if (this.LocalSize > 4096)
+            {
+                if (!File.Exists(DestinationPathCmp))
+                {
+                    using (FileStream originalFile = File.OpenRead(this.LocalFilePath))
+                    {
+                        using (FileStream compressedFile = File.Create(DestinationPathCmp))
+                        {
+                            using (DeflateStream compressionStream = new DeflateStream(compressedFile, CompressionLevel.Optimal))
+                            {
+                                originalFile.CopyTo(compressionStream);
+                                SpaceSavings = (double)compressedFile.Length / (double)originalFile.Length;
+                            }
+                        }
+                    }
+                    //delete files that didn't compress very well
+                    if (SpaceSavings > 0.8)
+                        File.Delete(DestinationPathCmp);
+                    else
+                        this.RemoteURLCmp = this.RemoteURL + ".cmp";
+                }
+            }
         }
         public bool CheckUpdate()
         {
@@ -90,8 +131,6 @@ namespace FoM.PatchLib
         }
         public void ApplyUpdate()
         {
-            WebClient Downloader = new WebClient();
-
             if (File.Exists(this.LocalFilePath))
                 File.Delete(this.LocalFilePath);    //TODO: use a temporary roll-back mechanisim
             if(!Directory.Exists(Path.GetDirectoryName(this.LocalFilePath)))

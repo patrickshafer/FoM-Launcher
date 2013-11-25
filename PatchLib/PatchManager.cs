@@ -300,10 +300,7 @@ namespace FoM.PatchLib
                 NewFile.RemoteFileName = FileName.Remove(0, LocalFolder.Length + 1);
                 NewFile.RemoteMD5Hash = NewFile.LocalMD5Hash;
                 NewFile.RemoteSize = NewFile.LocalSize;
-
-                UriBuilder RemoteURIBuilder = new UriBuilder(DistributionURL);
-                RemoteURIBuilder.Path = Path.Combine(RemoteURIBuilder.Path, NewFile.RemoteMD5Hash);
-                NewFile.RemoteURL = RemoteURIBuilder.Uri.ToString();
+                NewFile.RemoteURL = DistributionURL;        //changed to seed the distribution URL.  Staging function will build this out fully
                 LocalFiles.Add(NewFile);
             }
 
