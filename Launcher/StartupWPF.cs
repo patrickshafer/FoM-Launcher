@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using FoM.Launcher.Views;
 
-namespace FoM.Launcher.Controllers
+namespace FoM.Launcher
 {
-    internal class LauncherControler : IStartup
+    internal class StartupWPF : IStartup
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private Application _Application;

@@ -21,7 +21,7 @@ namespace FoM.Launcher
 
             IStartup thisStartup;
 #if DEBUG
-            thisStartup = new FoM.Launcher.Controllers.LauncherControler();
+            thisStartup = new StartupWPF();
 #else
             thisStartup = new Startup();
 #endif

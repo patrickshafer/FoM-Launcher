@@ -3,17 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="LauncherWindow" Height="300" Width="468" WindowStartupLocation="CenterScreen">
     <DockPanel>
-    	<StackPanel>
-    		<StackPanel.Background>
-    			<LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
-    				<GradientStop Color="#FFA4A4A4" Offset="0"/>
-    				<GradientStop Color="White" Offset="1"/>
-    			</LinearGradientBrush>
-    		</StackPanel.Background>
-    		<TextBlock TextWrapping="Wrap" Text="News Item 1"/>
-    		<TextBlock TextWrapping="Wrap" Text="News Item 2"/>
-    		<TextBlock TextWrapping="Wrap" Text="News item 3"/>
-    	</StackPanel>
     	<StackPanel VerticalAlignment="Top">
     		<TextBlock TextWrapping="Wrap">You must login to continue</TextBlock>
     		<TextBox Height="23" TextWrapping="Wrap" Text="Username" Width="120"/>

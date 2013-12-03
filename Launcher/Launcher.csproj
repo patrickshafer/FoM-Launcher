@@ -60,7 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationRPC.cs" />
-    <Compile Include="Controllers\LauncherControler.cs" />
+    <Compile Include="StartupWPF.cs" />
     <Compile Include="InternalUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,6 +135,7 @@
     <Content Include="Resources\idr_main.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
