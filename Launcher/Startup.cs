@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace FoM.Launcher
 {
-    internal class Startup : IStartup
+    internal class Startup
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -23,9 +23,14 @@ namespace FoM.Launcher
             Preferences PrefData = Preferences.Load();
             FoM.PatchLib.PatchManager.ApplicationStart(PrefData.LauncherURL);
 
+#if DEBUG
+            LauncherApp App = LauncherApp.Instance;
+            App.StartApplication();
+#else
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new InternalUI());
+#endif
         }
 
         void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
@@ -42,10 +47,5 @@ namespace FoM.Launcher
             Application.ExitThread();
         }
 
-    }
-
-    public interface IStartup
-    {
-        void StartApplication();
     }
 }

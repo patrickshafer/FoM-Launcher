@@ -19,13 +19,7 @@ namespace FoM.Launcher
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            IStartup thisStartup;
-#if DEBUG
-            thisStartup = new StartupWPF();
-#else
-            thisStartup = new Startup();
-#endif
-            thisStartup.StartApplication();
+            new Startup().StartApplication();
         }
 
         /// <summary>

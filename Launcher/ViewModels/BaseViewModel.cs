@@ -11,7 +11,7 @@ namespace FoM.Launcher.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private void RaisePropertyChanged(string PropertyName)
+        protected void RaisePropertyChanged(string PropertyName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
