@@ -5,8 +5,8 @@
         Title="LauncherWindow" Height="300" Width="468" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-		<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
-	</Window.Resources>
+        <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+    </Window.Resources>
 	<DockPanel DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}">
 		<StackPanel VerticalAlignment="Top" Visibility="{Binding NeedsLogin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
@@ -14,6 +14,14 @@
 			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
 			<Button Content="Login" Width="75" Command="{Binding LoginCommand, Mode=OneWay}"/>
 			<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
+		</StackPanel>
+		<StackPanel VerticalAlignment="Top" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock>Current Patch Activity:</TextBlock>
+			    <TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
+            </StackPanel>
+            <Button Height="22" Width="150" Command="{Binding PatchCommand, Mode=OneWay}">Click me to start</Button>
+            <ProgressBar Height="20" Width="250"/>
 		</StackPanel>
 	</DockPanel>
 </Window>

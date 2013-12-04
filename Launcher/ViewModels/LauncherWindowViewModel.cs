@@ -6,6 +6,11 @@ namespace FoM.Launcher.ViewModels
 {
     public class LauncherWindowViewModel:BaseViewModel
     {
+        public LauncherWindowViewModel()
+        {
+            LauncherApp.Instance.PatchInfo.PatchStateChanged += PatchInfo_PatchStateChanged;
+        }
+
         #region Login Stuff
         private string _Username;
         private string _Password;
@@ -55,6 +60,28 @@ namespace FoM.Launcher.ViewModels
                 this.RaisePropertyChanged("LoginErrorMessage");
                 this.RaisePropertyChanged("NeedsLogin");
             }
+        }
+        #endregion
+
+        #region Patch stuff
+        public string PatchState { get { return LauncherApp.Instance.PatchInfo.PatchState.ToString(); } }
+        void PatchInfo_PatchStateChanged(object sender, EventArgs e)
+        {
+            this.RaisePropertyChanged("PatchState");
+        }
+        private DelegateCommand _PatchCommand;
+        public ICommand PatchCommand
+        {
+            get
+            {
+                if (this._PatchCommand == null)
+                    this._PatchCommand = new DelegateCommand(new Action(ExecutePatchCommand));
+                return this._PatchCommand;
+            }
+        }
+        private void ExecutePatchCommand()
+        {
+            LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);
         }
         #endregion
     }

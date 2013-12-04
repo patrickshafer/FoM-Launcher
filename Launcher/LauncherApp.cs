@@ -1,4 +1,5 @@
 ﻿using FoM.Launcher.Models;
+using System;
 using System.Windows;
 
 namespace FoM.Launcher
@@ -9,10 +10,12 @@ namespace FoM.Launcher
         private Application _WPFApp;
 
         public UserModel UserInfo;
+        public PatchModel PatchInfo;
 
         private LauncherApp()
         {
             this.UserInfo = new UserModel();
+            this.PatchInfo = new PatchModel();
             this._WPFApp = new Application();
         }
 

@@ -23,5 +23,6 @@ namespace FoM.Launcher.Views
         {
             InitializeComponent();
         }
+
     }
 }

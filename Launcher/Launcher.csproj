@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationRPC.cs" />
     <Compile Include="LauncherApp.cs" />
+    <Compile Include="Models\PatchModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="InternalUI.cs">
       <SubType>Form</SubType>
