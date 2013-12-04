@@ -20,7 +20,6 @@ namespace FoM.Launcher.Models
             switch (LoginResult.Status)
             {
                 case RPCEnvelope.StatusEnum.Error:
-                    System.Windows.Forms.MessageBox.Show(LoginResult.ErrorMessage, "Login error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
                     break;
                 case RPCEnvelope.StatusEnum.Success:
                     this.NeedsLogin = false;

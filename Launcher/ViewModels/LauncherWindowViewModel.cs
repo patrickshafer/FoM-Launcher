@@ -30,6 +30,8 @@ namespace FoM.Launcher.ViewModels
                 this._LoginCommand.RaiseCanExecuteChanged();
             }
         }
+        public string LoginErrorMessage { get { return LauncherApp.Instance.UserInfo.ErrorMessage; } }
+        public bool NeedsLogin { get { return LauncherApp.Instance.UserInfo.NeedsLogin; } }
         public ICommand LoginCommand
         {
             get
@@ -48,7 +50,11 @@ namespace FoM.Launcher.ViewModels
         private void ExecuteLoginCommand()
         {
             if (this.CanLoginCommand())
+            {
                 LauncherApp.Instance.UserInfo.ExecuteLogin(this.Username, this.Password);
+                this.RaisePropertyChanged("LoginErrorMessage");
+                this.RaisePropertyChanged("NeedsLogin");
+            }
         }
         #endregion
     }

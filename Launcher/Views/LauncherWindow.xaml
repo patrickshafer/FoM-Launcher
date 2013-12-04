@@ -4,14 +4,16 @@
         xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="300" Width="468" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 		<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
 	</Window.Resources>
 	<DockPanel DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}">
-		<StackPanel VerticalAlignment="Top">
+		<StackPanel VerticalAlignment="Top" Visibility="{Binding NeedsLogin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}">
 			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
 			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
 			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
 			<Button Content="Login" Width="75" Command="{Binding LoginCommand, Mode=OneWay}"/>
+			<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 		</StackPanel>
 	</DockPanel>
 </Window>
