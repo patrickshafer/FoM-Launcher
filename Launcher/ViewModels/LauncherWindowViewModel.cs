@@ -84,5 +84,38 @@ namespace FoM.Launcher.ViewModels
             LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);
         }
         #endregion
+
+        #region options
+        //TODO upgrade options dialog to WPF
+        private DelegateCommand _PreferencesCommand;
+        public ICommand PreferencesCommand
+        {
+            get
+            {
+                if (this._PreferencesCommand == null)
+                    this._PreferencesCommand = new DelegateCommand(new Action(this.ExecutePreferencesCommand));
+                return this._PreferencesCommand;
+            }
+        }
+        private void ExecutePreferencesCommand()
+        {
+            using (PreferencesUI PrefDialog = new PreferencesUI())
+            {
+                Preferences PrefData = Preferences.Load();
+
+                PrefDialog.LauncherEdition = PrefData.LauncherEdition;
+                PrefDialog.WindowedMode = PrefData.WindowedMode;
+                PrefDialog.AutoLaunch = PrefData.AutoLaunch;
+
+                if (PrefDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    PrefData.LauncherEdition = PrefDialog.LauncherEdition;
+                    PrefData.WindowedMode = PrefDialog.WindowedMode;
+                    PrefData.AutoLaunch = PrefDialog.AutoLaunch;
+                    PrefData.Save();
+                }
+            }
+        }
+        #endregion
     }
 }

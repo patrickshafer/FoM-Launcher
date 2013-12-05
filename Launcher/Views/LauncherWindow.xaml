@@ -29,6 +29,7 @@
             </StackPanel>
             <Button Height="22" Width="150" Command="{Binding PatchCommand, Mode=OneWay}">Click me to start</Button>
             <ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}"/>
+            <Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}"/>
 		</StackPanel>
 	</DockPanel>
 </Window>
