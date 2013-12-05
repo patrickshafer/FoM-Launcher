@@ -4,6 +4,13 @@
         xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="300" Width="468" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
+		<Style TargetType="ProgressBar" x:Key="PatchProgress">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+					<Setter Property="IsIndeterminate" Value="True"></Setter>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
     </Window.Resources>
@@ -21,7 +28,7 @@
 			    <TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
             </StackPanel>
             <Button Height="22" Width="150" Command="{Binding PatchCommand, Mode=OneWay}">Click me to start</Button>
-            <ProgressBar Height="20" Width="250"/>
+            <ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}"/>
 		</StackPanel>
 	</DockPanel>
 </Window>
