@@ -7,14 +7,38 @@
 		<Style TargetType="ProgressBar" x:Key="PatchProgress">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
-					<Setter Property="IsIndeterminate" Value="True"></Setter>
+					<Setter Property="IsIndeterminate" Value="True"/>
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
     </Window.Resources>
-	<Grid DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}">
+	<Window.Background>
+		<LinearGradientBrush EndPoint="1,0" StartPoint="0,1" MappingMode="RelativeToBoundingBox">
+			<GradientStop Color="#FF57585A" Offset="0"/>
+			<GradientStop Color="#FF57585A" Offset="1"/>
+			<GradientStop Color="#FFB0B6B6" Offset="0.5"/>
+		</LinearGradientBrush>
+	</Window.Background>
+	<Grid x:Name="grid" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}">
+		<Rectangle RadiusX="10" RadiusY="10" Margin="10">
+			<Rectangle.Fill>
+				<RadialGradientBrush>
+					<GradientStop Color="#FFD6DDFF" Offset="1"/>
+					<GradientStop Color="White"/>
+				</RadialGradientBrush>
+			</Rectangle.Fill>
+		</Rectangle>
+		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Face of Mankind: Fall of the Dominion" VerticalAlignment="Top" Margin="0,25,0,0" FontSize="26.667" FontWeight="Bold" TextDecorations="{x:Null}"/>
+		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alpha" VerticalAlignment="Top" Margin="0,66,0,0" FontSize="64" FontFamily="SketchFlow Print" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+			<TextBlock.Foreground>
+				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+					<GradientStop Color="Blue" Offset="0"/>
+					<GradientStop Color="#FF64E3FF" Offset="0.772"/>
+				</LinearGradientBrush>
+			</TextBlock.Foreground>
+		</TextBlock>
 		<StackPanel VerticalAlignment="Top" Visibility="{Binding NeedsLogin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" Margin="541,254,107.123,0">
 			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
 			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
@@ -23,7 +47,7 @@
 			<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 		</StackPanel>
 		<StackPanel VerticalAlignment="Top" Margin="258.876,466,267,0" HorizontalAlignment="Center">
-			<StackPanel Orientation="Horizontal">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<TextBlock Text="Current Patch Activity: " />
 				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
 			</StackPanel>
