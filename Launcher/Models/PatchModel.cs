@@ -7,7 +7,9 @@ namespace FoM.Launcher.Models
     class PatchModel
     {
         private RuntimeStateEnum _PatchState;
+        private int _PatchProgress;
 
+        public event EventHandler PatchProgressChanged;
         public event EventHandler PatchStateChanged;
         public RuntimeStateEnum PatchState
         {
@@ -19,11 +21,27 @@ namespace FoM.Launcher.Models
                     PatchStateChanged(this, EventArgs.Empty);
             }
         }
+        public int PatchProgress
+        {
+            get { return this._PatchProgress; }
+            set
+            {
+                this._PatchProgress = value;
+                if (this.PatchProgressChanged != null)
+                    PatchProgressChanged(this, EventArgs.Empty);
+            }
+        }
         public PatchModel()
         {
             PatchManager.UpdateCheckCompleted += PatchManager_UpdateCheckCompleted;
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
+            PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
             this.PatchState = RuntimeStateEnum.Nothing;
+        }
+
+        void PatchManager_ApplyPatchProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            this.PatchProgress = e.ProgressPercentage;
         }
 
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)

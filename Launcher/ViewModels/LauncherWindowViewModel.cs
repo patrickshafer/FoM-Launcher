@@ -9,6 +9,7 @@ namespace FoM.Launcher.ViewModels
         public LauncherWindowViewModel()
         {
             LauncherApp.Instance.PatchInfo.PatchStateChanged += PatchInfo_PatchStateChanged;
+            LauncherApp.Instance.PatchInfo.PatchProgressChanged += PatchInfo_PatchProgressChanged;
         }
 
         #region Login Stuff
@@ -65,10 +66,16 @@ namespace FoM.Launcher.ViewModels
 
         #region Patch stuff
         public string PatchState { get { return LauncherApp.Instance.PatchInfo.PatchState.ToString(); } }
+        public int PatchProgress { get { return LauncherApp.Instance.PatchInfo.PatchProgress; } }
         void PatchInfo_PatchStateChanged(object sender, EventArgs e)
         {
             this.RaisePropertyChanged("PatchState");
         }
+        void PatchInfo_PatchProgressChanged(object sender, EventArgs e)
+        {
+            this.RaisePropertyChanged("PatchProgress");
+        }
+
         private DelegateCommand _PatchCommand;
         public ICommand PatchCommand
         {
