@@ -4,9 +4,7 @@
         xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
-		<Style TargetType="TextBlock">
-			<Setter Property="Foreground" Value="White"/>
-		</Style>
+		<Style TargetType="TextBlock"/>
 		<Style TargetType="{x:Type StackPanel}" x:Key="NeedsLoginVisible">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
@@ -24,40 +22,9 @@
 		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
         <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
     </Window.Resources>
-	<Window.Background>
-		<LinearGradientBrush EndPoint="1,0" StartPoint="0,1" MappingMode="RelativeToBoundingBox">
-			<GradientStop Color="#FF57585A" Offset="0"/>
-			<GradientStop Color="#FF57585A" Offset="1"/>
-			<GradientStop Color="#FFB0B6B6" Offset="0.5"/>
-		</LinearGradientBrush>
-	</Window.Background>
-	<Grid x:Name="grid" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}">
-		<Rectangle RadiusX="10" RadiusY="10" Margin="10">
-			<Rectangle.Fill>
-				<RadialGradientBrush>
-					<GradientStop Color="Black" Offset="1"/>
-					<GradientStop Color="#FF4F4F4F"/>
-				</RadialGradientBrush>
-			</Rectangle.Fill>
-		</Rectangle>
-		<Path Data="M0,0 L144,0 525,0 709,0 709,58.000001 542.68134,58.000001 525,90.180006 525,92.000005 524,92.000005 144,92.000005 125.31868,58.000001 0,58.000001 z" HorizontalAlignment="Left" Height="92" Margin="39,36,0,0" Stretch="Fill" VerticalAlignment="Top" Width="709" Stroke="#FFABB1B1" StrokeThickness="3">
-			<Path.Fill>
-				<LinearGradientBrush EndPoint="1,-5" StartPoint="0,0">
-					<GradientStop Color="#FF626667" Offset="0.228"/>
-					<GradientStop Color="#FF626667" Offset="0.513"/>
-					<GradientStop Color="#FFAEB4B4" Offset="0.332"/>
-				</LinearGradientBrush>
-			</Path.Fill>
-		</Path>
-		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Server Status" VerticalAlignment="Top" Margin="82,56.04,0,0"/>
-		<StackPanel VerticalAlignment="Top" Margin="541,254,107.123,0">
-			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
-			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
-			<TextBox Width="120" Height="23" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
-			<Button Content="Login" Width="75" Command="{Binding LoginCommand, Mode=OneWay}"/>
-			<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
-		</StackPanel>
-		<StackPanel VerticalAlignment="Top" Margin="258.876,466,267,0" HorizontalAlignment="Center">
+	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Margin="10" Background="#FF404040">
+		<Canvas Background="#FFFFEEA1" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="{Binding ActualWidth, ElementName=dockPanel}"/>
+		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<TextBlock Text="Current Patch Activity: " />
 				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
@@ -65,13 +32,20 @@
 			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}"/>
 			<Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}"/>
 		</StackPanel>
-		<Ellipse HorizontalAlignment="Left" Height="15.96" Margin="59.02,56.04,0,0" Stroke="#FFD6D6D6" VerticalAlignment="Top" Width="15.96">
-			<Ellipse.Fill>
-				<RadialGradientBrush>
-					<GradientStop Color="#FF0DCD00" Offset="0.25"/>
-					<GradientStop Color="#FF225E22" Offset="0.668"/>
-				</RadialGradientBrush>
-			</Ellipse.Fill>
-		</Ellipse>
-	</Grid>
+		<UniformGrid DockPanel.Dock="Top" Background="#FFAAFFFB" Rows="1" Columns="2">
+			<StackPanel Background="#FFB1FFB8">
+				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Center" Background="#FFDEDEDE"/>
+			</StackPanel>
+			<StackPanel Background="#FFF6BBFF">
+				<TextBlock TextWrapping="Wrap" Text="Welcome" HorizontalAlignment="Center" Background="#FFC5C5C5"/>
+				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90">
+					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
+					<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
+					<TextBox Width="120" Height="23" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+					<Button Content="Login" Width="75" Command="{Binding LoginCommand, Mode=OneWay}"/>
+					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
+				</StackPanel>
+			</StackPanel>
+		</UniformGrid>
+	</DockPanel>
 </Window>
