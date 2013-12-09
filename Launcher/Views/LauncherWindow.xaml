@@ -1,17 +1,20 @@
 ﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
+        xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
-		<Style TargetType="StackPanel" x:Key="NeedsLoginVisible">
+		<Style TargetType="TextBlock">
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style TargetType="{x:Type StackPanel}" x:Key="NeedsLoginVisible">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
 					<Setter Property="Visibility" Value="Visible" />
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
-		<Style TargetType="ProgressBar" x:Key="PatchProgress">
+		<Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
 					<Setter Property="IsIndeterminate" Value="True"/>
@@ -32,21 +35,22 @@
 		<Rectangle RadiusX="10" RadiusY="10" Margin="10">
 			<Rectangle.Fill>
 				<RadialGradientBrush>
-					<GradientStop Color="#FFD6DDFF" Offset="1"/>
-					<GradientStop Color="White"/>
+					<GradientStop Color="Black" Offset="1"/>
+					<GradientStop Color="#FF4F4F4F"/>
 				</RadialGradientBrush>
 			</Rectangle.Fill>
 		</Rectangle>
-		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Face of Mankind: Fall of the Dominion" VerticalAlignment="Top" Margin="0,25,0,0" FontSize="26.667" FontWeight="Bold" TextDecorations="{x:Null}"/>
-		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alpha" VerticalAlignment="Top" Margin="0,66,0,0" FontSize="64" FontFamily="SketchFlow Print" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
-			<TextBlock.Foreground>
-				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="Blue" Offset="1"/>
-					<GradientStop Color="#FF64E3FF" Offset="0.147"/>
+		<Path Data="M0,0 L144,0 525,0 709,0 709,58.000001 542.68134,58.000001 525,90.180006 525,92.000005 524,92.000005 144,92.000005 125.31868,58.000001 0,58.000001 z" HorizontalAlignment="Left" Height="92" Margin="39,36,0,0" Stretch="Fill" VerticalAlignment="Top" Width="709" Stroke="#FFABB1B1" StrokeThickness="3">
+			<Path.Fill>
+				<LinearGradientBrush EndPoint="1,-5" StartPoint="0,0">
+					<GradientStop Color="#FF626667" Offset="0.228"/>
+					<GradientStop Color="#FF626667" Offset="0.513"/>
+					<GradientStop Color="#FFAEB4B4" Offset="0.332"/>
 				</LinearGradientBrush>
-			</TextBlock.Foreground>
-		</TextBlock>
-		<StackPanel VerticalAlignment="Top" Visibility="{Binding NeedsLogin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" Margin="541,254,107.123,0">
+			</Path.Fill>
+		</Path>
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Server Status" VerticalAlignment="Top" Margin="82,56.04,0,0"/>
+		<StackPanel VerticalAlignment="Top" Margin="541,254,107.123,0">
 			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
 			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
 			<TextBox Width="120" Height="23" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
@@ -61,5 +65,13 @@
 			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}"/>
 			<Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}"/>
 		</StackPanel>
+		<Ellipse HorizontalAlignment="Left" Height="15.96" Margin="59.02,56.04,0,0" Stroke="#FFD6D6D6" VerticalAlignment="Top" Width="15.96">
+			<Ellipse.Fill>
+				<RadialGradientBrush>
+					<GradientStop Color="#FF0DCD00" Offset="0.25"/>
+					<GradientStop Color="#FF225E22" Offset="0.668"/>
+				</RadialGradientBrush>
+			</Ellipse.Fill>
+		</Ellipse>
 	</Grid>
 </Window>
