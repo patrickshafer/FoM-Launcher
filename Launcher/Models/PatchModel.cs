@@ -36,7 +36,7 @@ namespace FoM.Launcher.Models
             PatchManager.UpdateCheckCompleted += PatchManager_UpdateCheckCompleted;
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
             PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
-            this.PatchState = RuntimeStateEnum.Nothing;
+            this.PatchState = RuntimeStateEnum.NeedsLogin;
         }
 
         void PatchManager_ApplyPatchProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)

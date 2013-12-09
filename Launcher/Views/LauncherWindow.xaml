@@ -4,6 +4,13 @@
         xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
 	<Window.Resources>
+		<Style TargetType="StackPanel" x:Key="NeedsLoginVisible">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+					<Setter Property="Visibility" Value="Visible" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
 		<Style TargetType="ProgressBar" x:Key="PatchProgress">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
@@ -34,15 +41,15 @@
 		<TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Text="Alpha" VerticalAlignment="Top" Margin="0,66,0,0" FontSize="64" FontFamily="SketchFlow Print" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
 			<TextBlock.Foreground>
 				<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-					<GradientStop Color="Blue" Offset="0"/>
-					<GradientStop Color="#FF64E3FF" Offset="0.772"/>
+					<GradientStop Color="Blue" Offset="1"/>
+					<GradientStop Color="#FF64E3FF" Offset="0.147"/>
 				</LinearGradientBrush>
 			</TextBlock.Foreground>
 		</TextBlock>
 		<StackPanel VerticalAlignment="Top" Visibility="{Binding NeedsLogin, Converter={StaticResource BooleanToVisibilityConverter}, Mode=OneWay}" Margin="541,254,107.123,0">
 			<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
 			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
-			<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
+			<PasswordBox Width="120" Height="23" Panel.ZIndex="5"/>
 			<Button Content="Login" Width="75" Command="{Binding LoginCommand, Mode=OneWay}"/>
 			<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 		</StackPanel>
@@ -51,7 +58,6 @@
 				<TextBlock Text="Current Patch Activity: " />
 				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
 			</StackPanel>
-			<Button Height="22" Width="150" Command="{Binding PatchCommand, Mode=OneWay}" Content="Click me to start"/>
 			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}"/>
 			<Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}"/>
 		</StackPanel>

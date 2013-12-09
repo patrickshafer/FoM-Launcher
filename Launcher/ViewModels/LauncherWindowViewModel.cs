@@ -37,7 +37,6 @@ namespace FoM.Launcher.ViewModels
             }
         }
         public string LoginErrorMessage { get { return LauncherApp.Instance.UserInfo.ErrorMessage; } }
-        public bool NeedsLogin { get { return LauncherApp.Instance.UserInfo.NeedsLogin; } }
         public ICommand LoginCommand
         {
             get
@@ -59,7 +58,8 @@ namespace FoM.Launcher.ViewModels
             {
                 LauncherApp.Instance.UserInfo.ExecuteLogin(this.Username, this.Password);
                 this.RaisePropertyChanged("LoginErrorMessage");
-                this.RaisePropertyChanged("NeedsLogin");
+                if (!LauncherApp.Instance.UserInfo.NeedsLogin)
+                    LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);        //start the patch process
             }
         }
         #endregion
