@@ -23,14 +23,9 @@ namespace FoM.Launcher
             Preferences PrefData = Preferences.Load();
             FoM.PatchLib.PatchManager.ApplicationStart(PrefData.LauncherURL);
 
-#if DEBUG
             LauncherApp App = LauncherApp.Instance;
             App.StartApplication();
-#else
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InternalUI());
-#endif
+
         }
 
         void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
