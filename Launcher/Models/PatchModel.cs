@@ -63,7 +63,11 @@ namespace FoM.Launcher.Models
                 PatchManager.ApplyPatchAsync(e.Manifest);
             }
             else
-                this.PatchState = RuntimeStateEnum.Nothing;
+            {
+                this.PatchState = RuntimeStateEnum.Ready;
+                if (this.PatchCompleted != null)
+                    this.PatchCompleted(this, EventArgs.Empty);
+            }
         }
 
         public void StartUpdate(string ManifestURL)
