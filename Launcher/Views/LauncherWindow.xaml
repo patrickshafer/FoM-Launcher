@@ -7,10 +7,26 @@
 		<Style TargetType="TextBlock">
 			<Setter Property="Foreground" Value="White"/>
 		</Style>
-		<Style TargetType="{x:Type StackPanel}" x:Key="NeedsLoginVisible">
+		<Style TargetType="TextBlock" x:Key="WelcomeText">
 			<Style.Triggers>
 				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
-					<Setter Property="Visibility" Value="Visible" />
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style TargetType="StackPanel" x:Key="NeedsLoginVisible">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+						<Setter Property="Visibility" Value="Visible" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding PatchState}" Value="Ready">
+						<Setter Property="Visibility" Value="Collapsed" />
 				</DataTrigger>
 			</Style.Triggers>
 		</Style>
@@ -91,17 +107,32 @@
 		</StackPanel>
 		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
 			<StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Center" Background="#FF001574"/>
+				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Center" Padding="10,0">
+					<TextBlock.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="#FF6C8BAA" Offset="0"/>
+							<GradientStop Color="#FF38546E" Offset="1"/>
+						</RadialGradientBrush>
+					</TextBlock.Background>
+				</TextBlock>
 			</StackPanel>
 			<StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome" HorizontalAlignment="Center" Background="#FF001574"/>
-				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90">
+				<TextBlock TextWrapping="Wrap" Text="Welcome" HorizontalAlignment="Center" Padding="10,0">
+					<TextBlock.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="#FF6C8BAA" Offset="0"/>
+							<GradientStop Color="#FF38546E" Offset="1"/>
+						</RadialGradientBrush>
+					</TextBlock.Background>
+				</TextBlock>
+				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}">
 					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
 					<TextBox Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
 					<TextBox Width="120" Height="23" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
 					<Button Content="Login" Width="75" Command="{Binding LoginCommand, Mode=OneWay}"/>
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
+				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White"/>
 			</StackPanel>
 		</UniformGrid>
 	</DockPanel>
