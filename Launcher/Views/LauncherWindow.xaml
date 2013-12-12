@@ -50,6 +50,36 @@
 			</Path>
 			<Ellipse Width="100" Canvas.Left="350" Canvas.Top="10" Fill="White" Height="107"/>
 			<TextBlock TextWrapping="Wrap" Text="FoM Logo goes here" Canvas.Left="369.999" Canvas.Top="45.332" Height="35.293" Width="59.287" Foreground="Red"/>
+			<Canvas Height="90.16" Canvas.Top="54.84" Width="225">
+				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
+					<Path.Stroke>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#FF46495A" Offset="0"/>
+							<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						</LinearGradientBrush>
+					</Path.Stroke>
+				</Path>
+				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
+			</Canvas>
+			<Canvas Height="90.16" Canvas.Top="54.84" Width="225" Canvas.Left="547" RenderTransformOrigin="0.5,0.5">
+				<Canvas.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleY="1" ScaleX="-1"/>
+						<SkewTransform AngleY="0" AngleX="0"/>
+						<RotateTransform Angle="0"/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Canvas.RenderTransform>
+				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
+					<Path.Stroke>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#FF46495A" Offset="0"/>
+							<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						</LinearGradientBrush>
+					</Path.Stroke>
+				</Path>
+				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
+			</Canvas>
 		</Canvas>
 		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
