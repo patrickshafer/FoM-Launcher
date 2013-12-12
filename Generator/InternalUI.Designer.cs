@@ -47,12 +47,12 @@
             this.Channel = new System.Windows.Forms.ComboBox();
             this.W4Instructions = new System.Windows.Forms.Label();
             this.Wizard5 = new System.Windows.Forms.Panel();
-            this.PatchURL = new System.Windows.Forms.TextBox();
             this.W5Intro = new System.Windows.Forms.Label();
             this.Wizard6 = new System.Windows.Forms.Panel();
             this.W6Result = new System.Windows.Forms.TextBox();
             this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Intro = new System.Windows.Forms.Label();
+            this.PatchURL = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
             this.Wizard1.SuspendLayout();
             this.Wizard2.SuspendLayout();
@@ -238,14 +238,6 @@
             this.Wizard5.Size = new System.Drawing.Size(385, 266);
             this.Wizard5.TabIndex = 9;
             // 
-            // PatchURL
-            // 
-            this.PatchURL.Location = new System.Drawing.Point(21, 158);
-            this.PatchURL.Name = "PatchURL";
-            this.PatchURL.Size = new System.Drawing.Size(340, 20);
-            this.PatchURL.TabIndex = 1;
-            this.PatchURL.Text = "http://gamedev.fom.nexeontech.com/";
-            // 
             // W5Intro
             // 
             this.W5Intro.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -297,6 +289,20 @@
             this.W6Intro.TabIndex = 0;
             this.W6Intro.Text = "Execution...";
             // 
+            // PatchURL
+            // 
+            this.PatchURL.FormattingEnabled = true;
+            this.PatchURL.Items.AddRange(new object[] {
+            "http://gamedev.fom.nexeontech.com",
+            "http://da73s87zjmd54.cloudfront.net",
+            "http://patch.patrickshafer.com",
+            "http://patch-cdn.patrickshafer.com"});
+            this.PatchURL.Location = new System.Drawing.Point(41, 145);
+            this.PatchURL.Name = "PatchURL";
+            this.PatchURL.Size = new System.Drawing.Size(320, 21);
+            this.PatchURL.TabIndex = 1;
+            this.PatchURL.Text = "http://gamedev.fom.nexeontech.com";
+            // 
             // InternalUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -327,7 +333,6 @@
             this.Wizard3.PerformLayout();
             this.Wizard4.ResumeLayout(false);
             this.Wizard5.ResumeLayout(false);
-            this.Wizard5.PerformLayout();
             this.Wizard6.ResumeLayout(false);
             this.Wizard6.PerformLayout();
             this.ResumeLayout(false);
@@ -355,10 +360,10 @@
         private System.Windows.Forms.Label W4Instructions;
         private System.Windows.Forms.Panel Wizard5;
         private System.Windows.Forms.Label W5Intro;
-        private System.Windows.Forms.TextBox PatchURL;
         private System.Windows.Forms.Panel Wizard6;
         private System.Windows.Forms.Button BtnCreate;
         private System.Windows.Forms.Label W6Intro;
         private System.Windows.Forms.TextBox W6Result;
+        private System.Windows.Forms.ComboBox PatchURL;
     }
 }

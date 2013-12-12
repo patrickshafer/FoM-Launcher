@@ -1,0 +1,144 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
+        Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen"
+		FocusManager.FocusedElement="{Binding ElementName=txtUsername}">
+	<Window.Resources>
+		<Style TargetType="TextBlock">
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style TargetType="TextBlock" x:Key="WelcomeText">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style TargetType="StackPanel" x:Key="NeedsLoginVisible">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+						<Setter Property="Visibility" Value="Visible" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+				<DataTrigger Binding="{Binding PatchState}" Value="Ready">
+						<Setter Property="Visibility" Value="Collapsed" />
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
+			<Style.Triggers>
+				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+					<Setter Property="IsIndeterminate" Value="True"/>
+				</DataTrigger>
+			</Style.Triggers>
+		</Style>
+		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+        <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+    </Window.Resources>
+	<Window.Triggers>
+		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
+	</Window.Triggers>
+	<Window.Background>
+		<LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+			<GradientStop Color="#FF55595A" Offset="0"/>
+			<GradientStop Color="#FF55595A" Offset="1"/>
+			<GradientStop Color="#FFAFB5B5" Offset="0.509"/>
+		</LinearGradientBrush>
+	</Window.Background>
+	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Margin="10" Background="Black">
+		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="{Binding ActualWidth, ElementName=dockPanel}">
+			<Path Data="M10,0 L762,0 C767.52283,0 772,4.4771538 772,10.000004 L772,31.999994 C772,37.522848 767.52283,42 762,41.999997 L590,41.999997 538.5,145 234.49999,145 183,41.999997 10,41.999997 C4.4771576,42 0,37.522848 0,31.999994 L0,10.000004 C0,4.4771538 4.4771576,0 10,0 z" Height="145" Stretch="Fill" StrokeThickness="4" Width="772">
+				<Path.Stroke>
+					<LinearGradientBrush EndPoint="1,1" StartPoint="1,0">
+						<GradientStop Color="#BF55595A"/>
+						<GradientStop Color="White" Offset="1"/>
+					</LinearGradientBrush>
+				</Path.Stroke>
+				<Path.Fill>
+					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
+						<GradientStop Color="#FF55595A" Offset="0.573"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.655"/>
+						<GradientStop Color="#FF55595A" Offset="0.81"/>
+					</LinearGradientBrush>
+				</Path.Fill>
+			</Path>
+			<Ellipse Width="100" Canvas.Left="350" Canvas.Top="10" Fill="White" Height="107"/>
+			<TextBlock TextWrapping="Wrap" Text="FoM Logo goes here" Canvas.Left="369.999" Canvas.Top="45.332" Height="35.293" Width="59.287" Foreground="Red"/>
+			<Canvas Height="90.16" Canvas.Top="54.84" Width="225">
+				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
+					<Path.Stroke>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#FF46495A" Offset="0"/>
+							<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						</LinearGradientBrush>
+					</Path.Stroke>
+				</Path>
+				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
+			</Canvas>
+			<Canvas Height="90.16" Canvas.Top="54.84" Width="225" Canvas.Left="547" RenderTransformOrigin="0.5,0.5">
+				<Canvas.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform ScaleY="1" ScaleX="-1"/>
+						<SkewTransform AngleY="0" AngleX="0"/>
+						<RotateTransform Angle="0"/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Canvas.RenderTransform>
+				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
+					<Path.Stroke>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#FF46495A" Offset="0"/>
+							<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						</LinearGradientBrush>
+					</Path.Stroke>
+				</Path>
+				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
+			</Canvas>
+		</Canvas>
+		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
+			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>
+			<Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4"/>
+			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<TextBlock Text="Current Patch Activity: " />
+				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
+			</StackPanel>
+		</StackPanel>
+		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
+			<StackPanel>
+				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Center" Padding="10,0">
+					<TextBlock.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="#FF6C8BAA" Offset="0"/>
+							<GradientStop Color="#FF38546E" Offset="1"/>
+						</RadialGradientBrush>
+					</TextBlock.Background>
+				</TextBlock>
+			</StackPanel>
+			<StackPanel>
+				<TextBlock TextWrapping="Wrap" Text="Welcome" HorizontalAlignment="Center" Padding="10,0">
+					<TextBlock.Background>
+						<RadialGradientBrush>
+							<GradientStop Color="#FF6C8BAA" Offset="0"/>
+							<GradientStop Color="#FF38546E" Offset="1"/>
+						</RadialGradientBrush>
+					</TextBlock.Background>
+				</TextBlock>
+				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}">
+					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
+					<TextBox x:Name="txtUsername" Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" TabIndex="1"/>
+					<PasswordBox Name="txtPassword" Width="120" Height="23" TabIndex="2" />
+					<Button Content="Login" Width="75" Command="{Binding Path=LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3"/>
+					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
+				</StackPanel>
+				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White"/>
+			</StackPanel>
+		</UniformGrid>
+	</DockPanel>
+</Window>

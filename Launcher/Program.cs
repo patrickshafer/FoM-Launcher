@@ -19,8 +19,7 @@ namespace FoM.Launcher
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 
-            Startup thisStartup = new Startup();
-            thisStartup.Execute();
+            new Startup().StartApplication();
         }
 
         /// <summary>
