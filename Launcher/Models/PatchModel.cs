@@ -12,6 +12,7 @@ namespace FoM.Launcher.Models
 
         public event EventHandler PatchProgressChanged;
         public event EventHandler PatchStateChanged;
+        public event EventHandler PatchCompleted;
 
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public RuntimeStateEnum PatchState
@@ -50,6 +51,8 @@ namespace FoM.Launcher.Models
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
         {
             this.PatchState = RuntimeStateEnum.Ready;
+            if (this.PatchCompleted != null)
+                this.PatchCompleted(this, EventArgs.Empty);
         }
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
@@ -72,6 +75,24 @@ namespace FoM.Launcher.Models
             string LocalFolder = Directory.GetCurrentDirectory();
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+        }
+        public void LaunchFoM()
+        {
+            this.ReleaseFoMMutex();
+            const string FoMClient = "fom_client.exe";
+
+            if (File.Exists(FoMClient))
+            {
+                Preferences PrefData = Preferences.Load();
+                string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
+                System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
+                LauncherApp.Instance.Exit();
+            }
+            else
+            {
+                Log.Error("Unable to launch fom_client.exe, it does not exist");
+                System.Windows.MessageBox.Show("Unable to launch fom_client.exe, it does not exist", "Game launch", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
+            }
         }
         private void AcquireFoMMutex()
         {

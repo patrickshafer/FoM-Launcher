@@ -10,6 +10,7 @@ namespace FoM.Launcher.ViewModels
         {
             LauncherApp.Instance.PatchInfo.PatchStateChanged += PatchInfo_PatchStateChanged;
             LauncherApp.Instance.PatchInfo.PatchProgressChanged += PatchInfo_PatchProgressChanged;
+            LauncherApp.Instance.PatchInfo.PatchCompleted += PatchInfo_PatchCompleted;
         }
 
         #region Login Stuff
@@ -82,6 +83,33 @@ namespace FoM.Launcher.ViewModels
         {
             LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);
         }
+
+        void PatchInfo_PatchCompleted(object sender, EventArgs e)
+        {
+            this._LaunchCommand.RaiseCanExecuteChanged();
+        }
+        private DelegateCommand _LaunchCommand;
+        public ICommand LaunchCommand
+        {
+            get
+            {
+                if (this._LaunchCommand == null)
+                    this._LaunchCommand = new DelegateCommand(new Action(ExecuteLaunchCommand), new Func<bool>(CanLaunchCommand));
+                return this._LaunchCommand;
+            }
+        }
+        private void ExecuteLaunchCommand()
+        {
+            LauncherApp.Instance.PatchInfo.LaunchFoM();
+        }
+        private bool CanLaunchCommand()
+        {
+            if (LauncherApp.Instance.PatchInfo.PatchState == Models.PatchModel.RuntimeStateEnum.Ready)
+                return true;
+            else
+                return false;
+        }
+
         #endregion
 
         #region options
