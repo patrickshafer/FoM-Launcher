@@ -11,7 +11,7 @@ namespace FoM.Launcher
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        internal void Execute()
+        public void StartApplication()
         {
             log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("FoM.Launcher.Resources.log4netConfig.xml"));
 
@@ -23,9 +23,9 @@ namespace FoM.Launcher
             Preferences PrefData = Preferences.Load();
             FoM.PatchLib.PatchManager.ApplicationStart(PrefData.LauncherURL);
 
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new InternalUI());
+            LauncherApp App = LauncherApp.Instance;
+            App.StartApplication();
+
         }
 
         void Application_ThreadException(object sender, System.Threading.ThreadExceptionEventArgs e)
