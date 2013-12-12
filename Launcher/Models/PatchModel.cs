@@ -8,9 +8,12 @@ namespace FoM.Launcher.Models
     {
         private RuntimeStateEnum _PatchState;
         private int _PatchProgress;
+        private System.Threading.Mutex FoMMutex;
 
         public event EventHandler PatchProgressChanged;
         public event EventHandler PatchStateChanged;
+
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public RuntimeStateEnum PatchState
         {
             get { return this._PatchState; }
@@ -62,12 +65,32 @@ namespace FoM.Launcher.Models
 
         public void StartUpdate(string ManifestURL)
         {
+            this.AcquireFoMMutex();
 #if DEBUG
             ManifestURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
 #endif
             string LocalFolder = Directory.GetCurrentDirectory();
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+        }
+        private void AcquireFoMMutex()
+        {
+            bool LockAcquired;
+            this.FoMMutex = new System.Threading.Mutex(true, "fom_client.exe", out LockAcquired);
+            if (!LockAcquired)
+            {
+                Log.Error("fom_client mutex already established, terminating");
+                System.Windows.MessageBox.Show("Face of Mankind is running, please close it and try again", "fom_client running", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                LauncherApp.Instance.Exit();
+            }
+        }
+        private void ReleaseFoMMutex()
+        {
+            if (this.FoMMutex != null)
+            {
+                this.FoMMutex.ReleaseMutex();
+                this.FoMMutex = null;
+            }
         }
         public enum RuntimeStateEnum
         {

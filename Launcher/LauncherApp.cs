@@ -23,6 +23,10 @@ namespace FoM.Launcher
         {
             this._WPFApp.Run(new Views.LauncherWindow());
         }
+        public void Exit()
+        {
+            this._WPFApp.Shutdown();
+        }
 
         public static LauncherApp Instance
         {
