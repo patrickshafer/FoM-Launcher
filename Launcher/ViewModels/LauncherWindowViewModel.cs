@@ -14,7 +14,6 @@ namespace FoM.Launcher.ViewModels
 
         #region Login Stuff
         private string _Username;
-        private string _Password;
         private DelegateCommand _LoginCommand;
         public string Username
         {
@@ -26,40 +25,33 @@ namespace FoM.Launcher.ViewModels
                 this._LoginCommand.RaiseCanExecuteChanged();
             }
         }
-        public string Password
-        {
-            get { return this._Password; }
-            set
-            {
-                this._Password = value;
-                this.RaisePropertyChanged("Password");
-                this._LoginCommand.RaiseCanExecuteChanged();
-            }
-        }
         public string LoginErrorMessage { get { return LauncherApp.Instance.UserInfo.ErrorMessage; } }
         public ICommand LoginCommand
         {
             get
             {
                 if (this._LoginCommand == null)
-                    this._LoginCommand = new DelegateCommand(new Action(this.ExecuteLoginCommand), new Func<bool>(this.CanLoginCommand));
+                    this._LoginCommand = new DelegateCommand(new Action<object>(this.ExecuteLoginCommand), new Func<object, bool>(this.CanLoginCommand));
                 return this._LoginCommand;
             }
         }
-        private bool CanLoginCommand()
+        private bool CanLoginCommand(object parameter)
         {
-            bool CanUsername = !String.IsNullOrWhiteSpace(this.Username) && this.Username.Length >= 3;
-            bool CanPassword = !String.IsNullOrWhiteSpace(this.Password) && this.Password.Length >= 3;
-            return CanUsername && CanPassword;
+            return !String.IsNullOrWhiteSpace(this.Username) && this.Username.Length >= 3;
         }
-        private void ExecuteLoginCommand()
+        private void ExecuteLoginCommand(object parameter)
         {
-            if (this.CanLoginCommand())
+            System.Windows.Controls.PasswordBox PasswordBox;
+            if (this.CanLoginCommand(parameter))
             {
-                LauncherApp.Instance.UserInfo.ExecuteLogin(this.Username, this.Password);
-                this.RaisePropertyChanged("LoginErrorMessage");
-                if (!LauncherApp.Instance.UserInfo.NeedsLogin)
-                    LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);        //start the patch process
+                if (parameter is System.Windows.Controls.PasswordBox)
+                {
+                    PasswordBox = (System.Windows.Controls.PasswordBox)parameter;
+                    LauncherApp.Instance.UserInfo.ExecuteLogin(this.Username, PasswordBox.Password);
+                    this.RaisePropertyChanged("LoginErrorMessage");
+                    if (!LauncherApp.Instance.UserInfo.NeedsLogin)
+                        LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);        //start the patch process
+                }
             }
         }
         #endregion
