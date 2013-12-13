@@ -74,7 +74,7 @@
 					</LinearGradientBrush>
 				</Path.Fill>
 			</Path>
-			<Image Source="fotdlogo.png" Stretch="Fill" Canvas.Left="336" Canvas.Top="0" Height="163" Width="128"/>
+			<Image Source="/FoM.Launcher;component/Resources/fotdlogo.png" Stretch="Fill" Canvas.Left="336" Canvas.Top="0" Height="163" Width="128"/>
 			<Rectangle x:Name="DragBar" Height="41.333" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10" MouseDown="DragBar_MouseDown">
 				<Rectangle.Fill>
 					<SolidColorBrush Color="Lime" Opacity="0"/>
