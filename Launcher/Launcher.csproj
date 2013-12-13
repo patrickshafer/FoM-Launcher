@@ -138,7 +138,9 @@
   <ItemGroup>
     <Content Include="Resources\idr_main.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Views\fotdlogo.png" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\LauncherWindow.xaml">
       <SubType>Designer</SubType>
