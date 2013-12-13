@@ -24,5 +24,15 @@ namespace FoM.Launcher.Views
             InitializeComponent();
         }
 
+        private void CloseButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	Application.Current.Shutdown();
+        }
+
+        private void MinimizeButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+        	WindowState = WindowState.Minimized;
+        }
+
     }
 }

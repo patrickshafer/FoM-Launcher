@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen"
-		FocusManager.FocusedElement="{Binding ElementName=txtUsername}">
+		FocusManager.FocusedElement="{Binding ElementName=txtUsername}" Background="{x:Null}" WindowStyle="None" ResizeMode="NoResize">
 	<Window.Resources>
 		<Style TargetType="TextBlock">
 			<Setter Property="Foreground" Value="White"/>
@@ -44,62 +44,23 @@
 	<Window.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
 	</Window.Triggers>
-	<Window.Background>
-		<LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-			<GradientStop Color="#FF55595A" Offset="0"/>
-			<GradientStop Color="#FF55595A" Offset="1"/>
-			<GradientStop Color="#FFAFB5B5" Offset="0.509"/>
-		</LinearGradientBrush>
-	</Window.Background>
-	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Margin="10" Background="Black">
-		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="{Binding ActualWidth, ElementName=dockPanel}">
-			<Path Data="M10,0 L762,0 C767.52283,0 772,4.4771538 772,10.000004 L772,31.999994 C772,37.522848 767.52283,42 762,41.999997 L590,41.999997 538.5,145 234.49999,145 183,41.999997 10,41.999997 C4.4771576,42 0,37.522848 0,31.999994 L0,10.000004 C0,4.4771538 4.4771576,0 10,0 z" Height="145" Stretch="Fill" StrokeThickness="4" Width="772">
-				<Path.Stroke>
-					<LinearGradientBrush EndPoint="1,1" StartPoint="1,0">
-						<GradientStop Color="#BF55595A"/>
-						<GradientStop Color="White" Offset="1"/>
-					</LinearGradientBrush>
-				</Path.Stroke>
-				<Path.Fill>
+	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Background="Black">
+		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="800">
+			<Rectangle Height="40" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10">
+				<Rectangle.Fill>
 					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
-						<GradientStop Color="#FF55595A" Offset="0.573"/>
-						<GradientStop Color="#FFAFB5B5" Offset="0.655"/>
-						<GradientStop Color="#FF55595A" Offset="0.81"/>
+						<GradientStop Color="#FF55595A" Offset="0.108"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.228"/>
+						<GradientStop Color="#FF55595A" Offset="0.47"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.858"/>
+						<GradientStop Color="#FF55595A" Offset="0.944"/>
+						<GradientStop Color="#FF55595A" Offset="0.694"/>
 					</LinearGradientBrush>
-				</Path.Fill>
-			</Path>
-			<Ellipse Width="100" Canvas.Left="350" Canvas.Top="10" Fill="White" Height="107"/>
-			<TextBlock TextWrapping="Wrap" Text="FoM Logo goes here" Canvas.Left="369.999" Canvas.Top="45.332" Height="35.293" Width="59.287" Foreground="Red"/>
-			<Canvas Height="90.16" Canvas.Top="54.84" Width="225">
-				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
-					<Path.Stroke>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FF46495A" Offset="0"/>
-							<GradientStop Color="#FF7E7F8C" Offset="1"/>
-						</LinearGradientBrush>
-					</Path.Stroke>
-				</Path>
-				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
-			</Canvas>
-			<Canvas Height="90.16" Canvas.Top="54.84" Width="225" Canvas.Left="547" RenderTransformOrigin="0.5,0.5">
-				<Canvas.RenderTransform>
-					<TransformGroup>
-						<ScaleTransform ScaleY="1" ScaleX="-1"/>
-						<SkewTransform AngleY="0" AngleX="0"/>
-						<RotateTransform Angle="0"/>
-						<TranslateTransform/>
-					</TransformGroup>
-				</Canvas.RenderTransform>
-				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
-					<Path.Stroke>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FF46495A" Offset="0"/>
-							<GradientStop Color="#FF7E7F8C" Offset="1"/>
-						</LinearGradientBrush>
-					</Path.Stroke>
-				</Path>
-				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
-			</Canvas>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Button x:Name="MinimizeButton" Content="_" Width="20" Canvas.Left="735.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="MinimizeButton_Click"/>
+			<Button x:Name="CloseButton" Content="X" Width="20" Canvas.Left="760.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="CloseButton_Click"/>
+			<Image Source="fotdlogo.png" Stretch="Fill" Canvas.Left="336" Canvas.Top="0" Height="163" Width="128"/>
 		</Canvas>
 		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
 			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>
