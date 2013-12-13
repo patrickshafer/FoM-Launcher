@@ -5,6 +5,11 @@
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen"
 		FocusManager.FocusedElement="{Binding ElementName=txtUsername}" Background="{x:Null}" WindowStyle="None" ResizeMode="NoResize">
 	<Window.Resources>
+		<Style TargetType="Button" x:Key="CommandButton">
+			<Setter Property="Background" Value="#FF737778"/>
+			<Setter Property="Foreground" Value="#FFB1B1A9"/>
+			<Setter Property="BorderBrush" Value="{x:Null}"/>
+		</Style>
 		<Style TargetType="TextBlock">
 			<Setter Property="Foreground" Value="White"/>
 		</Style>
@@ -46,21 +51,35 @@
 	</Window.Triggers>
 	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Background="Black">
 		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="800">
-			<Rectangle Height="40" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10">
-				<Rectangle.Fill>
+			<Path Data="M0,0 L780,0 780,39.999997 585,39.999997 495,129.99999 440,129.99999 435,129.99999 345,129.99999 340,129.99999 285,129.99999 195,39.999997 0,39.999997 z" Height="130" Canvas.Left="10" Stretch="Fill" StrokeThickness="4" Canvas.Top="10" Width="780">
+				<Path.Stroke>
 					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
-						<GradientStop Color="#FF55595A" Offset="0.108"/>
-						<GradientStop Color="#FFAFB5B5" Offset="0.228"/>
-						<GradientStop Color="#FF55595A" Offset="0.47"/>
-						<GradientStop Color="#FFAFB5B5" Offset="0.858"/>
-						<GradientStop Color="#FF55595A" Offset="0.944"/>
-						<GradientStop Color="#FF55595A" Offset="0.694"/>
+						<GradientStop Color="#FF5F6364" Offset="0.431"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.487"/>
+						<GradientStop Color="#FF5F6364" Offset="0.608"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.659"/>
+						<GradientStop Color="#FF646869" Offset="0.552"/>
+						<GradientStop Color="#FF5F6364" Offset="0.716"/>
 					</LinearGradientBrush>
+				</Path.Stroke>
+				<Path.Fill>
+					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
+						<GradientStop Color="#FF5F6364" Offset="0.565"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.616"/>
+						<GradientStop Color="#FF5F6364" Offset="0.75"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.72"/>
+						<GradientStop Color="#FF646869" Offset="0.672"/>
+					</LinearGradientBrush>
+				</Path.Fill>
+			</Path>
+			<Image Source="fotdlogo.png" Stretch="Fill" Canvas.Left="336" Canvas.Top="0" Height="163" Width="128"/>
+			<Rectangle x:Name="DragBar" Height="41.333" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10" MouseDown="DragBar_MouseDown">
+				<Rectangle.Fill>
+					<SolidColorBrush Color="Lime" Opacity="0"/>
 				</Rectangle.Fill>
 			</Rectangle>
-			<Button x:Name="MinimizeButton" Content="_" Width="20" Canvas.Left="735.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="MinimizeButton_Click"/>
-			<Button x:Name="CloseButton" Content="X" Width="20" Canvas.Left="760.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="CloseButton_Click"/>
-			<Image Source="fotdlogo.png" Stretch="Fill" Canvas.Left="336" Canvas.Top="0" Height="163" Width="128"/>
+			<Button x:Name="MinimizeButton" Content="_" Width="20" Canvas.Left="735.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="MinimizeButton_Click" Style="{DynamicResource CommandButton}"/>
+			<Button x:Name="CloseButton" Content="X" Width="20" Canvas.Left="760.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="CloseButton_Click" Style="{DynamicResource CommandButton}"/>
 		</Canvas>
 		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
 			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>

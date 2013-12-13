@@ -34,5 +34,11 @@ namespace FoM.Launcher.Views
         	WindowState = WindowState.Minimized;
         }
 
+        private void DragBar_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+        	if (e.ChangedButton == MouseButton.Left)
+				this.DragMove();
+        }
+
     }
 }
