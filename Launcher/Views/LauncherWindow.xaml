@@ -5,46 +5,48 @@
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen"
 		FocusManager.FocusedElement="{Binding ElementName=txtUsername}" Background="{x:Null}" WindowStyle="None" ResizeMode="NoResize">
 	<Window.Resources>
-		<Style TargetType="Button" x:Key="CommandButton">
-			<Setter Property="Background" Value="#FF737778"/>
-			<Setter Property="Foreground" Value="#FFB1B1A9"/>
-			<Setter Property="BorderBrush" Value="{x:Null}"/>
-		</Style>
-		<Style TargetType="TextBlock">
-			<Setter Property="Foreground" Value="White"/>
-		</Style>
-		<Style TargetType="TextBlock" x:Key="WelcomeText">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+		<ResourceDictionary>
+			<Style TargetType="{x:Type Button}" x:Key="CommandButton">
+				<Setter Property="Background" Value="#FF737778"/>
+				<Setter Property="Foreground" Value="#FFB1B1A9"/>
+				<Setter Property="BorderBrush" Value="{x:Null}"/>
+			</Style>
+			<Style TargetType="{x:Type TextBlock}">
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+			<Style TargetType="{x:Type TextBlock}" x:Key="WelcomeText">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
-		<Style TargetType="StackPanel" x:Key="NeedsLoginVisible">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style TargetType="{x:Type StackPanel}" x:Key="NeedsLoginVisible">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
 						<Setter Property="Visibility" Value="Visible" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+					</DataTrigger>
+					<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+					</DataTrigger>
+					<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding PatchState}" Value="Ready">
+					</DataTrigger>
+					<DataTrigger Binding="{Binding PatchState}" Value="Ready">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
-		<Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
-					<Setter Property="IsIndeterminate" Value="True"/>
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
-		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+						<Setter Property="IsIndeterminate" Value="True"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+		</ResourceDictionary>
     </Window.Resources>
 	<Window.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
