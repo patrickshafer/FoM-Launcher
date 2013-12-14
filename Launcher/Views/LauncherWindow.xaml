@@ -82,6 +82,18 @@
 			</Rectangle>
 			<Button x:Name="MinimizeButton" Content="_" Width="20" Canvas.Left="735.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="MinimizeButton_Click" Style="{DynamicResource CommandButton}"/>
 			<Button x:Name="CloseButton" Content="X" Width="20" Canvas.Left="760.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="CloseButton_Click" Style="{DynamicResource CommandButton}"/>
+			<Image Height="80" Canvas.Left="10" Source="/FoM.Launcher;component/Resources/LeftWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
+				<Image.Clip>
+					<PathGeometry Figures="M0,0 V80 H270 L186,0 z" />
+				</Image.Clip>
+			</Image>
+			<Path Height="80" StrokeThickness="4" Width="270" Canvas.Left="10" Canvas.Top="60" Data="M0,0 L186,0 L270,80 L0,80 z" Stretch="Fill" Stroke="#FF48495B"/>
+			<Image Height="80" Canvas.Left="520" Source="/FoM.Launcher;component/Resources/RightWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
+				<Image.Clip>
+					<PathGeometry Figures="M0,80 L84,0 H270 V80 z" />
+				</Image.Clip>
+			</Image>
+			<Path Height="80" StrokeThickness="4" Width="270" Canvas.Left="520" Canvas.Top="60" Data="M0,80 L84,0 H270 V80 z" Stretch="Fill" Stroke="#FF48495B"/>
 		</Canvas>
 		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
 			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>
