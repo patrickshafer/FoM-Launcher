@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Input;
 
 
@@ -140,6 +141,52 @@ namespace FoM.Launcher.ViewModels
                     PrefData.WindowedMode = PrefDialog.WindowedMode;
                     PrefData.AutoLaunch = PrefDialog.AutoLaunch;
                     PrefData.Save();
+                }
+            }
+        }
+        #endregion
+
+        #region Links
+        private DelegateCommand _URLCommand;
+        public ICommand URLCommand
+        {
+            get
+            {
+                if (this._URLCommand == null)
+                    this._URLCommand = new DelegateCommand(new Action<object>(this.ExecuteURLCommand), new Func<object, bool>(this.CanURLCommand));
+                return this._URLCommand;
+            }
+        }
+
+        private bool CanURLCommand(object parameter)
+        {
+            bool RetVal = false;
+            string URL = string.Empty;
+            Uri UriResult;
+            if (parameter is string)
+            {
+                URL = (string)parameter;
+                RetVal = Uri.TryCreate(URL, UriKind.Absolute, out UriResult) && (UriResult.Scheme == Uri.UriSchemeHttp || UriResult.Scheme == Uri.UriSchemeHttps);
+            }
+            return RetVal;
+        }
+
+        private void ExecuteURLCommand(object parameter)
+        {
+            string URL = string.Empty;
+            if (parameter is string)
+            {
+                URL = (string)parameter;
+                try
+                {
+                    System.Diagnostics.Process.Start(URL);
+                }
+                catch (System.ComponentModel.Win32Exception noBrowser)
+                {
+                    if (noBrowser.ErrorCode == -2147467259)
+                        System.Windows.MessageBox.Show(String.Format("Could not open your browser.  Please visit {0} to continue", URL), "Site link", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                    else
+                        throw noBrowser;
                 }
             }
         }

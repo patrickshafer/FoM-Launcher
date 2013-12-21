@@ -94,6 +94,33 @@
 				</Image.Clip>
 			</Image>
 			<Path Height="80" StrokeThickness="4" Width="270" Canvas.Left="520" Canvas.Top="60" Data="M0,80 L84,0 H270 V80 z" Stretch="Fill" Stroke="#FF48495B"/>
+			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False">
+				<DockPanel.Resources>
+					<Style TargetType="Button">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="Button">
+									<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+										<ContentPresenter Content="{TemplateBinding Content}" />
+									</TextBlock>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+						<Setter Property="Foreground" Value="Yellow" />
+						<Setter Property="Margin" Value="10,5" />
+					</Style>
+				</DockPanel.Resources>
+				<StackPanel Orientation="Horizontal">
+					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/game"/>
+					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail"/>
+					<Button Content="Forums" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://forums.faceofmankind.com/forum.php"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+					<Button Content="Support" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://support.faceofmankind.com/"/>
+					<Button Content="Guidelines" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/guidelines/"/>
+					<Button Content="Tutorials" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://wiki.fomportal.com/"/>
+				</StackPanel>
+			</DockPanel>
 		</Canvas>
 		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
 			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>
