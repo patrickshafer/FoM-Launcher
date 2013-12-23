@@ -45,6 +45,7 @@
 				</Style.Triggers>
 			</Style>
 			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+			
 			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
 		</ResourceDictionary>
     </Window.Resources>
@@ -96,13 +97,13 @@
 			<Path Height="80" StrokeThickness="4" Width="270" Canvas.Left="520" Canvas.Top="60" Data="M0,80 L84,0 H270 V80 z" Stretch="Fill" Stroke="#FF48495B"/>
 			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False">
 				<DockPanel.Resources>
-					<Style TargetType="Button">
+					<Style TargetType="{x:Type Button}">
 						<Setter Property="Template">
 							<Setter.Value>
-								<ControlTemplate TargetType="Button">
-									<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
-										<ContentPresenter Content="{TemplateBinding Content}" />
-									</TextBlock>
+								<ControlTemplate TargetType="{x:Type Button}">
+									<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><InlineUIContainer>
+											<ContentPresenter Content="{TemplateBinding Content}" />
+										</InlineUIContainer></TextBlock>
 								</ControlTemplate>
 							</Setter.Value>
 						</Setter>
@@ -133,29 +134,63 @@
 		</StackPanel>
 		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
 			<StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Center" Padding="10,0">
-					<TextBlock.Background>
-						<RadialGradientBrush>
-							<GradientStop Color="#FF6C8BAA" Offset="0"/>
-							<GradientStop Color="#FF38546E" Offset="1"/>
-						</RadialGradientBrush>
-					</TextBlock.Background>
-				</TextBlock>
+				
+				<Rectangle Height="25" RadiusX="5" RadiusY="5" Margin="10,0">
+					<Rectangle.Stroke>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#FF70716B" Offset="0"/>
+							<GradientStop Color="#FF4F4E53" Offset="1"/>
+						</LinearGradientBrush>
+					</Rectangle.Stroke>
+					<Rectangle.Fill>
+						<LinearGradientBrush EndPoint="0,0.13" StartPoint="0,0" SpreadMethod="Repeat">
+							<GradientStop Color="#FF030303" Offset="0"/>
+							<GradientStop Color="#FF44434B" Offset="0.5"/>
+							<GradientStop Color="#FF030303" Offset="1"/>
+						</LinearGradientBrush>
+					</Rectangle.Fill>
+				</Rectangle>
+				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Left" Height="Auto" Margin="35,-25,0,0" VerticalAlignment="Center"/>
+				<Ellipse Height="9" Width="9" HorizontalAlignment="Left" Margin="20,-24,0,0">
+					<Ellipse.Fill>
+						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.5">
+							<GradientStop Color="#FF4190FD" Offset="1"/>
+							<GradientStop Color="#FF726F71"/>
+						</LinearGradientBrush>
+					</Ellipse.Fill>
+				</Ellipse>
+				
 			</StackPanel>
 			<StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome" HorizontalAlignment="Center" Padding="10,0">
-					<TextBlock.Background>
-						<RadialGradientBrush>
-							<GradientStop Color="#FF6C8BAA" Offset="0"/>
-							<GradientStop Color="#FF38546E" Offset="1"/>
-						</RadialGradientBrush>
-					</TextBlock.Background>
-				</TextBlock>
+				<Rectangle Height="25" RadiusX="5" RadiusY="5" Margin="10,0">
+					<Rectangle.Stroke>
+						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#FF70716B" Offset="0"/>
+							<GradientStop Color="#FF4F4E53" Offset="1"/>
+						</LinearGradientBrush>
+					</Rectangle.Stroke>
+					<Rectangle.Fill>
+						<LinearGradientBrush EndPoint="0,0.13" StartPoint="0,0" SpreadMethod="Repeat">
+							<GradientStop Color="#FF030303" Offset="0"/>
+							<GradientStop Color="#FF44434B" Offset="0.5"/>
+							<GradientStop Color="#FF030303" Offset="1"/>
+						</LinearGradientBrush>
+					</Rectangle.Fill>
+				</Rectangle>
+				<TextBlock TextWrapping="Wrap" Text="Welcome" Padding="10,0" Height="Auto" Margin="30,-25,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+				<Ellipse Height="9" Width="9" HorizontalAlignment="Left" Margin="20,-24,0,0">
+					<Ellipse.Fill>
+						<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.5">
+							<GradientStop Color="#FF4190FD" Offset="1"/>
+							<GradientStop Color="#FF726F71"/>
+						</LinearGradientBrush>
+					</Ellipse.Fill>
+				</Ellipse>
 				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}">
 					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
 					<TextBox x:Name="txtUsername" Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" TabIndex="1"/>
-					<PasswordBox Name="txtPassword" Width="120" Height="23" TabIndex="2" />
-					<Button Content="Login" Width="75" Command="{Binding Path=LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3"/>
+					<PasswordBox x:Name="txtPassword" Width="120" Height="23" TabIndex="2" />
+					<Button Content="Login" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3"/>
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
 				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White"/>
