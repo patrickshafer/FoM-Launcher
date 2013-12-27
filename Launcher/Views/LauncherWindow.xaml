@@ -124,9 +124,11 @@
 			</DockPanel>
 		</Canvas>
 		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
-			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>
-			<Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4"/>
-			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+				<Button Content="Launch" Command="{Binding LaunchCommand, Mode=OneWay}" Margin="5,0"/>
+				<Button Content="Options" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4" Margin="5,0"/>
+			</StackPanel>
+			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 				<TextBlock Text="Current Patch Activity: " />
 				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
