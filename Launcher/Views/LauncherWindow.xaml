@@ -15,6 +15,7 @@
 				<Setter Property="Foreground" Value="White"/>
 			</Style>
 			<Style TargetType="{x:Type TextBlock}" x:Key="WelcomeText">
+				<Setter Property="Visibility" Value="Visible" />
 				<Style.Triggers>
 					<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
 						<Setter Property="Visibility" Value="Collapsed" />
@@ -123,17 +124,28 @@
 				</StackPanel>
 			</DockPanel>
 		</Canvas>
-		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-				<Button Content="Launch" Command="{Binding LaunchCommand, Mode=OneWay}" Margin="5,0"/>
-				<Button Content="Options" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4" Margin="5,0"/>
+		<Grid Width="400" DockPanel.Dock="Bottom" Height="100" Margin="200,0">
+			<Path Data="M100,0 L300,0 L400,100 L0,100 z" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" StrokeThickness="5" Margin="0,0,-3.622,0" Stretch="Fill">
+				<Path.Stroke>
+					<SolidColorBrush Color="#FF57585A" Opacity="0.5"/>
+				</Path.Stroke>
+				<Path.Fill>
+					<LinearGradientBrush EndPoint="160,0" StartPoint="0,150" MappingMode="Absolute" SpreadMethod="Reflect">
+						<GradientStop Color="#FF57585A" Offset="0"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.526"/>
+						<GradientStop Color="#FF57585A" Offset="0.435"/>
+						<GradientStop Color="#FF57585A" Offset="0.879"/>
+					</LinearGradientBrush>
+				</Path.Fill>
+			</Path>
+			<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="1" Margin="0,27,0,0">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Button Content="Launch" Command="{Binding LaunchCommand, Mode=OneWay}" Margin="5,0"/>
+					<Button Content="Options" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4" Margin="5,0"/>
+				</StackPanel>
+				<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
 			</StackPanel>
-			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-				<TextBlock Text="Current Patch Activity: " />
-				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
-			</StackPanel>
-		</StackPanel>
+		</Grid>
 		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
 			<StackPanel>
 				<Canvas Height="25" Margin="10,0">
@@ -209,7 +221,7 @@
 						</RadialGradientBrush>
 					</Rectangle.Stroke>
 				</Rectangle>
-				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}" Margin="0,-232,0,0">
+				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}" Margin="0,-232,0,0" d:IsHidden="True">
 					<StackPanel.Resources>
 						<Style x:Key="TextBoxStyle" TargetType="Control">
 							<Setter Property="Background">
@@ -232,7 +244,11 @@
 					<Button Content="Login" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3" Margin="5"/>
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" d:IsHidden="True"/>
+				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-143,0,124">
+					<TextBlock Text="Current Patch Activity: " Style="{DynamicResource WelcomeText}" Foreground="White" />
+					<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}" Style="{DynamicResource WelcomeText}" Foreground="White"/>
+				</StackPanel>
 			</StackPanel>
 		</UniformGrid>
 	</DockPanel>
