@@ -3,142 +3,313 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.LauncherWindow"
         Title="LauncherWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen"
-		FocusManager.FocusedElement="{Binding ElementName=txtUsername}">
+		FocusManager.FocusedElement="{Binding ElementName=txtUsername}" Background="{x:Null}" WindowStyle="None" ResizeMode="NoResize">
 	<Window.Resources>
-		<Style TargetType="TextBlock">
-			<Setter Property="Foreground" Value="White"/>
-		</Style>
-		<Style TargetType="TextBlock" x:Key="WelcomeText">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+		<ResourceDictionary>
+			<Style TargetType="{x:Type Button}" x:Key="CommandButton">
+				<Setter Property="Background" Value="#FF737778"/>
+				<Setter Property="Foreground" Value="#FFB1B1A9"/>
+				<Setter Property="BorderBrush" Value="{x:Null}"/>
+			</Style>
+			<Style TargetType="{x:Type TextBlock}">
+				<Setter Property="Foreground" Value="White"/>
+			</Style>
+			<Style TargetType="{x:Type TextBlock}" x:Key="WelcomeText">
+				<Setter Property="Visibility" Value="Visible" />
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
-		<Style TargetType="StackPanel" x:Key="NeedsLoginVisible">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style TargetType="{x:Type StackPanel}" x:Key="NeedsLoginVisible">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding PatchState}" Value="NeedsLogin">
 						<Setter Property="Visibility" Value="Visible" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+					</DataTrigger>
+					<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+					</DataTrigger>
+					<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-				<DataTrigger Binding="{Binding PatchState}" Value="Ready">
+					</DataTrigger>
+					<DataTrigger Binding="{Binding PatchState}" Value="Ready">
 						<Setter Property="Visibility" Value="Collapsed" />
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
-		<Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
-			<Style.Triggers>
-				<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
-					<Setter Property="IsIndeterminate" Value="True"/>
-				</DataTrigger>
-			</Style.Triggers>
-		</Style>
-		<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
+				<Style.Triggers>
+					<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+						<Setter Property="IsIndeterminate" Value="True"/>
+					</DataTrigger>
+				</Style.Triggers>
+			</Style>
+			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+			
+			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+		</ResourceDictionary>
     </Window.Resources>
 	<Window.Triggers>
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
 	</Window.Triggers>
-	<Window.Background>
-		<LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-			<GradientStop Color="#FF55595A" Offset="0"/>
-			<GradientStop Color="#FF55595A" Offset="1"/>
-			<GradientStop Color="#FFAFB5B5" Offset="0.509"/>
-		</LinearGradientBrush>
-	</Window.Background>
-	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Margin="10" Background="Black">
-		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="{Binding ActualWidth, ElementName=dockPanel}">
-			<Path Data="M10,0 L762,0 C767.52283,0 772,4.4771538 772,10.000004 L772,31.999994 C772,37.522848 767.52283,42 762,41.999997 L590,41.999997 538.5,145 234.49999,145 183,41.999997 10,41.999997 C4.4771576,42 0,37.522848 0,31.999994 L0,10.000004 C0,4.4771538 4.4771576,0 10,0 z" Height="145" Stretch="Fill" StrokeThickness="4" Width="772">
-				<Path.Stroke>
-					<LinearGradientBrush EndPoint="1,1" StartPoint="1,0">
-						<GradientStop Color="#BF55595A"/>
-						<GradientStop Color="White" Offset="1"/>
-					</LinearGradientBrush>
-				</Path.Stroke>
+	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Background="Black">
+		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="800">
+			<Path Data="M0,6 C0,3 3,0 6,0 L774,0 C777,0 780,3 780,6 L780,34 C780,37 777,40 774,40 L585,40 495,129.99999 440,129.99999 435,129.99999 345,129.99999 340,129.99999 285,129.99999 195,40 6,40 C3,40 0,36 0,34 z" Height="130" Canvas.Left="10" Stretch="Fill" StrokeThickness="4" Canvas.Top="10" Width="780" Stroke="#7F434546">
 				<Path.Fill>
 					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
-						<GradientStop Color="#FF55595A" Offset="0.573"/>
-						<GradientStop Color="#FFAFB5B5" Offset="0.655"/>
-						<GradientStop Color="#FF55595A" Offset="0.81"/>
+						<GradientStop Color="#FF5F6364" Offset="0.565"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.616"/>
+						<GradientStop Color="#FF5F6364" Offset="0.75"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.72"/>
+						<GradientStop Color="#FF646869" Offset="0.672"/>
 					</LinearGradientBrush>
 				</Path.Fill>
 			</Path>
-			<Ellipse Width="100" Canvas.Left="350" Canvas.Top="10" Fill="White" Height="107"/>
-			<TextBlock TextWrapping="Wrap" Text="FoM Logo goes here" Canvas.Left="369.999" Canvas.Top="45.332" Height="35.293" Width="59.287" Foreground="Red"/>
-			<Canvas Height="90.16" Canvas.Top="54.84" Width="225">
-				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
-					<Path.Stroke>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FF46495A" Offset="0"/>
-							<GradientStop Color="#FF7E7F8C" Offset="1"/>
-						</LinearGradientBrush>
-					</Path.Stroke>
-				</Path>
-				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
-			</Canvas>
-			<Canvas Height="90.16" Canvas.Top="54.84" Width="225" Canvas.Left="547" RenderTransformOrigin="0.5,0.5">
-				<Canvas.RenderTransform>
-					<TransformGroup>
-						<ScaleTransform ScaleY="1" ScaleX="-1"/>
-						<SkewTransform AngleY="0" AngleX="0"/>
-						<RotateTransform Angle="0"/>
-						<TranslateTransform/>
-					</TransformGroup>
-				</Canvas.RenderTransform>
-				<Path Data="M9.999999,0 L178.87529,0 225,90.007735 225,90.159995 0,90.159995 0,10.000003 C0,4.4771524 4.4771523,7.639768E-07 9.999999,0 z" Fill="#FF46495A" Height="90.16" Stretch="Fill" VerticalAlignment="Top" Width="225" StrokeThickness="3">
-					<Path.Stroke>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Color="#FF46495A" Offset="0"/>
-							<GradientStop Color="#FF7E7F8C" Offset="1"/>
-						</LinearGradientBrush>
-					</Path.Stroke>
-				</Path>
-				<Path Data="M0,0 L161.30232,0 199.37553,72.750001 0,72.750001 z" Fill="#FF171717" Height="72.75" Canvas.Left="10" Stretch="Fill" StrokeThickness="3" Canvas.Top="8.41" Width="199.376"/>
-			</Canvas>
+			<Image Source="/FoM.Launcher;component/Resources/fotdlogo.png" Stretch="Fill" Canvas.Left="333" Canvas.Top="0" Height="172" Width="134"/>
+			<Image Height="94" Source="/FoM.Launcher;component/Resources/fomtext.png" Stretch="Fill" Width="222" Canvas.Left="289" Canvas.Top="84"/>
+			<Label Content="FALL OF THE DOMINION" VerticalAlignment="Top" Canvas.Top="171" Canvas.Left="322" Foreground="#FFC3C3C4" FontFamily="/FoM.Launcher;component/Fonts/#OptimusPrincepsSemiBold" Width="156" Height="24"/>
+			<Rectangle x:Name="DragBar" Height="41.333" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10" MouseDown="DragBar_MouseDown">
+				<Rectangle.Fill>
+					<SolidColorBrush Color="Lime" Opacity="0"/>
+				</Rectangle.Fill>
+			</Rectangle>
+			<Button x:Name="MinimizeButton" Content="_" Width="20" Canvas.Left="735.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="MinimizeButton_Click" Style="{DynamicResource CommandButton}"/>
+			<Button x:Name="CloseButton" Content="X" Width="20" Canvas.Left="760.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="CloseButton_Click" Style="{DynamicResource CommandButton}"/>
+			<Image Height="80" Canvas.Left="12" Source="/FoM.Launcher;component/Resources/LeftWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
+				<Image.Clip>
+					<PathGeometry Figures="M0,4 C0,2 2,0 4,0 L186,0 L270,80 L0,80 z" />
+				</Image.Clip>
+			</Image>
+			<Path Height="82" StrokeThickness="6" Width="270" Canvas.Left="10" Canvas.Top="59" Data="M0,4 C0,2 2,0 4,0 L191,0 L270,80 L0,80 z" Stretch="Fill">
+				<Path.Stroke>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FF48495B" Offset="0"/>
+						<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						<GradientStop Color="#FF48495B" Offset="0.6"/>
+					</LinearGradientBrush>
+				</Path.Stroke>
+			</Path>
+			<Image Height="80" Canvas.Left="518" Source="/FoM.Launcher;component/Resources/RightWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
+				<Image.Clip>
+					<PathGeometry Figures="M0,80 L77,0 H266 c0,0 2,0 2,2 V80 z" />
+				</Image.Clip>
+			</Image>
+			<Path Height="82" StrokeThickness="6" Width="270" Canvas.Left="520" Canvas.Top="59" Data="M0,80 L76,0 H270 c0,0 2,0 2,2 V80 z" Stretch="Fill">
+				<Path.Stroke>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FF48495B" Offset="0"/>
+						<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						<GradientStop Color="#FF48495B" Offset="0.6"/>
+					</LinearGradientBrush>
+				</Path.Stroke>
+			</Path>
+			<Rectangle Height="16" Width="750" Canvas.Left="25" Canvas.Top="155">
+				<Rectangle.OpacityMask>
+					<VisualBrush Stretch="None">
+						<VisualBrush.Visual>
+							<DockPanel Width="750" LastChildFill="False">
+								<DockPanel.Resources>
+									<Style TargetType="{x:Type TextBlock}">
+										<Setter Property="Margin" Value="10,5" />
+										<Setter Property="FontWeight" Value="Bold" />
+									</Style>
+								</DockPanel.Resources>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Game"/>
+									<TextBlock Text="Account"/>
+									<TextBlock Text="Forums"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+									<TextBlock Text="Support"/>
+									<TextBlock Text="Guidelines"/>
+									<TextBlock Text="Tutorials"/>
+								</StackPanel>
+							</DockPanel>
+						</VisualBrush.Visual>
+					</VisualBrush>
+				</Rectangle.OpacityMask>
+				<Rectangle.Fill>
+					<RadialGradientBrush>
+						<GradientStop Color="#FFE6DB06" Offset="0.797"/>
+						<GradientStop Color="#FF9C9C5B" Offset="1"/>
+						<GradientStop Color="#FFFDFDE3" Offset="0.629"/>
+					</RadialGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False" Opacity="0">
+				<DockPanel.Resources>
+					<Style TargetType="{x:Type Button}">
+						<Setter Property="Margin" Value="10,5" />
+						<Setter Property="FontWeight" Value="Bold" />
+					</Style>
+				</DockPanel.Resources>
+				<StackPanel Orientation="Horizontal">
+					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/game" Margin="22,5,10,5"/>
+					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail" Margin="4,5,10,5"/>
+					<Button Content="Forums" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://forums.faceofmankind.com/forum.php" Margin="4,5,10,5"/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+					<Button Content="Support" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://support.faceofmankind.com/" Margin="10,5,4,5"/>
+					<Button Content="Guidelines" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/guidelines/" Margin="10,5,4,5"/>
+					<Button Content="Tutorials" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://wiki.fomportal.com/" Margin="10,5,22,5"/>
+				</StackPanel>
+			</DockPanel>
 		</Canvas>
-		<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,-63,0,0" DockPanel.Dock="Bottom" Panel.ZIndex="1">
-			<Button Content="Launch" Width="75" Command="{Binding LaunchCommand, Mode=OneWay}"/>
-			<Button Content="Options" Width="75" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4"/>
-			<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}"/>
-			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-				<TextBlock Text="Current Patch Activity: " />
-				<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}"/>
+		<Grid Width="400" DockPanel.Dock="Bottom" Height="100" Margin="200,0">
+			<Path Data="M100,0 L300,0 L400,100 L0,100 z" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" StrokeThickness="5" Margin="0,0,-3.622,0" Stretch="Fill">
+				<Path.Stroke>
+					<SolidColorBrush Color="#FF57585A" Opacity="0.5"/>
+				</Path.Stroke>
+				<Path.Fill>
+					<LinearGradientBrush EndPoint="160,0" StartPoint="0,150" MappingMode="Absolute" SpreadMethod="Reflect">
+						<GradientStop Color="#FF57585A" Offset="0"/>
+						<GradientStop Color="#FFAFB5B5" Offset="0.526"/>
+						<GradientStop Color="#FF57585A" Offset="0.435"/>
+						<GradientStop Color="#FF57585A" Offset="0.879"/>
+					</LinearGradientBrush>
+				</Path.Fill>
+			</Path>
+			<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="1" Margin="0,27,0,0">
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Button Content="Launch" Command="{Binding LaunchCommand, Mode=OneWay}" Margin="5,0"/>
+					<Button Content="Options" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4" Margin="5,0"/>
+				</StackPanel>
+				<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
 			</StackPanel>
-		</StackPanel>
+		</Grid>
 		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
 			<StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Center" Padding="10,0">
-					<TextBlock.Background>
-						<RadialGradientBrush>
-							<GradientStop Color="#FF6C8BAA" Offset="0"/>
-							<GradientStop Color="#FF38546E" Offset="1"/>
+				<Canvas Height="25" Margin="10,0">
+				
+					<Rectangle Height="25" RadiusX="5" RadiusY="5" Width="380">
+						<Rectangle.Stroke>
+							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+								<GradientStop Color="#FF70716B" Offset="0"/>
+								<GradientStop Color="#FF4F4E53" Offset="1"/>
+							</LinearGradientBrush>
+						</Rectangle.Stroke>
+						<Rectangle.Fill>
+							<LinearGradientBrush EndPoint="0,0.13" StartPoint="0,0" SpreadMethod="Repeat">
+								<GradientStop Color="#FF030303" Offset="0"/>
+								<GradientStop Color="#FF44434B" Offset="0.5"/>
+								<GradientStop Color="#FF030303" Offset="1"/>
+							</LinearGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Center" Canvas.Left="25" Canvas.Top="4.52"/>
+					<Ellipse Height="9" Width="9" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="8.5">
+						<Ellipse.Fill>
+							<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.5">
+								<GradientStop Color="#FF4190FD" Offset="1"/>
+								<GradientStop Color="#FF726F71"/>
+							</LinearGradientBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+				
+				</Canvas>
+				<Rectangle Height="241" Margin="10,0">
+					<Rectangle.Stroke>
+						<RadialGradientBrush RadiusX="1.5" RadiusY="1.5">
+							<GradientStop Color="Black" Offset="0.401"/>
+							<GradientStop Color="White" Offset="0.254"/>
 						</RadialGradientBrush>
-					</TextBlock.Background>
-				</TextBlock>
+					</Rectangle.Stroke>
+				</Rectangle>
+				<Label Content="No news is good news" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-258,0,0"/>
 			</StackPanel>
 			<StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome" HorizontalAlignment="Center" Padding="10,0">
-					<TextBlock.Background>
-						<RadialGradientBrush>
-							<GradientStop Color="#FF6C8BAA" Offset="0"/>
-							<GradientStop Color="#FF38546E" Offset="1"/>
+				<Canvas Height="25" Margin="10,0">
+					<Rectangle Height="25" RadiusX="5" RadiusY="5" Width="380">
+						<Rectangle.Stroke>
+							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+								<GradientStop Color="#FF70716B" Offset="0"/>
+								<GradientStop Color="#FF4F4E53" Offset="1"/>
+							</LinearGradientBrush>
+						</Rectangle.Stroke>
+						<Rectangle.Fill>
+							<LinearGradientBrush EndPoint="0,0.13" StartPoint="0,0" SpreadMethod="Repeat">
+								<GradientStop Color="#FF030303" Offset="0"/>
+								<GradientStop Color="#FF44434B" Offset="0.5"/>
+								<GradientStop Color="#FF030303" Offset="1"/>
+							</LinearGradientBrush>
+						</Rectangle.Fill>
+					</Rectangle>
+					<TextBlock TextWrapping="Wrap" Text="Welcome" Padding="10,0" Height="Auto" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Left="20" Canvas.Top="4.52"/>
+					<Ellipse Height="9" Width="9" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="8.5">
+						<Ellipse.Fill>
+							<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.5">
+								<GradientStop Color="#FF4190FD" Offset="1"/>
+								<GradientStop Color="#FF726F71"/>
+							</LinearGradientBrush>
+						</Ellipse.Fill>
+					</Ellipse>
+				</Canvas>
+				<Rectangle Height="241" Margin="10,0">
+					<Rectangle.Stroke>
+						<RadialGradientBrush RadiusX="1.5" RadiusY="1.5">
+							<GradientStop Color="Black" Offset="0.401"/>
+							<GradientStop Color="White" Offset="0.254"/>
 						</RadialGradientBrush>
-					</TextBlock.Background>
-				</TextBlock>
-				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}">
-					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"><Run Text="You must login to continue"/></TextBlock>
-					<TextBox x:Name="txtUsername" Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" TabIndex="1"/>
-					<PasswordBox Name="txtPassword" Width="120" Height="23" TabIndex="2" />
-					<Button Content="Login" Width="75" Command="{Binding Path=LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3"/>
+					</Rectangle.Stroke>
+				</Rectangle>
+				<StackPanel VerticalAlignment="Top" MinWidth="150" MinHeight="90" Style="{DynamicResource NeedsLoginVisible}" Margin="0,-232,0,0" d:IsHidden="True">
+					<StackPanel.Resources>
+						<Style x:Key="TextBoxStyle" TargetType="Control">
+							<Setter Property="Background">
+								<Setter.Value>
+									<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+										<GradientStop Color="#FF09090B" Offset="0"/>
+										<GradientStop Color="#FF151517" Offset="1"/>
+									</LinearGradientBrush>
+								</Setter.Value>
+							</Setter>
+							<Setter Property="BorderBrush" Value="#FF343339"/>
+							<Setter Property="Foreground" Value="#FF5F5F74"/>
+						</Style>
+						<Style TargetType="TextBox" BasedOn="{StaticResource TextBoxStyle}"/>
+						<Style TargetType="PasswordBox" BasedOn="{StaticResource TextBoxStyle}"/>
+					</StackPanel.Resources>
+					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" Text="You must login to continue"/>
+					<TextBox x:Name="txtUsername" Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" TabIndex="1" Margin="5"/>
+					<PasswordBox x:Name="txtPassword" Width="120" Height="23" TabIndex="2" Margin="5"/>
+					<Button Content="Login" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3" Margin="5"/>
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White"/>
+				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion internal alpha." Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-143,0,124">
+					<TextBlock Text="Current Patch Activity: " Style="{DynamicResource WelcomeText}" Foreground="White" />
+					<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}" Style="{DynamicResource WelcomeText}" Foreground="White"/>
+				</StackPanel>
 			</StackPanel>
 		</UniformGrid>
+		<StackPanel DockPanel.Dock="Bottom" Margin="14.5,0,600,-140" Height="40.333">
+			<StackPanel Orientation="Horizontal" Height="18.64">
+				<StackPanel.Resources>
+					<Style TargetType="{x:Type Button}">
+						<Setter Property="Template">
+							<Setter.Value>
+								<ControlTemplate TargetType="{x:Type Button}">
+									<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+										<InlineUIContainer>
+											<ContentPresenter Content="{TemplateBinding Content}" />
+										</InlineUIContainer>
+									</TextBlock>
+								</ControlTemplate>
+							</Setter.Value>
+						</Setter>
+						<Setter Property="Foreground" Value="#FFB6B62F" />
+						<Setter Property="FontSize" Value="8"/>
+						<Setter Property="Margin" Value="5,0"/>
+					</Style>
+				</StackPanel.Resources>
+				<Button Content="Terms of Use" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/tos"/>
+				<Button Content="Privacy" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/aup"/>
+				<Button Content="EULA" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/eula"/>
+			</StackPanel>
+			<Label Content="© 2013 Face of Mankind." Foreground="#FF505051"/>
+		</StackPanel>
+		<Image Margin="582,0,0,-68" Source="/FoM.Launcher;component/Resources/nexeonlogo.png" Stretch="Fill" Width="115" Height="50"/>
+		<Image Source="/FoM.Launcher;component/Resources/dpslogo.png" Stretch="Fill" Width="116" Margin="-70,0,0,-144" Height="55"/>
 	</DockPanel>
 </Window>

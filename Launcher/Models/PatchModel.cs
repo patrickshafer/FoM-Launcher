@@ -73,9 +73,6 @@ namespace FoM.Launcher.Models
         public void StartUpdate(string ManifestURL)
         {
             this.AcquireFoMMutex();
-#if DEBUG
-            ManifestURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
-#endif
             string LocalFolder = Directory.GetCurrentDirectory();
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
