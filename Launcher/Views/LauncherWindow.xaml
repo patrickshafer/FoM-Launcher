@@ -55,17 +55,7 @@
 	</Window.Triggers>
 	<DockPanel x:Name="dockPanel" DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}" Background="Black">
 		<Canvas x:Name="canvas" DockPanel.Dock="Top" HorizontalAlignment="Center" Height="200" Width="800">
-			<Path Data="M0,0 L780,0 780,39.999997 585,39.999997 495,129.99999 440,129.99999 435,129.99999 345,129.99999 340,129.99999 285,129.99999 195,39.999997 0,39.999997 z" Height="130" Canvas.Left="10" Stretch="Fill" StrokeThickness="4" Canvas.Top="10" Width="780">
-				<Path.Stroke>
-					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
-						<GradientStop Color="#FF5F6364" Offset="0.431"/>
-						<GradientStop Color="#FFAFB5B5" Offset="0.487"/>
-						<GradientStop Color="#FF5F6364" Offset="0.608"/>
-						<GradientStop Color="#FFAFB5B5" Offset="0.659"/>
-						<GradientStop Color="#FF646869" Offset="0.552"/>
-						<GradientStop Color="#FF5F6364" Offset="0.716"/>
-					</LinearGradientBrush>
-				</Path.Stroke>
+			<Path Data="M0,6 C0,3 3,0 6,0 L774,0 C777,0 780,3 780,6 L780,34 C780,37 777,40 774,40 L585,40 495,129.99999 440,129.99999 435,129.99999 345,129.99999 340,129.99999 285,129.99999 195,40 6,40 C3,40 0,36 0,34 z" Height="130" Canvas.Left="10" Stretch="Fill" StrokeThickness="4" Canvas.Top="10" Width="780" Stroke="#7F434546">
 				<Path.Fill>
 					<LinearGradientBrush EndPoint="1,0" StartPoint="0,5">
 						<GradientStop Color="#FF5F6364" Offset="0.565"/>
@@ -78,7 +68,7 @@
 			</Path>
 			<Image Source="/FoM.Launcher;component/Resources/fotdlogo.png" Stretch="Fill" Canvas.Left="333" Canvas.Top="0" Height="172" Width="134"/>
 			<Image Height="94" Source="/FoM.Launcher;component/Resources/fomtext.png" Stretch="Fill" Width="222" Canvas.Left="289" Canvas.Top="84"/>
-			<Label Content="FALL OF THE DOMINION" VerticalAlignment="Top" Canvas.Top="171" Canvas.Left="322" Foreground="#FFC3C3C4" FontFamily="OptimusPrincepsSemiBold" Width="156" Height="24"/>
+			<Label Content="FALL OF THE DOMINION" VerticalAlignment="Top" Canvas.Top="171" Canvas.Left="322" Foreground="#FFC3C3C4" FontFamily="/FoM.Launcher;component/Fonts/#OptimusPrincepsSemiBold" Width="156" Height="24"/>
 			<Rectangle x:Name="DragBar" Height="41.333" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10" MouseDown="DragBar_MouseDown">
 				<Rectangle.Fill>
 					<SolidColorBrush Color="Lime" Opacity="0"/>
@@ -86,18 +76,34 @@
 			</Rectangle>
 			<Button x:Name="MinimizeButton" Content="_" Width="20" Canvas.Left="735.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="MinimizeButton_Click" Style="{DynamicResource CommandButton}"/>
 			<Button x:Name="CloseButton" Content="X" Width="20" Canvas.Left="760.244" Canvas.Top="21.219" Height="20" TextOptions.TextFormattingMode="Display" Click="CloseButton_Click" Style="{DynamicResource CommandButton}"/>
-			<Image Height="80" Canvas.Left="10" Source="/FoM.Launcher;component/Resources/LeftWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
+			<Image Height="80" Canvas.Left="12" Source="/FoM.Launcher;component/Resources/LeftWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
 				<Image.Clip>
-					<PathGeometry Figures="M0,0 V80 H270 L186,0 z" />
+					<PathGeometry Figures="M0,4 C0,2 2,0 4,0 L186,0 L270,80 L0,80 z" />
 				</Image.Clip>
 			</Image>
-			<Path Height="80" StrokeThickness="4" Width="270" Canvas.Left="10" Canvas.Top="60" Data="M0,0 L186,0 L270,80 L0,80 z" Stretch="Fill" Stroke="#FF48495B"/>
-			<Image Height="80" Canvas.Left="520" Source="/FoM.Launcher;component/Resources/RightWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
+			<Path Height="82" StrokeThickness="6" Width="270" Canvas.Left="10" Canvas.Top="59" Data="M0,4 C0,2 2,0 4,0 L191,0 L270,80 L0,80 z" Stretch="Fill">
+				<Path.Stroke>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FF48495B" Offset="0"/>
+						<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						<GradientStop Color="#FF48495B" Offset="0.6"/>
+					</LinearGradientBrush>
+				</Path.Stroke>
+			</Path>
+			<Image Height="80" Canvas.Left="518" Source="/FoM.Launcher;component/Resources/RightWindow.png" Stretch="Fill" Canvas.Top="60" Width="270">
 				<Image.Clip>
-					<PathGeometry Figures="M0,80 L84,0 H270 V80 z" />
+					<PathGeometry Figures="M0,80 L77,0 H266 c0,0 2,0 2,2 V80 z" />
 				</Image.Clip>
 			</Image>
-			<Path Height="80" StrokeThickness="4" Width="270" Canvas.Left="520" Canvas.Top="60" Data="M0,80 L84,0 H270 V80 z" Stretch="Fill" Stroke="#FF48495B"/>
+			<Path Height="82" StrokeThickness="6" Width="270" Canvas.Left="520" Canvas.Top="59" Data="M0,80 L76,0 H270 c0,0 2,0 2,2 V80 z" Stretch="Fill">
+				<Path.Stroke>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FF48495B" Offset="0"/>
+						<GradientStop Color="#FF7E7F8C" Offset="1"/>
+						<GradientStop Color="#FF48495B" Offset="0.6"/>
+					</LinearGradientBrush>
+				</Path.Stroke>
+			</Path>
 			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False">
 				<DockPanel.Resources>
 					<Style TargetType="{x:Type Button}">

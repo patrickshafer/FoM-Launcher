@@ -136,6 +136,11 @@
     <EmbeddedResource Include="Resources\log4netConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\OptimusPrincepsSemiBold.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>True</All>
+      <AutoFill>True</AutoFill>
+    </BlendEmbeddedFont>
     <Resource Include="Resources\RightWindow.png" />
     <Resource Include="Resources\LeftWindow.png" />
     <Resource Include="Resources\fotdlogo.png" />
@@ -163,4 +168,5 @@
       </EmbeddedResource>
     </ItemGroup>
   </Target>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.5\Microsoft.Expression.Blend.WPF.targets" />
 </Project>
