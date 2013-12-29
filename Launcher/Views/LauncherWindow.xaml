@@ -104,31 +104,55 @@
 					</LinearGradientBrush>
 				</Path.Stroke>
 			</Path>
-			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False">
+			<Rectangle Height="16" Width="750" Canvas.Left="25" Canvas.Top="155">
+				<Rectangle.OpacityMask>
+					<VisualBrush Stretch="None">
+						<VisualBrush.Visual>
+							<DockPanel Width="750" LastChildFill="False">
+								<DockPanel.Resources>
+									<Style TargetType="{x:Type TextBlock}">
+										<Setter Property="Margin" Value="10,5" />
+										<Setter Property="FontWeight" Value="Bold" />
+									</Style>
+								</DockPanel.Resources>
+								<StackPanel Orientation="Horizontal">
+									<TextBlock Text="Game"/>
+									<TextBlock Text="Account"/>
+									<TextBlock Text="Forums"/>
+								</StackPanel>
+								<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+									<TextBlock Text="Support"/>
+									<TextBlock Text="Guidelines"/>
+									<TextBlock Text="Tutorials"/>
+								</StackPanel>
+							</DockPanel>
+						</VisualBrush.Visual>
+					</VisualBrush>
+				</Rectangle.OpacityMask>
+				<Rectangle.Fill>
+					<RadialGradientBrush>
+						<GradientStop Color="#FFE6DB06" Offset="0.797"/>
+						<GradientStop Color="#FF9C9C5B" Offset="1"/>
+						<GradientStop Color="#FFFDFDE3" Offset="0.629"/>
+					</RadialGradientBrush>
+				</Rectangle.Fill>
+			</Rectangle>
+			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False" Opacity="0">
 				<DockPanel.Resources>
 					<Style TargetType="{x:Type Button}">
-						<Setter Property="Template">
-							<Setter.Value>
-								<ControlTemplate TargetType="{x:Type Button}">
-									<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"><InlineUIContainer>
-											<ContentPresenter Content="{TemplateBinding Content}" />
-										</InlineUIContainer></TextBlock>
-								</ControlTemplate>
-							</Setter.Value>
-						</Setter>
-						<Setter Property="Foreground" Value="Yellow" />
 						<Setter Property="Margin" Value="10,5" />
+						<Setter Property="FontWeight" Value="Bold" />
 					</Style>
 				</DockPanel.Resources>
 				<StackPanel Orientation="Horizontal">
-					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/game"/>
-					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail"/>
-					<Button Content="Forums" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://forums.faceofmankind.com/forum.php"/>
+					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/game" Margin="22,5,10,5"/>
+					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail" Margin="4,5,10,5"/>
+					<Button Content="Forums" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://forums.faceofmankind.com/forum.php" Margin="4,5,10,5"/>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
-					<Button Content="Support" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://support.faceofmankind.com/"/>
-					<Button Content="Guidelines" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/guidelines/"/>
-					<Button Content="Tutorials" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://wiki.fomportal.com/"/>
+					<Button Content="Support" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://support.faceofmankind.com/" Margin="10,5,4,5"/>
+					<Button Content="Guidelines" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/guidelines/" Margin="10,5,4,5"/>
+					<Button Content="Tutorials" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://wiki.fomportal.com/" Margin="10,5,22,5"/>
 				</StackPanel>
 			</DockPanel>
 		</Canvas>
