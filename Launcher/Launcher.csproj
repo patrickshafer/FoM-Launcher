@@ -141,10 +141,12 @@
       <All>True</All>
       <AutoFill>True</AutoFill>
     </BlendEmbeddedFont>
+    <Resource Include="Resources\nexeonlogo.png" />
     <Resource Include="Resources\RightWindow.png" />
     <Resource Include="Resources\LeftWindow.png" />
     <Resource Include="Resources\fotdlogo.png" />
     <Resource Include="Resources\fomtext.png" />
+    <Resource Include="Resources\dpslogo.png" />
     <Content Include="Resources\idr_main.ico" />
   </ItemGroup>
   <ItemGroup>
