@@ -139,6 +139,7 @@
     <Resource Include="Resources\RightWindow.png" />
     <Resource Include="Resources\LeftWindow.png" />
     <Resource Include="Resources\fotdlogo.png" />
+    <Resource Include="Resources\fomtext.png" />
     <Content Include="Resources\idr_main.ico" />
   </ItemGroup>
   <ItemGroup>

@@ -76,7 +76,9 @@
 					</LinearGradientBrush>
 				</Path.Fill>
 			</Path>
-			<Image Source="/FoM.Launcher;component/Resources/fotdlogo.png" Stretch="Fill" Canvas.Left="336" Canvas.Top="0" Height="163" Width="128"/>
+			<Image Source="/FoM.Launcher;component/Resources/fotdlogo.png" Stretch="Fill" Canvas.Left="333" Canvas.Top="0" Height="172" Width="134"/>
+			<Image Height="94" Source="/FoM.Launcher;component/Resources/fomtext.png" Stretch="Fill" Width="222" Canvas.Left="289" Canvas.Top="84"/>
+			<Label Content="FALL OF THE DOMINION" VerticalAlignment="Top" Canvas.Top="171" Canvas.Left="322" Foreground="#FFC3C3C4" FontFamily="OptimusPrincepsSemiBold" Width="156" Height="24"/>
 			<Rectangle x:Name="DragBar" Height="41.333" StrokeThickness="4" Width="780" Canvas.Left="10" Canvas.Top="10" MouseDown="DragBar_MouseDown">
 				<Rectangle.Fill>
 					<SolidColorBrush Color="Lime" Opacity="0"/>
