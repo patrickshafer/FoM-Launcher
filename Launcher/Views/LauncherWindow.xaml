@@ -137,6 +137,25 @@
 					</RadialGradientBrush>
 				</Rectangle.Fill>
 			</Rectangle>
+			<Label Content="Alpha" Canvas.Left="372.771" Canvas.Top="121.432" FontSize="64" FontFamily="/FoM.Launcher;component/Fonts/#SketchFlow Print" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+				<Label.Effect>
+					<DropShadowEffect Color="#FFB22626" RenderingBias="Quality"/>
+				</Label.Effect>
+				<Label.RenderTransform>
+					<TransformGroup>
+						<ScaleTransform/>
+						<SkewTransform/>
+						<RotateTransform Angle="-16"/>
+						<TranslateTransform/>
+					</TransformGroup>
+				</Label.RenderTransform>
+				<Label.Foreground>
+					<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+						<GradientStop Color="#FFFF9802" Offset="0"/>
+						<GradientStop Color="Red" Offset="0.991"/>
+					</LinearGradientBrush>
+				</Label.Foreground>
+			</Label>
 			<DockPanel Canvas.Left="10" Canvas.Top="145" Width="780" LastChildFill="False" Opacity="0">
 				<DockPanel.Resources>
 					<Style TargetType="{x:Type Button}">

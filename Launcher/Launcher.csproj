@@ -138,8 +138,21 @@
   <ItemGroup>
     <BlendEmbeddedFont Include="Fonts\OptimusPrincepsSemiBold.ttf">
       <IsSystemFont>True</IsSystemFont>
-      <All>True</All>
+      <All>False</All>
       <AutoFill>True</AutoFill>
+      <Uppercase>False</Uppercase>
+      <Lowercase>False</Lowercase>
+      <Numbers>False</Numbers>
+      <Punctuation>False</Punctuation>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\SketchFlow Print.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>False</All>
+      <AutoFill>True</AutoFill>
+      <Uppercase>False</Uppercase>
+      <Lowercase>False</Lowercase>
+      <Numbers>False</Numbers>
+      <Punctuation>False</Punctuation>
     </BlendEmbeddedFont>
     <Resource Include="Resources\nexeonlogo.png" />
     <Resource Include="Resources\RightWindow.png" />
