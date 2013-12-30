@@ -136,10 +136,31 @@
     <EmbeddedResource Include="Resources\log4netConfig.xml" />
   </ItemGroup>
   <ItemGroup>
+    <BlendEmbeddedFont Include="Fonts\OptimusPrincepsSemiBold.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>False</All>
+      <AutoFill>True</AutoFill>
+      <Uppercase>False</Uppercase>
+      <Lowercase>False</Lowercase>
+      <Numbers>False</Numbers>
+      <Punctuation>False</Punctuation>
+    </BlendEmbeddedFont>
+    <BlendEmbeddedFont Include="Fonts\SketchFlow Print.ttf">
+      <IsSystemFont>True</IsSystemFont>
+      <All>False</All>
+      <AutoFill>True</AutoFill>
+      <Uppercase>False</Uppercase>
+      <Lowercase>False</Lowercase>
+      <Numbers>False</Numbers>
+      <Punctuation>False</Punctuation>
+    </BlendEmbeddedFont>
+    <Resource Include="Resources\nexeonlogo.png" />
+    <Resource Include="Resources\RightWindow.png" />
+    <Resource Include="Resources\LeftWindow.png" />
+    <Resource Include="Resources\fotdlogo.png" />
+    <Resource Include="Resources\fomtext.png" />
+    <Resource Include="Resources\dpslogo.png" />
     <Content Include="Resources\idr_main.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Views\fotdlogo.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\LauncherWindow.xaml">
@@ -162,4 +183,5 @@
       </EmbeddedResource>
     </ItemGroup>
   </Target>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.5\Microsoft.Expression.Blend.WPF.targets" />
 </Project>

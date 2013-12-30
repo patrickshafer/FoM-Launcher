@@ -63,15 +63,16 @@ namespace FoM.Launcher.Models
                 PatchManager.ApplyPatchAsync(e.Manifest);
             }
             else
-                this.PatchState = RuntimeStateEnum.Nothing;
+            {
+                this.PatchState = RuntimeStateEnum.Ready;
+                if (this.PatchCompleted != null)
+                    this.PatchCompleted(this, EventArgs.Empty);
+            }
         }
 
         public void StartUpdate(string ManifestURL)
         {
             this.AcquireFoMMutex();
-#if DEBUG
-            ManifestURL = @"http://patch.patrickshafer.com/fom-alpha-debug.xml";
-#endif
             string LocalFolder = Directory.GetCurrentDirectory();
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
