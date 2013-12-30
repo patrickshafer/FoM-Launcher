@@ -114,9 +114,9 @@
             this.DevRadio.AutoSize = true;
             this.DevRadio.Location = new System.Drawing.Point(6, 42);
             this.DevRadio.Name = "DevRadio";
-            this.DevRadio.Size = new System.Drawing.Size(120, 17);
+            this.DevRadio.Size = new System.Drawing.Size(115, 17);
             this.DevRadio.TabIndex = 1;
-            this.DevRadio.Text = "Alpha/Development";
+            this.DevRadio.Text = "Beta/Development";
             this.DevRadio.UseVisualStyleBackColor = true;
             // 
             // LiveRadio
@@ -125,10 +125,10 @@
             this.LiveRadio.Checked = true;
             this.LiveRadio.Location = new System.Drawing.Point(6, 19);
             this.LiveRadio.Name = "LiveRadio";
-            this.LiveRadio.Size = new System.Drawing.Size(77, 17);
+            this.LiveRadio.Size = new System.Drawing.Size(72, 17);
             this.LiveRadio.TabIndex = 0;
             this.LiveRadio.TabStop = true;
-            this.LiveRadio.Text = "Alpha/Live";
+            this.LiveRadio.Text = "Beta/Live";
             this.LiveRadio.UseVisualStyleBackColor = true;
             // 
             // PreferencesUI
