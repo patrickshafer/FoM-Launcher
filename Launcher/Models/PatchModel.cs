@@ -76,7 +76,7 @@ namespace FoM.Launcher.Models
 
         public void StartUpdate(string ManifestURL)
         {
-            this.AcquireFoMMutex();
+            //this.AcquireFoMMutex();
             string LocalFolder = Directory.GetCurrentDirectory();
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);

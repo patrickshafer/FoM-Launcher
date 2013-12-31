@@ -40,5 +40,10 @@ namespace FoM.Launcher.Views
 				this.DragMove();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            LauncherApp.Instance.PatchInfo.StartUpdate(@"http://da73s87zjmd54.cloudfront.net/fom-preinstall.xml");
+        }
+
     }
 }

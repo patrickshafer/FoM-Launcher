@@ -154,12 +154,7 @@
       <Numbers>False</Numbers>
       <Punctuation>False</Punctuation>
     </BlendEmbeddedFont>
-    <Resource Include="Resources\nexeonlogo.png" />
-    <Resource Include="Resources\RightWindow.png" />
-    <Resource Include="Resources\LeftWindow.png" />
-    <Resource Include="Resources\fotdlogo.png" />
-    <Resource Include="Resources\fomtext.png" />
-    <Resource Include="Resources\dpslogo.png" />
+    <Resource Include="Resources\FOTD.png" />
     <Content Include="Resources\idr_main.ico" />
   </ItemGroup>
   <ItemGroup>

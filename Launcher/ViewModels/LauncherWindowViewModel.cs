@@ -90,7 +90,8 @@ namespace FoM.Launcher.ViewModels
 
         void PatchInfo_PatchCompleted(object sender, EventArgs e)
         {
-            this._LaunchCommand.RaiseCanExecuteChanged();
+            if(this.LaunchCommand != null)
+                this._LaunchCommand.RaiseCanExecuteChanged();
             LauncherApp.Instance.PatchInfo.StartAutoLaunch();
         }
         private DelegateCommand _LaunchCommand;
