@@ -47,12 +47,12 @@
             this.Channel = new System.Windows.Forms.ComboBox();
             this.W4Instructions = new System.Windows.Forms.Label();
             this.Wizard5 = new System.Windows.Forms.Panel();
+            this.PatchURL = new System.Windows.Forms.ComboBox();
             this.W5Intro = new System.Windows.Forms.Label();
             this.Wizard6 = new System.Windows.Forms.Panel();
             this.W6Result = new System.Windows.Forms.TextBox();
             this.BtnCreate = new System.Windows.Forms.Button();
             this.W6Intro = new System.Windows.Forms.Label();
-            this.PatchURL = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.SidebarPicture)).BeginInit();
             this.Wizard1.SuspendLayout();
             this.Wizard2.SuspendLayout();
@@ -212,8 +212,12 @@
             this.Channel.FormattingEnabled = true;
             this.Channel.Items.AddRange(new object[] {
             "fom-alpha",
+            "fom-beta",
+            "fom-preinstall",
             "launcher-alpha",
-            "generator-alpha"});
+            "launcher-beta",
+            "launcher-beta-debug",
+            "launcher-preinstall"});
             this.Channel.Location = new System.Drawing.Point(88, 222);
             this.Channel.Name = "Channel";
             this.Channel.Size = new System.Drawing.Size(196, 21);
@@ -237,6 +241,20 @@
             this.Wizard5.Name = "Wizard5";
             this.Wizard5.Size = new System.Drawing.Size(385, 266);
             this.Wizard5.TabIndex = 9;
+            // 
+            // PatchURL
+            // 
+            this.PatchURL.FormattingEnabled = true;
+            this.PatchURL.Items.AddRange(new object[] {
+            "http://gamedev.fom.nexeontech.com",
+            "http://da73s87zjmd54.cloudfront.net",
+            "http://patch.patrickshafer.com",
+            "http://patch-cdn.patrickshafer.com"});
+            this.PatchURL.Location = new System.Drawing.Point(41, 145);
+            this.PatchURL.Name = "PatchURL";
+            this.PatchURL.Size = new System.Drawing.Size(320, 21);
+            this.PatchURL.TabIndex = 1;
+            this.PatchURL.Text = "http://gamedev.fom.nexeontech.com";
             // 
             // W5Intro
             // 
@@ -288,20 +306,6 @@
             this.W6Intro.Size = new System.Drawing.Size(81, 17);
             this.W6Intro.TabIndex = 0;
             this.W6Intro.Text = "Execution...";
-            // 
-            // PatchURL
-            // 
-            this.PatchURL.FormattingEnabled = true;
-            this.PatchURL.Items.AddRange(new object[] {
-            "http://gamedev.fom.nexeontech.com",
-            "http://da73s87zjmd54.cloudfront.net",
-            "http://patch.patrickshafer.com",
-            "http://patch-cdn.patrickshafer.com"});
-            this.PatchURL.Location = new System.Drawing.Point(41, 145);
-            this.PatchURL.Name = "PatchURL";
-            this.PatchURL.Size = new System.Drawing.Size(320, 21);
-            this.PatchURL.TabIndex = 1;
-            this.PatchURL.Text = "http://gamedev.fom.nexeontech.com";
             // 
             // InternalUI
             // 
