@@ -8,11 +8,14 @@ namespace FoM.Launcher.Models
     {
         private RuntimeStateEnum _PatchState;
         private int _PatchProgress;
-        private System.Threading.Mutex FoMMutex;
+        private System.Threading.Mutex _FoMMutex;
+        private System.Timers.Timer _AutoLaunchTimer;
+        private int _AutoLaunchTicker = 0;
 
         public event EventHandler PatchProgressChanged;
         public event EventHandler PatchStateChanged;
         public event EventHandler PatchCompleted;
+        public event AutoLaunchProgressEventHandler AutoLaunchProgress;
 
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public RuntimeStateEnum PatchState
@@ -50,6 +53,7 @@ namespace FoM.Launcher.Models
 
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
         {
+            this.ReleaseFoMMutex();
             this.PatchState = RuntimeStateEnum.Ready;
             if (this.PatchCompleted != null)
                 this.PatchCompleted(this, EventArgs.Empty);
@@ -79,7 +83,6 @@ namespace FoM.Launcher.Models
         }
         public void LaunchFoM()
         {
-            this.ReleaseFoMMutex();
             const string FoMClient = "fom_client.exe";
 
             if (File.Exists(FoMClient))
@@ -95,10 +98,41 @@ namespace FoM.Launcher.Models
                 System.Windows.MessageBox.Show("Unable to launch fom_client.exe, it does not exist", "Game launch", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
         }
+        public void StartAutoLaunch()
+        {
+            Preferences PrefData = Preferences.Load();
+            if (PrefData.AutoLaunch)
+            {
+                this._AutoLaunchTicker = 4;
+                this._AutoLaunchTimer = new System.Timers.Timer(1000);
+                this._AutoLaunchTimer.Elapsed += _AutoLaunchTimer_Elapsed;
+                this._AutoLaunchTimer.Start();
+            }
+        }
+
+        void _AutoLaunchTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            if (this._AutoLaunchTicker <= 0)
+            {
+                this._AutoLaunchTimer.Stop();
+                this.LaunchFoM();
+            }
+            else
+            {
+                if (this.AutoLaunchProgress != null)
+                    this.AutoLaunchProgress(this, new AutoLaunchProgressEventArgs() { SecondsRemaining=this._AutoLaunchTicker });
+                this._AutoLaunchTicker--;
+            }
+        }
+        public delegate void AutoLaunchProgressEventHandler(object sender, AutoLaunchProgressEventArgs e);
+        public class AutoLaunchProgressEventArgs : EventArgs
+        {
+            public int SecondsRemaining;
+        }
         private void AcquireFoMMutex()
         {
             bool LockAcquired;
-            this.FoMMutex = new System.Threading.Mutex(true, "fom_client.exe", out LockAcquired);
+            this._FoMMutex = new System.Threading.Mutex(true, "fom_client.exe", out LockAcquired);
             if (!LockAcquired)
             {
                 Log.Error("fom_client mutex already established, terminating");
@@ -108,10 +142,11 @@ namespace FoM.Launcher.Models
         }
         private void ReleaseFoMMutex()
         {
-            if (this.FoMMutex != null)
+            if (this._FoMMutex != null)
             {
-                this.FoMMutex.ReleaseMutex();
-                this.FoMMutex = null;
+                
+                this._FoMMutex.ReleaseMutex();
+                this._FoMMutex = null;
             }
         }
         public enum RuntimeStateEnum

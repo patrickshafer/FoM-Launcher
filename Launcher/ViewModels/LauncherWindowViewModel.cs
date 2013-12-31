@@ -12,6 +12,7 @@ namespace FoM.Launcher.ViewModels
             LauncherApp.Instance.PatchInfo.PatchStateChanged += PatchInfo_PatchStateChanged;
             LauncherApp.Instance.PatchInfo.PatchProgressChanged += PatchInfo_PatchProgressChanged;
             LauncherApp.Instance.PatchInfo.PatchCompleted += PatchInfo_PatchCompleted;
+            LauncherApp.Instance.PatchInfo.AutoLaunchProgress += PatchInfo_AutoLaunchProgress;
         }
 
         #region Login Stuff
@@ -61,6 +62,8 @@ namespace FoM.Launcher.ViewModels
         #region Patch stuff
         public string PatchState { get { return LauncherApp.Instance.PatchInfo.PatchState.ToString(); } }
         public int PatchProgress { get { return LauncherApp.Instance.PatchInfo.PatchProgress; } }
+        private int _AutoLaunchTicker = -1;
+
         void PatchInfo_PatchStateChanged(object sender, EventArgs e)
         {
             this.RaisePropertyChanged("PatchState");
@@ -88,6 +91,7 @@ namespace FoM.Launcher.ViewModels
         void PatchInfo_PatchCompleted(object sender, EventArgs e)
         {
             this._LaunchCommand.RaiseCanExecuteChanged();
+            LauncherApp.Instance.PatchInfo.StartAutoLaunch();
         }
         private DelegateCommand _LaunchCommand;
         public ICommand LaunchCommand
@@ -110,6 +114,22 @@ namespace FoM.Launcher.ViewModels
             else
                 return false;
         }
+        public string LaunchCommandCaption
+        {
+            get
+            {
+                string RetVal = "Launch";
+                if (this._AutoLaunchTicker >= 0)
+                    RetVal = String.Format("Launching... ({0})", this._AutoLaunchTicker);
+                return RetVal;
+            }
+        }
+        void PatchInfo_AutoLaunchProgress(object sender, Models.PatchModel.AutoLaunchProgressEventArgs e)
+        {
+            this._AutoLaunchTicker = e.SecondsRemaining;
+            this.RaisePropertyChanged("LaunchCommandCaption");
+        }
+
 
         #endregion
 

@@ -21,11 +21,14 @@ namespace FoM.Launcher
 
         public void StartApplication()
         {
-            this._WPFApp.Run(new Views.LauncherWindow());
+            this._WPFApp.ShutdownMode = ShutdownMode.OnMainWindowClose;
+            this._WPFApp.MainWindow = new Views.LauncherWindow();
+            this._WPFApp.Run(this._WPFApp.MainWindow);
+            
         }
         public void Exit()
         {
-            this._WPFApp.Shutdown();
+            this._WPFApp.Dispatcher.Invoke(new Action(delegate() { this._WPFApp.Shutdown(); }));
         }
 
         public static LauncherApp Instance
