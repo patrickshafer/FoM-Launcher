@@ -6,8 +6,14 @@
 		FocusManager.FocusedElement="{Binding ElementName=txtUsername}" Loaded="Window_Loaded">
 	<Window.Resources>
 		<ResourceDictionary>
-			
-			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+            <Style TargetType="{x:Type ProgressBar}" x:Key="PatchProgress">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+                        <Setter Property="IsIndeterminate" Value="True"/>
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+            <ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
 		</ResourceDictionary>
     </Window.Resources>
 	<Window.Background>
@@ -17,7 +23,7 @@
 		<EventTrigger RoutedEvent="FrameworkElement.Loaded"/>
 	</Window.Triggers>
 	<Grid DataContext="{Binding Source={StaticResource LauncherWindowViewModelDataSource}}">
-		<ProgressBar HorizontalAlignment="Right" Height="25" VerticalAlignment="Bottom" Width="200" Margin="0,0,10,10" Value="{Binding PatchProgress, Mode=OneWay}"/>
+		<ProgressBar HorizontalAlignment="Right" Height="25" VerticalAlignment="Bottom" Width="200" Margin="0,0,10,10" Value="{Binding PatchProgress, Mode=OneWay}" Style="{DynamicResource PatchProgress}"/>
 		<TextBlock HorizontalAlignment="Right" TextWrapping="Wrap" Text="We are preinstalling Face of Mankind" VerticalAlignment="Top" Foreground="#FFC5C5B4" Margin="0,10,10,0"/>
 	</Grid>
 </Window>
