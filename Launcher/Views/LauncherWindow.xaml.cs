@@ -42,7 +42,7 @@ namespace FoM.Launcher.Views
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LauncherApp.Instance.PatchInfo.StartUpdate(@"http://da73s87zjmd54.cloudfront.net/fom-preinstall.xml");
+            LauncherApp.Instance.PatchInfo.StartUpdate(@"http://gamedev.fom.nexeontech.com/fom-preinstall.xml");
         }
 
     }
