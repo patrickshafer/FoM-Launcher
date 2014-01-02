@@ -11,6 +11,7 @@ namespace FoM.Launcher
 
         public UserModel UserInfo;
         public PatchModel PatchInfo;
+        public Application ThisApp { get { return this._WPFApp; } }
 
         private LauncherApp()
         {
@@ -24,7 +25,6 @@ namespace FoM.Launcher
             this._WPFApp.ShutdownMode = ShutdownMode.OnMainWindowClose;
             this._WPFApp.MainWindow = new Views.LauncherWindow();
             this._WPFApp.Run(this._WPFApp.MainWindow);
-            
         }
         public void Exit()
         {
