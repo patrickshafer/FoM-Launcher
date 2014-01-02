@@ -18,10 +18,10 @@ namespace FoM.Launcher
                 switch (this.LauncherEdition)
                 {
                     case LauncherEditionEnum.Development:
-                        return @"http://gamedev.fom.nexeontech.com/launcher-preinstall.xml";
+                        return @"http://patch.faceofmankind.com/launcher-preinstall.xml";
                     case LauncherEditionEnum.Live:
                     default:
-                        return @"http://gamedev.fom.nexeontech.com/launcher-preinstall.xml";
+                        return @"http://patch.faceofmankind.com/launcher-preinstall.xml";
                 }
             }
         }
