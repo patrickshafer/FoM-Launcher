@@ -66,6 +66,17 @@ namespace FoM.Launcher.ViewModels
 
         void PatchInfo_PatchStateChanged(object sender, EventArgs e)
         {
+            switch (LauncherApp.Instance.PatchInfo.PatchState)
+            {
+                case FoM.Launcher.Models.PatchModel.RuntimeStateEnum.ApplyUpdate:
+                    LauncherApp.Instance.PatchInfo.AcquireFoMMutex();
+                    break;
+                case FoM.Launcher.Models.PatchModel.RuntimeStateEnum.Ready:
+                    LauncherApp.Instance.PatchInfo.ReleaseFoMMutex();
+                    break;
+                default:
+                    break;
+            }
             this.RaisePropertyChanged("PatchState");
         }
         void PatchInfo_PatchProgressChanged(object sender, EventArgs e)

@@ -8,8 +8,8 @@ namespace FoM.Launcher.Models
     {
         private RuntimeStateEnum _PatchState;
         private int _PatchProgress;
-        private System.Threading.Mutex _FoMMutex;
-        private System.Timers.Timer _AutoLaunchTimer;
+        private volatile System.Threading.Mutex _FoMMutex;
+        private System.Windows.Threading.DispatcherTimer _AutoLaunchTimer;
         private int _AutoLaunchTicker = 0;
 
         public event EventHandler PatchProgressChanged;
@@ -53,7 +53,6 @@ namespace FoM.Launcher.Models
 
         void PatchManager_ApplyPatchCompleted(object sender, EventArgs e)
         {
-            this.ReleaseFoMMutex();
             this.PatchState = RuntimeStateEnum.Ready;
             if (this.PatchCompleted != null)
                 this.PatchCompleted(this, EventArgs.Empty);
@@ -76,7 +75,6 @@ namespace FoM.Launcher.Models
 
         public void StartUpdate(string ManifestURL)
         {
-            this.AcquireFoMMutex();
             string LocalFolder = Directory.GetCurrentDirectory();
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
@@ -90,6 +88,7 @@ namespace FoM.Launcher.Models
                 Preferences PrefData = Preferences.Load();
                 string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
                 System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
+                Log.Debug(String.Format("Opening fom_client.exe with \"{0}\"", CmdLine));
                 LauncherApp.Instance.Exit();
             }
             else
@@ -104,13 +103,14 @@ namespace FoM.Launcher.Models
             if (PrefData.AutoLaunch)
             {
                 this._AutoLaunchTicker = 4;
-                this._AutoLaunchTimer = new System.Timers.Timer(1000);
-                this._AutoLaunchTimer.Elapsed += _AutoLaunchTimer_Elapsed;
+                this._AutoLaunchTimer = new System.Windows.Threading.DispatcherTimer(System.Windows.Threading.DispatcherPriority.Normal, LauncherApp.Instance.ThisApp.Dispatcher);
+                this._AutoLaunchTimer.Interval = TimeSpan.FromSeconds(1);
+                this._AutoLaunchTimer.Tick += _AutoLaunchTimer_Tick;
                 this._AutoLaunchTimer.Start();
             }
         }
 
-        void _AutoLaunchTimer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+        void _AutoLaunchTimer_Tick(object sender, EventArgs e)
         {
             if (this._AutoLaunchTicker <= 0)
             {
@@ -120,7 +120,7 @@ namespace FoM.Launcher.Models
             else
             {
                 if (this.AutoLaunchProgress != null)
-                    this.AutoLaunchProgress(this, new AutoLaunchProgressEventArgs() { SecondsRemaining=this._AutoLaunchTicker });
+                    this.AutoLaunchProgress(this, new AutoLaunchProgressEventArgs() { SecondsRemaining = this._AutoLaunchTicker });
                 this._AutoLaunchTicker--;
             }
         }
@@ -129,23 +129,28 @@ namespace FoM.Launcher.Models
         {
             public int SecondsRemaining;
         }
-        private void AcquireFoMMutex()
+        public void AcquireFoMMutex()
         {
             bool LockAcquired;
+
             this._FoMMutex = new System.Threading.Mutex(true, "fom_client.exe", out LockAcquired);
+            
             if (!LockAcquired)
             {
                 Log.Error("fom_client mutex already established, terminating");
                 System.Windows.MessageBox.Show("Face of Mankind is running, please close it and try again", "fom_client running", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
                 LauncherApp.Instance.Exit();
             }
+            else
+                Log.Debug("fom_client mutex acquired");
         }
-        private void ReleaseFoMMutex()
+        public void ReleaseFoMMutex()
         {
             if (this._FoMMutex != null)
             {
-                
+                Log.Debug("Releasing fom_client mutex...");
                 this._FoMMutex.ReleaseMutex();
+                this._FoMMutex.Dispose();
                 this._FoMMutex = null;
             }
         }
