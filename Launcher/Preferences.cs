@@ -18,7 +18,7 @@ namespace FoM.Launcher
                 switch (this.LauncherEdition)
                 {
                     case LauncherEditionEnum.Development:
-                        return @"http://patch.fomportal.com:8081/launcher-beta.xml";
+                        return @"http://patch.patrickshafer.com/launcher-beta-debug.xml";
                     case LauncherEditionEnum.Live:
                     default:
                         return @"http://patch.fomportal.com:8081/launcher-beta.xml";
