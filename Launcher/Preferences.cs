@@ -18,10 +18,10 @@ namespace FoM.Launcher
                 switch (this.LauncherEdition)
                 {
                     case LauncherEditionEnum.Development:
-                        return @"http://gamedev.fom.nexeontech.com/launcher-beta.xml";
+                        return @"http://patch.fomportal.com:8081/launcher-beta.xml";
                     case LauncherEditionEnum.Live:
                     default:
-                        return @"http://gamedev.fom.nexeontech.com/launcher-beta.xml";
+                        return @"http://patch.fomportal.com:8081/launcher-beta.xml";
                 }
             }
         }
