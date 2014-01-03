@@ -211,10 +211,8 @@
             // 
             this.Channel.FormattingEnabled = true;
             this.Channel.Items.AddRange(new object[] {
-            "fom-alpha",
             "fom-beta",
             "fom-preinstall",
-            "launcher-alpha",
             "launcher-beta",
             "launcher-beta-debug",
             "launcher-preinstall"});
@@ -222,7 +220,7 @@
             this.Channel.Name = "Channel";
             this.Channel.Size = new System.Drawing.Size(196, 21);
             this.Channel.TabIndex = 1;
-            this.Channel.Text = "fom-alpha";
+            this.Channel.Text = "fom-beta";
             // 
             // W4Instructions
             // 
@@ -246,15 +244,14 @@
             // 
             this.PatchURL.FormattingEnabled = true;
             this.PatchURL.Items.AddRange(new object[] {
-            "http://gamedev.fom.nexeontech.com",
             "http://da73s87zjmd54.cloudfront.net",
-            "http://patch.patrickshafer.com",
-            "http://patch-cdn.patrickshafer.com"});
+            "http://patch.fomportal.com:8081",
+            "http://patch.patrickshafer.com"});
             this.PatchURL.Location = new System.Drawing.Point(41, 145);
             this.PatchURL.Name = "PatchURL";
             this.PatchURL.Size = new System.Drawing.Size(320, 21);
             this.PatchURL.TabIndex = 1;
-            this.PatchURL.Text = "http://gamedev.fom.nexeontech.com";
+            this.PatchURL.Text = "http://da73s87zjmd54.cloudfront.net";
             // 
             // W5Intro
             // 
