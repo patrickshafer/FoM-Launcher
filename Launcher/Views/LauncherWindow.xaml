@@ -277,10 +277,6 @@
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
 				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion closed beta" Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-143,0,124">
-					<TextBlock Text="Current Patch Activity: " Style="{DynamicResource WelcomeText}" Foreground="White" />
-					<TextBlock TextWrapping="Wrap" Text="{Binding PatchState, Mode=OneWay}" Style="{DynamicResource WelcomeText}" Foreground="White"/>
-				</StackPanel>
 			</StackPanel>
 		</UniformGrid>
 		<StackPanel DockPanel.Dock="Bottom" Margin="14.5,0,600,-140" Height="40.333">
