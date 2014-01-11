@@ -18,10 +18,10 @@ namespace FoM.Launcher
                 switch (this.LauncherEdition)
                 {
                     case LauncherEditionEnum.Development:
-                        return @"http://patch.patrickshafer.com/launcher-preinstall-debug.xml";
+                        return @"http://patch.fomportal.com:8081/launcher-live.xml";
                     case LauncherEditionEnum.Live:
                     default:
-                        return @"http://patch.fomportal.com:8081/launcher-preinstall.xml";
+                        return @"http://patch.fomportal.com:8081/launcher-live.xml";
                 }
             }
         }
