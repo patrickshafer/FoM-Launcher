@@ -48,7 +48,7 @@ namespace FoM.Generator
         {
             //log4net.Config.XmlConfigurator.Configure(System.Reflection.Assembly.GetEntryAssembly().GetManifestResourceStream("FoM.Launcher.Resources.log4netConfig.xml"));
 
-            FoM.PatchLib.PatchManager.ApplicationStart("http://gamedev.fom.nexeontech.com/generator.xml");
+            FoM.PatchLib.PatchManager.ApplicationStart("http://patch.fomportal.com:8081/generator.xml");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
