@@ -11,12 +11,14 @@ namespace FoM.Launcher
 
         public UserModel UserInfo;
         public PatchModel PatchInfo;
+        public PreferenceModel PreferenceInfo;
         public Application ThisApp { get { return this._WPFApp; } }
 
         private LauncherApp()
         {
             this.UserInfo = new UserModel();
             this.PatchInfo = new PatchModel();
+            this.PreferenceInfo = PreferenceModel.Load();
             this._WPFApp = new Application();
         }
 

@@ -119,7 +119,7 @@ namespace FoM.Launcher
         {
             [XmlElement("status")]
             public RPCEnvelope.StatusEnum Status;
-            [XmlElement("message")]
+            [XmlElement("errorMessage")]
             public string ErrorMessage;
             [XmlElement("updateURL")]
             public string UpdateURL;

@@ -79,6 +79,15 @@ namespace FoM.Launcher.Models
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
         }
+
+        public void StartUpdate()
+        {
+            string LocalFolder = Directory.GetCurrentDirectory();
+            string ManifestURL = LauncherApp.Instance.PreferenceInfo.FoMURL;
+            this.PatchState = RuntimeStateEnum.UpdateCheck;
+            PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+        }
+
         public void LaunchFoM()
         {
             const string FoMClient = "fom_client.exe";
