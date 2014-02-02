@@ -1,0 +1,26 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModels="clr-namespace:FoM.Launcher.ViewModels" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="FoM.Launcher.Views.PreferencesWindow"
+        Title="PreferencesWindow" Height="300" Width="300">
+	<Window.Resources>
+		<ViewModels:PreferencesWindowViewModel x:Key="PreferencesWindowViewModelDataSource" d:IsDataSource="True"/>
+	</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+		<TextBlock TextWrapping="Wrap" Text="Automatic Launch" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+		<ToggleButton Content="ToggleButton" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+		<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Text="Windowed Mode" Grid.Row="4"/>
+		<CheckBox Content="CheckBox" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+	</Grid>
+</Window>

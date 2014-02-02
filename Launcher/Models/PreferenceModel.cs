@@ -21,7 +21,7 @@ namespace FoM.Launcher.Models
 
         public static PreferenceModel Load()
         {
-            return PreferenceModel.Load("FoM.Launcher.cfg");
+            return PreferenceModel.Load("FoM.Launcher-beta.cfg");
         }
         public static PreferenceModel Load(string FileName)
         {
@@ -44,12 +44,12 @@ namespace FoM.Launcher.Models
             }
 
             if(RetVal == null)  //set defaults
-                RetVal = new PreferenceModel() { LauncherURL = @"http://patch.fomportal.com:8081/launcher-beta.xml", AutoLaunch = true, WindowedMode = true };
+                RetVal = new PreferenceModel() { LauncherURL = @"http://patch.fomportal.com:8081/launcher-beta.xml", AutoLaunch = false, WindowedMode = true };
             return RetVal;
         }
         public void Save()
         {
-            this.Save("FoM.Launcher.cfg");
+            this.Save("FoM.Launcher-beta.cfg");
             //delete the legacy preference file
             //if (File.Exists("Launcher.prf"))
                 //File.Delete("Launcher.prf");
