@@ -53,7 +53,7 @@ namespace FoM.Launcher.ViewModels
                     LauncherApp.Instance.UserInfo.ExecuteLogin(this.Username, PasswordBox.Password);
                     this.RaisePropertyChanged("LoginErrorMessage");
                     if (!LauncherApp.Instance.UserInfo.NeedsLogin)
-                        LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);        //start the patch process
+                        LauncherApp.Instance.PatchInfo.StartUpdate();        //start the patch process
                 }
             }
         }
@@ -96,7 +96,7 @@ namespace FoM.Launcher.ViewModels
         }
         private void ExecutePatchCommand()
         {
-            LauncherApp.Instance.PatchInfo.StartUpdate(LauncherApp.Instance.UserInfo.UpdateURL);
+            LauncherApp.Instance.PatchInfo.StartUpdate();
         }
 
         void PatchInfo_PatchCompleted(object sender, EventArgs e)
@@ -158,22 +158,8 @@ namespace FoM.Launcher.ViewModels
         }
         private void ExecutePreferencesCommand()
         {
-            using (PreferencesUI PrefDialog = new PreferencesUI())
-            {
-                Preferences PrefData = Preferences.Load();
-
-                PrefDialog.LauncherEdition = PrefData.LauncherEdition;
-                PrefDialog.WindowedMode = PrefData.WindowedMode;
-                PrefDialog.AutoLaunch = PrefData.AutoLaunch;
-
-                if (PrefDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    PrefData.LauncherEdition = PrefDialog.LauncherEdition;
-                    PrefData.WindowedMode = PrefDialog.WindowedMode;
-                    PrefData.AutoLaunch = PrefDialog.AutoLaunch;
-                    PrefData.Save();
-                }
-            }
+            FoM.Launcher.Views.PreferencesWindow PrefUI = new Views.PreferencesWindow();
+            PrefUI.ShowDialog();
         }
         #endregion
 

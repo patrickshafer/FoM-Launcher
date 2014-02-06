@@ -13,7 +13,8 @@ namespace FoM.Launcher
     public class AuthenticationRPC
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private static readonly string RPCEndPoint = @"http://login.fomportal.com:8081/login-beta.php";
+
+        private static readonly string RPCEndPoint = @"http://login.fomportal.com:8081/login-closedbeta2.php";
 
         public static AuthenticateResult Login(string Username, string Password)
         {
@@ -93,7 +94,7 @@ namespace FoM.Launcher
 
         public class Token
         {
-            [XmlElement("id")]
+            [XmlElement("ID")]
             public string ID;
             [XmlElement("created")]
             public DateTime Created;
@@ -115,10 +116,14 @@ namespace FoM.Launcher
         {
             [XmlElement("status")]
             public RPCEnvelope.StatusEnum Status;
-            [XmlElement("message")]
+            [XmlElement("errorMessage")]
             public string ErrorMessage;
             [XmlElement("updateURL")]
             public string UpdateURL;
+            [XmlArray("FoMChannels"), XmlArrayItem("url")]
+            public List<string> FoMChannels;
+            [XmlArray("LauncherChannels"), XmlArrayItem("url")]
+            public List<string> LauncherChannels;
         }
     }
     public class RPCEnvelope

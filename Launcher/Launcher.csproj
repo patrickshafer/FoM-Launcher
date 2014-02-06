@@ -63,6 +63,7 @@
     <Compile Include="AuthenticationRPC.cs" />
     <Compile Include="LauncherApp.cs" />
     <Compile Include="Models\PatchModel.cs" />
+    <Compile Include="Models\PreferenceModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="InternalUI.cs">
       <SubType>Form</SubType>
@@ -89,8 +90,12 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\LauncherWindowViewModel.cs" />
+    <Compile Include="ViewModels\PreferencesWindowViewModel.cs" />
     <Compile Include="Views\LauncherWindow.xaml.cs">
       <DependentUpon>LauncherWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PreferencesWindow.xaml.cs">
+      <DependentUpon>PreferencesWindow.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="InternalUI.resx">
       <DependentUpon>InternalUI.cs</DependentUpon>
@@ -164,6 +169,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\LauncherWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PreferencesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

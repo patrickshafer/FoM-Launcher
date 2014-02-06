@@ -6,7 +6,6 @@ namespace FoM.Launcher.Models
         public bool NeedsLogin { get; set; }
         public string ErrorMessage;
         public string Status;
-        public string UpdateURL;
 
 
         public UserModel()
@@ -23,6 +22,9 @@ namespace FoM.Launcher.Models
                     break;
                 case RPCEnvelope.StatusEnum.Success:
                     this.NeedsLogin = false;
+                    LauncherApp.Instance.PreferenceInfo.FoMURLList = LoginResult.FoMChannels;
+                    LauncherApp.Instance.PreferenceInfo.LauncherURLList = LoginResult.LauncherChannels;
+                    LauncherApp.Instance.PreferenceInfo.Save();
                     break;
                 default:
                     break;
@@ -30,7 +32,6 @@ namespace FoM.Launcher.Models
 
             this.ErrorMessage = LoginResult.ErrorMessage;
             this.Status = LoginResult.Status.ToString();
-            this.UpdateURL = LoginResult.UpdateURL;
         }
     }
 }

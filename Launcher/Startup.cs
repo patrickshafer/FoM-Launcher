@@ -20,10 +20,8 @@ namespace FoM.Launcher
 
             Log.Info(String.Format("Launcher starting {0}", Application.ProductVersion));
 
-            Preferences PrefData = Preferences.Load();
-            FoM.PatchLib.PatchManager.ApplicationStart(PrefData.LauncherURL);
-
             LauncherApp App = LauncherApp.Instance;
+            FoM.PatchLib.PatchManager.ApplicationStart(App.PreferenceInfo.LauncherURL);
             App.StartApplication();
 
         }

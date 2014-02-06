@@ -79,14 +79,22 @@ namespace FoM.Launcher.Models
             this.PatchState = RuntimeStateEnum.UpdateCheck;
             PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
         }
+
+        public void StartUpdate()
+        {
+            string LocalFolder = Directory.GetCurrentDirectory();
+            string ManifestURL = LauncherApp.Instance.PreferenceInfo.FoMURL;
+            this.PatchState = RuntimeStateEnum.UpdateCheck;
+            PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+        }
+
         public void LaunchFoM()
         {
             const string FoMClient = "fom_client.exe";
 
             if (File.Exists(FoMClient))
             {
-                Preferences PrefData = Preferences.Load();
-                string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", PrefData.WindowedMode.GetHashCode());
+                string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", LauncherApp.Instance.PreferenceInfo.WindowedMode.GetHashCode());
                 System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
                 Log.Debug(String.Format("Opening fom_client.exe with \"{0}\"", CmdLine));
                 LauncherApp.Instance.Exit();
@@ -99,8 +107,7 @@ namespace FoM.Launcher.Models
         }
         public void StartAutoLaunch()
         {
-            Preferences PrefData = Preferences.Load();
-            if (PrefData.AutoLaunch)
+            if (LauncherApp.Instance.PreferenceInfo.AutoLaunch)
             {
                 this._AutoLaunchTicker = 4;
                 this._AutoLaunchTimer = new System.Windows.Threading.DispatcherTimer(System.Windows.Threading.DispatcherPriority.Normal, LauncherApp.Instance.ThisApp.Dispatcher);
