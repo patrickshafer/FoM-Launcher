@@ -47,7 +47,7 @@ namespace FoM.Launcher.Models
 #if DEBUG
                 RetVal = new PreferenceModel() { LauncherURL = @"http://patch.fomportal.com:8081/launcher-beta-debug.xml", AutoLaunch = false, WindowedMode = true };
 #else
-                RetVal = new PreferenceModel() { LauncherURL = @"http://patch.fomportal.com:8081/launcher-beta.xml", AutoLaunch = false, WindowedMode = true };
+                RetVal = new PreferenceModel() { LauncherURL = @"http://patch.fomportal.com:8081/launcher-beta.xml", AutoLaunch = true, WindowedMode = true };
 #endif
             return RetVal;
         }
