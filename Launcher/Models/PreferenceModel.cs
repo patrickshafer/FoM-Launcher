@@ -55,8 +55,8 @@ namespace FoM.Launcher.Models
         {
             this.Save("FoM.Launcher-beta.cfg");
             //delete the legacy preference file
-            //if (File.Exists("Launcher.prf"))
-                //File.Delete("Launcher.prf");
+            if (File.Exists("Launcher.prf"))
+                File.Delete("Launcher.prf");
         }
         public void Save(string FileName)
         {
