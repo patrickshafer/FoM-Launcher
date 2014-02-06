@@ -313,10 +313,16 @@ namespace FoM.PatchLib
             string ManifestFile = Path.Combine(PatchFolder, ChannelName);
             ManifestFile += ".xml";
 
+            string ManifestBackupFolder = Path.Combine(PatchFolder, "ManifestBackup");
+            if (!Directory.Exists(ManifestBackupFolder))
+                Directory.CreateDirectory(ManifestBackupFolder);
+
+            string ManifestBackupFile = String.Format("{0}-{1}.xml",Path.Combine(ManifestBackupFolder, ChannelName), DateTime.Now.ToString("yyyy-MM-dd_hh-mm-ss"));
 
             Manifest PatchManifest = new Manifest();
             PatchManifest.FileList = LocalFiles;
             PatchManifest.Save(ManifestFile);
+            PatchManifest.Save(ManifestBackupFile);
         }
     }
 }
