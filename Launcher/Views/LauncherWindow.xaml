@@ -48,6 +48,15 @@
 			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 			
 			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+			<DataTemplate x:Key="NewsItemTemplate">
+				<StackPanel VerticalAlignment="Bottom" Width="370" Background="{x:Null}">
+					<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{x:Null}">
+						<TextBlock FontWeight="Bold" Foreground="#FF86C0FF" Text="{Binding Title}" Background="{x:Null}"/>
+						<TextBlock Text="{Binding PublishDate}" Foreground="#FFC8C8C8" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="{x:Null}"/>
+					</DockPanel>
+					<TextBlock Text="{Binding Summary}" Foreground="#FFC8C8C8" Background="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap"/>
+				</StackPanel>
+			</DataTemplate>
 		</ResourceDictionary>
     </Window.Resources>
 	<Window.Triggers>
@@ -219,15 +228,9 @@
 					</Ellipse>
 				
 				</Canvas>
-				<Rectangle Height="241" Margin="10,0">
-					<Rectangle.Stroke>
-						<RadialGradientBrush RadiusX="1.5" RadiusY="1.5">
-							<GradientStop Color="Black" Offset="0.401"/>
-							<GradientStop Color="White" Offset="0.254"/>
-						</RadialGradientBrush>
-					</Rectangle.Stroke>
-				</Rectangle>
-				<Label Content="No news is good news" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-258,0,0"/>
+				<StackPanel Height="241" Margin="10,10,10,-10">
+					<ItemsControl ItemTemplate="{DynamicResource NewsItemTemplate}" ItemsSource="{Binding NewsItems}" />
+				</StackPanel>
 			</StackPanel>
 			<StackPanel>
 				<Canvas Height="25" Margin="10,0">

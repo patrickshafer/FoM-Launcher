@@ -24,7 +24,7 @@ namespace FoM.Launcher.Models
                 {
                     this._NewsItems = new List<NewsItem>();
                     this._NewsItems.Add(new NewsItem() { Title = "Title one", Summary = "Summary one", PublishDate = DateTime.Now.AddDays(-5) });
-                    this._NewsItems.Add(new NewsItem() { Title = "Title 2", Summary = "Summary two", PublishDate = DateTime.Now.AddDays(-4) });
+                    this._NewsItems.Add(new NewsItem() { Title = "Title 2", Summary = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam at condimentum massa. Sed ac auctor nunc. Vivamus dignissim est a eleifend semper. Integer facilisis mi a lorem auctor posuere. Phasellus malesuada in dolor sed ornare. Fusce at odio ac dui porttitor posuere. Ut eu tempor lorem.", PublishDate = DateTime.Now.AddDays(-4) });
                     this._NewsItems.Add(new NewsItem() { Title = "Title three", Summary = "Summary three", PublishDate = DateTime.Now.AddDays(-1) });
                 }
                 return this._NewsItems;
