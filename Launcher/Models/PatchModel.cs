@@ -44,6 +44,7 @@ namespace FoM.Launcher.Models
             PatchManager.ApplyPatchCompleted += PatchManager_ApplyPatchCompleted;
             PatchManager.ApplyPatchProgressChanged += PatchManager_ApplyPatchProgressChanged;
             this.PatchState = RuntimeStateEnum.NeedsLogin;
+
         }
 
         void PatchManager_ApplyPatchProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)

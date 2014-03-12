@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel.Syndication;
 using System.Xml;
 
@@ -6,8 +7,34 @@ using System.Xml;
 
 namespace FoM.Launcher.Models
 {
-    class NewsModel
+    public class NewsModel
     {
-        private const string RSSURL = @"http://forums.faceofmankind.com/external.php?forumids=299&type=rss";
+        private const string RSSURL = @"http://forums.faceofmankind.com/external.php?forumids=299&type=rss2";
+        private List<NewsItem> _NewsItems;
+        public void OpenRSS()
+        {
+            XmlTextReader Foobar = new XmlTextReader(RSSURL);
+            SyndicationFeed feed = SyndicationFeed.Load(Foobar);
+        }
+        public List<NewsItem> NewsItems
+        {
+            get
+            {
+                if (this._NewsItems == null)
+                {
+                    this._NewsItems = new List<NewsItem>();
+                    this._NewsItems.Add(new NewsItem() { Title = "Title one", Summary = "Summary one", PublishDate = DateTime.Now.AddDays(-5) });
+                    this._NewsItems.Add(new NewsItem() { Title = "Title 2", Summary = "Summary two", PublishDate = DateTime.Now.AddDays(-4) });
+                    this._NewsItems.Add(new NewsItem() { Title = "Title three", Summary = "Summary three", PublishDate = DateTime.Now.AddDays(-1) });
+                }
+                return this._NewsItems;
+            }
+        }
+    }
+    public class NewsItem
+    {
+        public string Title { get; set; }
+        public string Summary { get; set; }
+        public DateTime PublishDate { get; set; }
     }
 }
