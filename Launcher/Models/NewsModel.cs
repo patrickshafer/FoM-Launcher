@@ -16,6 +16,7 @@ namespace FoM.Launcher.Models
         {
             get
             {
+                string SummaryText = string.Empty;
                 if (this._NewsItems == null)
                 {
                     this._NewsItems = new List<NewsItem>();
@@ -23,7 +24,10 @@ namespace FoM.Launcher.Models
                     SyndicationFeed NewsFeed = SyndicationFeed.Load(new XmlTextReader(RSSURL));
                     foreach (SyndicationItem NewsFeedItem in NewsFeed.Items)
                     {
-                        this._NewsItems.Add(new NewsItem() {Title = NewsFeedItem.Title.Text, Summary = NewsFeedItem.Summary.Text, PublishDate = NewsFeedItem.PublishDate.Date });
+                        SummaryText = NewsFeedItem.Summary.Text;
+                        if (SummaryText.Contains("\n"))
+                            SummaryText = SummaryText.Remove(SummaryText.IndexOf("\n"));
+                        this._NewsItems.Add(new NewsItem() {Title = NewsFeedItem.Title.Text, Summary = SummaryText, PublishDate = NewsFeedItem.PublishDate.Date });
                     }
 
                     /*

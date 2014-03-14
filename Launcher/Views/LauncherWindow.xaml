@@ -49,12 +49,10 @@
 			
 			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
 			<DataTemplate x:Key="NewsItemTemplate">
-				<StackPanel VerticalAlignment="Bottom" Width="370" Background="{x:Null}">
-					<DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="{x:Null}">
-						<TextBlock FontWeight="Bold" Foreground="#FF86C0FF" Text="{Binding Title}" Background="{x:Null}"/>
-						<TextBlock Text="{Binding PublishDate}" Foreground="#FFC8C8C8" DockPanel.Dock="Right" HorizontalAlignment="Right" Background="{x:Null}"/>
-					</DockPanel>
-					<TextBlock Text="{Binding Summary}" Foreground="#FFC8C8C8" Background="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextWrapping="Wrap"/>
+				<StackPanel Width="370" Background="{x:Null}" Margin="0,0,0,8">
+					<TextBlock Text="{Binding Title}" Foreground="#FF86C0FF"  Background="{x:Null}" FontSize="16" FontWeight="Bold" />
+					<TextBlock Text="{Binding PublishDate, StringFormat=\{0:M\}}" Foreground="#FFC8C8C8" Background="{x:Null}"/>
+					<TextBlock Text="{Binding Summary}" Foreground="White" Background="{x:Null}" TextWrapping="Wrap"/>
 				</StackPanel>
 			</DataTemplate>
 		</ResourceDictionary>
@@ -217,7 +215,7 @@
 							</LinearGradientBrush>
 						</Rectangle.Fill>
 					</Rectangle>
-					<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Center" Canvas.Left="25" Canvas.Top="4.52"/>
+					<TextBlock TextWrapping="Wrap" Text="News" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Center" Canvas.Left="25" Canvas.Top="4.52"/>
 					<Ellipse Height="9" Width="9" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="8.5">
 						<Ellipse.Fill>
 							<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.5">
@@ -228,7 +226,7 @@
 					</Ellipse>
 				
 				</Canvas>
-				<StackPanel Height="241" Margin="10,10,10,-10">
+				<StackPanel Height="221" Margin="10,10,10,0">
 					<ItemsControl ItemTemplate="{DynamicResource NewsItemTemplate}" ItemsSource="{Binding NewsItems}" />
 				</StackPanel>
 			</StackPanel>
