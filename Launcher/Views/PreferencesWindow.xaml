@@ -30,7 +30,7 @@
 			<GroupBox Header="Windowed Mode">
 				<StackPanel>
 					<TextBlock TextWrapping="Wrap" Text="Enable to have Face of Mankind: Fall of the Dominion run in windowed mode.  If unchecked, FoM will run in full screen mode."/>
-					<CheckBox Content="Enabled" HorizontalAlignment="Right" IsChecked="{Binding WindowedMode, Mode=TwoWay}"/>
+					<CheckBox Content="Enabled" HorizontalAlignment="Right" IsChecked="{Binding WindowedMode, Mode=TwoWay}" IsEnabled="False"/>
 				</StackPanel>
 			</GroupBox>
 		</StackPanel>
