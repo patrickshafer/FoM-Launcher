@@ -50,7 +50,7 @@
 			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
 			<DataTemplate x:Key="NewsItemTemplate">
 				<StackPanel Width="370" Background="{x:Null}" Margin="0,0,0,8">
-					<TextBlock Text="{Binding Title}" Foreground="#FF86C0FF"  Background="{x:Null}" FontSize="16" FontWeight="Bold" />
+                    <Button Content="{Binding Title}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF86C0FF" FontSize="16" FontWeight="Bold" HorizontalContentAlignment="Left" />
 					<TextBlock Text="{Binding PublishDate, StringFormat=\{0:M\}}" Foreground="#FFC8C8C8" Background="{x:Null}"/>
 					<TextBlock Text="{Binding Summary}" Foreground="White" Background="{x:Null}" TextWrapping="Wrap"/>
 				</StackPanel>
