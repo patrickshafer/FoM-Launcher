@@ -50,9 +50,8 @@
 			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
 			<DataTemplate x:Key="NewsItemTemplate">
 				<StackPanel Width="370" Background="{x:Null}" Margin="0,0,0,8">
-                    <!-- TextBlock Text="{Binding Title}" Background="{x:Null}"  Foreground="#FF86C0FF" FontSize="16" FontWeight="Bold" / -->
 					<TextBlock>
-						<Hyperlink Command="{Binding DataContext.URLCommand, RelativeSource={RelativeSource AncestorType=UniformGrid}}" CommandParameter="{Binding ArticleURL}">
+						<Hyperlink Foreground="#FF86C0FF" FontSize="16" FontWeight="Bold" Command="{Binding DataContext.URLCommand, RelativeSource={RelativeSource AncestorType=UniformGrid}}" CommandParameter="{Binding ArticleURL}">
 							<TextBlock Text="{Binding Title}" />
 						</Hyperlink>
 					</TextBlock>
