@@ -266,15 +266,29 @@ namespace FoM.PatchLib
         private static void UpdateCheckBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (UpdateCheckCompleted != null)
-                if(!e.Cancelled)
-                    UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Manifest)e.Result));
+            {
+                if (!e.Cancelled)
+                {
+                    if(e.Result is Manifest)
+                        UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Manifest)e.Result));
+                    if (e.Result is Exception)
+                        UpdateCheckCompleted(new UpdateCheckCompletedEventArgs((Exception)e.Result));
+                }
+            }
         }
 
         private static void UpdateCheckBW_DoWork(object sender, DoWorkEventArgs e)
         {
             string LocalFolder = ((UpdateCheckArgs)e.Argument).LocalFolder;
             string ManifestURL = ((UpdateCheckArgs)e.Argument).ManifestURL;
-            e.Result = UpdateCheck(LocalFolder, ManifestURL);
+            try
+            {
+                e.Result = UpdateCheck(LocalFolder, ManifestURL);
+            }
+            catch(Exception ex)
+            {
+                e.Result = ex;
+            }
             if (UpdateCheckBW.CancellationPending)
                 e.Cancel = true;
         }

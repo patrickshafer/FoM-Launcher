@@ -61,7 +61,24 @@ namespace FoM.Launcher.Models
 
         void PatchManager_UpdateCheckCompleted(UpdateCheckCompletedEventArgs e)
         {
-            if (e.Manifest.NeedsUpdate)
+            System.Net.WebException UpdateException;
+            if(e.Error != null)
+            {
+                if(e.Error is System.Net.WebException)
+                {
+                    UpdateException = (System.Net.WebException)e.Error;
+                    if(((System.Net.HttpWebResponse)UpdateException.Response).StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        System.Windows.MessageBox.Show("The patch server is currently unavailable.  Please try again in a few moments.", "Patch Server", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Exclamation);
+                        LauncherApp.Instance.Exit();
+                    }
+                }
+                else
+                {
+                    throw e.Error;
+                }
+            }
+            else if (e.Manifest.NeedsUpdate)
             {
                 this.PatchState = RuntimeStateEnum.ApplyUpdate;
                 PatchManager.ApplyPatchAsync(e.Manifest);
@@ -74,19 +91,20 @@ namespace FoM.Launcher.Models
             }
         }
 
-        public void StartUpdate(string ManifestURL)
-        {
-            string LocalFolder = Directory.GetCurrentDirectory();
-            this.PatchState = RuntimeStateEnum.UpdateCheck;
-            PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
-        }
-
         public void StartUpdate()
         {
             string LocalFolder = Directory.GetCurrentDirectory();
             string ManifestURL = LauncherApp.Instance.PreferenceInfo.FoMURL;
             this.PatchState = RuntimeStateEnum.UpdateCheck;
-            PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+            try
+            {
+                PatchManager.UpdateCheckAsync(LocalFolder, ManifestURL);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            
         }
 
         public void LaunchFoM()
