@@ -86,7 +86,7 @@ namespace FoM.PatchLib
                     {
                         using (FileStream compressedFile = File.Create(DestinationPathCmp))
                         {
-                            using (DeflateStream compressionStream = new DeflateStream(compressedFile, CompressionLevel.Optimal))
+                            using (DeflateStream compressionStream = new DeflateStream(compressedFile, CompressionMode.Compress))
                             {
                                 originalFile.CopyTo(compressionStream);
                                 SpaceSavings = (double)compressedFile.Length / (double)originalFile.Length;
