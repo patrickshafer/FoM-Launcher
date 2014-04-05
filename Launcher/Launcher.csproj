@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,6 +63,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationRPC.cs" />
     <Compile Include="LauncherApp.cs" />
+    <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\PatchModel.cs" />
     <Compile Include="Models\PreferenceModel.cs" />
     <Compile Include="Models\UserModel.cs" />

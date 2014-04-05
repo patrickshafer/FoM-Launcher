@@ -48,6 +48,17 @@
 			<BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 			
 			<ViewModels:LauncherWindowViewModel x:Key="LauncherWindowViewModelDataSource" d:IsDataSource="True"/>
+			<DataTemplate x:Key="NewsItemTemplate">
+				<StackPanel Width="370" Background="{x:Null}" Margin="0,0,0,8">
+					<TextBlock>
+						<Hyperlink Foreground="#FF86C0FF" FontSize="16" FontWeight="Bold" Command="{Binding DataContext.URLCommand, RelativeSource={RelativeSource AncestorType=UniformGrid}}" CommandParameter="{Binding ArticleURL}">
+							<TextBlock Text="{Binding Title}" />
+						</Hyperlink>
+					</TextBlock>
+					<TextBlock Text="{Binding PublishDate, StringFormat=\{0:M\}}" Foreground="#FFC8C8C8" Background="{x:Null}"/>
+					<TextBlock Text="{Binding Summary}" Foreground="White" Background="{x:Null}" TextWrapping="Wrap"/>
+				</StackPanel>
+			</DataTemplate>
 		</ResourceDictionary>
     </Window.Resources>
 	<Window.Triggers>
@@ -208,7 +219,7 @@
 							</LinearGradientBrush>
 						</Rectangle.Fill>
 					</Rectangle>
-					<TextBlock TextWrapping="Wrap" Text="Patch News" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Center" Canvas.Left="25" Canvas.Top="4.52"/>
+					<TextBlock TextWrapping="Wrap" Text="News" HorizontalAlignment="Left" Height="Auto" VerticalAlignment="Center" Canvas.Left="25" Canvas.Top="4.52"/>
 					<Ellipse Height="9" Width="9" HorizontalAlignment="Left" Canvas.Left="10" Canvas.Top="8.5">
 						<Ellipse.Fill>
 							<LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0.5">
@@ -219,15 +230,9 @@
 					</Ellipse>
 				
 				</Canvas>
-				<Rectangle Height="241" Margin="10,0">
-					<Rectangle.Stroke>
-						<RadialGradientBrush RadiusX="1.5" RadiusY="1.5">
-							<GradientStop Color="Black" Offset="0.401"/>
-							<GradientStop Color="White" Offset="0.254"/>
-						</RadialGradientBrush>
-					</Rectangle.Stroke>
-				</Rectangle>
-				<Label Content="No news is good news" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,-258,0,0"/>
+				<StackPanel Height="221" Margin="10,10,10,0">
+					<ItemsControl ItemTemplate="{DynamicResource NewsItemTemplate}" ItemsSource="{Binding NewsItems}" />
+				</StackPanel>
 			</StackPanel>
 			<StackPanel>
 				<Canvas Height="25" Margin="10,0">
