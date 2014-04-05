@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FoM.Launcher</RootNamespace>
     <AssemblyName>FoM.Launcher</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,6 +49,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -62,6 +64,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationRPC.cs" />
     <Compile Include="LauncherApp.cs" />
+    <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\PatchModel.cs" />
     <Compile Include="Models\PreferenceModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -192,5 +195,5 @@
       </EmbeddedResource>
     </ItemGroup>
   </Target>
-  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.5\Microsoft.Expression.Blend.WPF.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Expression\Blend\.NETFramework\v4.0\Microsoft.Expression.Blend.WPF.targets" />
 </Project>

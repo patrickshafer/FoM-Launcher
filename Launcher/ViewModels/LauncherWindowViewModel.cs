@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Input;
+using System.Collections.Generic;
 
 
 namespace FoM.Launcher.ViewModels
@@ -205,6 +206,17 @@ namespace FoM.Launcher.ViewModels
                     else
                         throw noBrowser;
                 }
+            }
+        }
+        #endregion
+
+        #region News
+        public List<Models.NewsItem> NewsItems
+        {
+            get
+            {
+                Models.NewsModel foo = new Models.NewsModel();
+                return foo.NewsItems;
             }
         }
         #endregion
