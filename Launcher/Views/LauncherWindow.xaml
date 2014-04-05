@@ -319,7 +319,7 @@
 				<Button Content="Privacy" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/aup"/>
 				<Button Content="EULA" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/eula"/>
 			</StackPanel>
-			<Label Content="© 2013 Face of Mankind." Foreground="#FF505051"/>
+			<Label Content="© 2014 Face of Mankind." Foreground="#FF505051"/>
 		</StackPanel>
 		<Image Margin="582,0,0,-68" Source="/FoM.Launcher;component/Resources/nexeonlogo.png" Stretch="Fill" Width="115" Height="50"/>
 		<Image Source="/FoM.Launcher;component/Resources/dpslogo.png" Stretch="Fill" Width="116" Margin="-70,0,0,-144" Height="55"/>
