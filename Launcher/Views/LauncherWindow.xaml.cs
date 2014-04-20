@@ -40,5 +40,24 @@ namespace FoM.Launcher.Views
 				this.DragMove();
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            const string EULA_FILE = @"Eula.rtf";
+            EULAWindow EulaDialog = new EULAWindow();
+
+            if (System.IO.File.Exists(EULA_FILE))
+            {
+                EulaDialog.ShowDialog();
+                if(EulaDialog.DialogResult.HasValue && EulaDialog.DialogResult.Value)
+                {
+                    
+                }
+                else
+                {
+                    Application.Current.Shutdown();
+                }
+            }
+        }
+
     }
 }

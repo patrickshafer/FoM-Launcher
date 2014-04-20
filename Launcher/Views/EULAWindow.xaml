@@ -1,0 +1,12 @@
+﻿<Window x:Class="FoM.Launcher.Views.EULAWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Face of Mankind: End User License Agreement" Height="480" Width="640" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False">
+    <DockPanel>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" HorizontalAlignment="Center" Margin="0,5">
+            <Button Width="72" Content="Accept" IsDefault="True" Click="Button_Click" Margin="5,0"/>
+            <Button Width="72" Content="Decline" IsCancel="True" Margin="5,0" />
+        </StackPanel>
+        <RichTextBox x:Name="EULARTF" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
+    </DockPanel>
+</Window>
