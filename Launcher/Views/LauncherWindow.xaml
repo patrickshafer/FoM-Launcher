@@ -292,7 +292,7 @@
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 						<Button Content="Login" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3" Margin="0,0,10,0"/>
 						<TextBlock>
-							<Hyperlink Command="{Binding URLCOmmand}" CommandParameter="http://www.faceofmankind.com/">
+							<Hyperlink Command="{Binding URLCommand}" CommandParameter="http://www.faceofmankind.com/placeholder/">
 								<TextBlock Foreground="#FF0066CC">
 									Pasword Reset
 								</TextBlock>
