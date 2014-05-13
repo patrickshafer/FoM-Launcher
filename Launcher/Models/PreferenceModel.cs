@@ -18,6 +18,7 @@ namespace FoM.Launcher.Models
         public List<string> FoMURLList { get; set; }
         public bool AutoLaunch { get; set; }
         public bool WindowedMode { get; set; }
+        public string AcceptedEulaHash { get; set; }
 
         public static PreferenceModel Load()
         {

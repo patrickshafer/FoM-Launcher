@@ -37,7 +37,8 @@ namespace FoM.Launcher
         {
             Log.Fatal("UnhandledException in current AppDomain", (Exception)e.ExceptionObject);
             MessageBox.Show("An application error occured, please see the log file for details", "Application Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            Application.ExitThread();
+            //Application.ExitThread();
+            Application.Exit();
         }
 
     }

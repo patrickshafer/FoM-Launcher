@@ -97,8 +97,13 @@ namespace FoM.PatchLib
 
         private static void ApplyPatchBW_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (ApplyPatchCompleted != null)
-                ApplyPatchCompleted(sender, new EventArgs());
+            if (e.Error == null)
+            {
+                if (ApplyPatchCompleted != null)
+                    ApplyPatchCompleted(sender, new EventArgs());
+            }
+            else
+                throw e.Error;
         }
 
         private static void ApplyPatchBW_DoWork(object sender, DoWorkEventArgs e)
