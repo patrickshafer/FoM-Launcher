@@ -94,6 +94,9 @@
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\LauncherWindowViewModel.cs" />
     <Compile Include="ViewModels\PreferencesWindowViewModel.cs" />
+    <Compile Include="Views\EULAWindow.xaml.cs">
+      <DependentUpon>EULAWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LauncherWindow.xaml.cs">
       <DependentUpon>LauncherWindow.xaml</DependentUpon>
     </Compile>
@@ -171,6 +174,10 @@
     <Content Include="Resources\idr_main.ico" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\EULAWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LauncherWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
