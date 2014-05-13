@@ -50,6 +50,7 @@ namespace FoM.Launcher.Views
             {
                 if (LauncherApp.Instance.PreferenceInfo.AcceptedEulaHash != getMD5Hash(EULA_FILE))
                 {
+                    EulaDialog.Owner = this;
                     EulaDialog.ShowDialog();
                     if (EulaDialog.DialogResult.HasValue && EulaDialog.DialogResult.Value)
                     {
