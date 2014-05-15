@@ -181,7 +181,7 @@
 					</LinearGradientBrush>
 				</Path.Fill>
 			</Path>
-			<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="1" Margin="0,27,0,0">
+			<StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Panel.ZIndex="1" Margin="0,12,0,0">
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
 					<Button Content="{Binding LaunchCommandCaption, Mode=OneWay}" Command="{Binding LaunchCommand, Mode=OneWay}" Margin="5,0"/>
 					<Button Content="Options" Command="{Binding PreferencesCommand, Mode=OneWay}" TabIndex="4" Margin="5,0">
@@ -197,7 +197,35 @@
 						</Button.Style>
 					</Button>
 				</StackPanel>
-				<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
+				<Grid>
+					<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
+					<TextBlock TextWrapping="Wrap" Text="{Binding PatchProgress, Mode=OneWay, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black">
+						<TextBlock.Style>
+							<Style TargetType="{x:Type TextBlock}">
+								<Setter Property="Visibility" Value="Collapsed"/>
+								<Style.Triggers>
+                                    <DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+							</Style>
+						</TextBlock.Style>
+					</TextBlock>
+				</Grid>
+				<TextBlock Foreground="White" HorizontalAlignment="Center">
+					<TextBlock.Style>
+						<Style TargetType="{x:Type TextBlock}">
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+									<Setter Property="Text" Value="Checking for updates" />
+								</DataTrigger>
+								<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+									<Setter Property="Text" Value="Downloading files" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</TextBlock.Style>
+				</TextBlock>
 			</StackPanel>
 		</Grid>
 		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
@@ -301,7 +329,7 @@
 					</StackPanel>
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion open beta" Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" d:IsHidden="True"/>
+				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion open beta" Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 			</StackPanel>
 		</UniformGrid>
 		<StackPanel DockPanel.Dock="Bottom" Margin="14.5,0,600,-140" Height="40.333">
