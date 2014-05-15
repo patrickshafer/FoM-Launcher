@@ -215,6 +215,20 @@
 						</TextBlock.Style>
 					</TextBlock>
 				</Grid>
+				<TextBlock Foreground="White" HorizontalAlignment="Center">
+					<TextBlock.Style>
+						<Style TargetType="{x:Type TextBlock}">
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding PatchState}" Value="UpdateCheck">
+									<Setter Property="Text" Value="Checking for updates" />
+								</DataTrigger>
+								<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+									<Setter Property="Text" Value="Downloading files" />
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</TextBlock.Style>
+				</TextBlock>
 			</StackPanel>
 		</Grid>
 		<UniformGrid DockPanel.Dock="Top" Rows="1" Columns="2">
