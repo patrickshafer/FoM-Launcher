@@ -199,7 +199,21 @@
 				</StackPanel>
 				<Grid>
 					<ProgressBar Height="20" Width="250" Style="{DynamicResource PatchProgress}" Value="{Binding PatchProgress, Mode=OneWay}" Foreground="#FFECC366" Margin="0,5"/>
-					<TextBlock TextWrapping="Wrap" Text="{Binding PatchProgress, Mode=OneWay, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black" />
+					<TextBlock TextWrapping="Wrap" Text="{Binding PatchProgress, Mode=OneWay, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black">
+						<TextBlock.Style>
+							<Style TargetType="{x:Type TextBlock}">
+								<Setter Property="Visibility" Value="Collapsed"/>
+								<Style.Triggers>
+									<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+										<Setter Property="Visibility" Value="Visible" />
+									</DataTrigger>
+									<DataTrigger Binding="{Binding PatchState}" Value="Ready">
+										<Setter Property="Visibility" Value="Visible" />
+									</DataTrigger>
+								</Style.Triggers>
+							</Style>
+						</TextBlock.Style>
+					</TextBlock>
 				</Grid>
 			</StackPanel>
 		</Grid>
