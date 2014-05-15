@@ -204,13 +204,10 @@
 							<Style TargetType="{x:Type TextBlock}">
 								<Setter Property="Visibility" Value="Collapsed"/>
 								<Style.Triggers>
-									<DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
-										<Setter Property="Visibility" Value="Visible" />
-									</DataTrigger>
-									<DataTrigger Binding="{Binding PatchState}" Value="Ready">
-										<Setter Property="Visibility" Value="Visible" />
-									</DataTrigger>
-								</Style.Triggers>
+                                    <DataTrigger Binding="{Binding PatchState}" Value="ApplyUpdate">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
 							</Style>
 						</TextBlock.Style>
 					</TextBlock>
