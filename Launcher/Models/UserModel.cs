@@ -6,7 +6,7 @@ namespace FoM.Launcher.Models
         public bool NeedsLogin { get; set; }
         public string ErrorMessage;
         public string Status;
-
+        public string LoginTokenID;
 
         public UserModel()
         {
@@ -22,6 +22,7 @@ namespace FoM.Launcher.Models
                     break;
                 case RPCEnvelope.StatusEnum.Success:
                     this.NeedsLogin = false;
+                    this.LoginTokenID = LoginResult.LoginTokenID;
                     LauncherApp.Instance.PreferenceInfo.FoMURLList = LoginResult.FoMChannels;
                     LauncherApp.Instance.PreferenceInfo.LauncherURLList = LoginResult.LauncherChannels;
                     LauncherApp.Instance.PreferenceInfo.Save();
