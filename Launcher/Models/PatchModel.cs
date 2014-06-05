@@ -113,8 +113,7 @@ namespace FoM.Launcher.Models
 
             if (File.Exists(FoMClient))
             {
-                //string CmdLine = String.Format("-rez Resources -dpsmagic 1 +windowed {0}", LauncherApp.Instance.PreferenceInfo.WindowedMode.GetHashCode());
-                string CmdLine ="-rez Resources -dpsmagic 1";
+                string CmdLine = String.Format("-rez Resources -dpsmagic 1 +logintoken {0}", LauncherApp.Instance.UserInfo.LoginTokenID);
                 System.Diagnostics.Process.Start("fom_client.exe", CmdLine);
                 Log.Debug(String.Format("Opening fom_client.exe with \"{0}\"", CmdLine));
                 LauncherApp.Instance.Exit();

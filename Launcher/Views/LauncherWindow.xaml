@@ -156,7 +156,7 @@
 					</Style>
 				</DockPanel.Resources>
 				<StackPanel Orientation="Horizontal">
-					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/content/game" Margin="22,5,10,5"/>
+					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com" Margin="22,5,10,5"/>
 					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail" Margin="4,5,10,5"/>
 					<Button Content="Forums" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://forums.faceofmankind.com/forum.php" Margin="4,5,10,5"/>
 				</StackPanel>
@@ -315,21 +315,30 @@
 						<Style TargetType="PasswordBox" BasedOn="{StaticResource TextBoxStyle}"/>
 					</StackPanel.Resources>
 					<TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Margin="5" Text="You must login to continue"/>
-					<TextBox x:Name="txtUsername" Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120" TabIndex="1" Margin="5"/>
-					<PasswordBox x:Name="txtPassword" Width="120" Height="23" TabIndex="2" Margin="5"/>
+					<TextBox x:Name="txtUsername" Height="23" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200" TabIndex="1" Margin="5"/>
+					<PasswordBox x:Name="txtPassword" Width="200" Height="23" TabIndex="2" Margin="5"/>
 					<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-						<Button Content="Login" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3" Margin="0,0,10,0"/>
-						<TextBlock>
-							<Hyperlink Command="{Binding URLCommand}" CommandParameter="http://www.faceofmankind.com/placeholder/">
-								<TextBlock Foreground="#FF0066CC">
-									Pasword Reset
-								</TextBlock>
-							</Hyperlink>
-						</TextBlock>
+						<Button Content="Login" Width="75" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}" IsDefault="True" TabIndex="3" VerticalAlignment="Center" Margin="0,0,10,0"/>
+						<StackPanel>
+							<TextBlock>
+								<Hyperlink Command="{Binding URLCommand}" CommandParameter="https://www.faceofmankind.com/account/register">
+									<TextBlock Foreground="#FF0066CC">
+										Account Registration
+									</TextBlock>
+								</Hyperlink>
+							</TextBlock>
+							<TextBlock>
+								<Hyperlink Command="{Binding URLCommand}" CommandParameter="https://www.faceofmankind.com/account/reset">
+									<TextBlock Foreground="#FF0066CC">
+										Pasword Reset
+									</TextBlock>
+								</Hyperlink>
+							</TextBlock>
+						</StackPanel>
 					</StackPanel>
 					<TextBlock TextWrapping="Wrap" Text="{Binding LoginErrorMessage, Mode=OneWay}" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="Red"/>
 				</StackPanel>
-				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion open beta" Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+				<TextBlock TextWrapping="Wrap" Text="Welcome to the Face of Mankind: Fall of the Dominion Early Access" Width="180" Style="{DynamicResource WelcomeText}" Foreground="White" Margin="0,-384,0,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
 			</StackPanel>
 		</UniformGrid>
 		<StackPanel DockPanel.Dock="Bottom" Margin="14.5,0,600,-140" Height="40.333">

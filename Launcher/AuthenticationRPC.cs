@@ -26,6 +26,7 @@ namespace FoM.Launcher
             string Hash = MD5Hash(String.Format("{0}:{1}", UserToken.ID, MD5Hash(Password)));
             AuthenticateResult Result = AuthenticationRPC.AuthenticateRPC(UserToken, Hash);
             Log.Info(String.Format("Result: {0} - {1}", Result.Status, (Result.Status == RPCEnvelope.StatusEnum.Success ? Result.UpdateURL : Result.ErrorMessage)));
+            Result.LoginTokenID = UserToken.ID;
 
             return Result;
         }
@@ -124,6 +125,8 @@ namespace FoM.Launcher
             public List<string> FoMChannels;
             [XmlArray("LauncherChannels"), XmlArrayItem("url")]
             public List<string> LauncherChannels;
+            [XmlIgnore]
+            public string LoginTokenID;
         }
     }
     public class RPCEnvelope
