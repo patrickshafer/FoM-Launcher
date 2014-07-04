@@ -128,12 +128,12 @@
 								</DockPanel.Resources>
 								<StackPanel Orientation="Horizontal">
 									<TextBlock Text="Game"/>
-									<TextBlock Text="Account"/>
+									<TextBlock Text="Account" Visibility="Hidden"/>
 									<TextBlock Text="Forums"/>
 								</StackPanel>
 								<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
 									<TextBlock Text="Support"/>
-									<TextBlock Text="Guidelines"/>
+									<TextBlock Text="Guidelines" Visibility="Hidden"/>
 									<TextBlock Text="Tutorials"/>
 								</StackPanel>
 							</DockPanel>
@@ -157,12 +157,12 @@
 				</DockPanel.Resources>
 				<StackPanel Orientation="Horizontal">
 					<Button Content="Game" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com" Margin="22,5,10,5"/>
-					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail" Margin="4,5,10,5"/>
+					<Button Content="Account" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="https://www.faceofmankind.com/account/detail" Margin="4,5,10,5" Visibility="Hidden"/>
 					<Button Content="Forums" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://forums.faceofmankind.com/forum.php" Margin="4,5,10,5"/>
 				</StackPanel>
 				<StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
 					<Button Content="Support" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://support.faceofmankind.com/" Margin="10,5,4,5"/>
-					<Button Content="Guidelines" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/guidelines/" Margin="10,5,4,5"/>
+					<Button Content="Guidelines" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://www.faceofmankind.com/guidelines/" Margin="10,5,4,5" Visibility="Hidden"/>
 					<Button Content="Tutorials" Command="{Binding URLCommand, Mode=OneWay}" CommandParameter="http://wiki.fomportal.com/" Margin="10,5,22,5"/>
 				</StackPanel>
 			</DockPanel>
